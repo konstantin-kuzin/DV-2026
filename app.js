@@ -127,6 +127,40 @@ function peopleLine(event) {
   return `${names.slice(0, 2).join(", ")} и ещё ${names.length - 2}`;
 }
 
+const CONTACT_KEYS = new Set(["telegram", "message"]);
+
+function contactsForSpeaker(event, index) {
+  const contacts = filledLinks(event).filter((field) => CONTACT_KEYS.has(field.key));
+  const count = event.speakers.length;
+  if (count <= 1) return contacts;
+  const own = contacts.filter((field) => field.order === index);
+  if (index !== count - 1) return own;
+  return own.concat(contacts.filter((field) => field.order >= count));
+}
+
+function appendContactIcons(who, contacts) {
+  const row = document.createElement("div");
+  row.className = "contacts";
+  if (!contacts.length) {
+    const empty = document.createElement("span");
+    empty.className = "contact-empty";
+    empty.setAttribute("aria-hidden", "true");
+    row.append(empty);
+    who.append(row);
+    return;
+  }
+  for (const field of contacts) {
+    const link = document.createElement("a");
+    link.href = field.href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", field.label);
+    link.innerHTML = LINK_ICONS[field.key];
+    row.append(link);
+  }
+  who.append(row);
+}
+
 function filledLinks(event) {
   const links = event.links || {};
   const entries = [];
@@ -143,7 +177,7 @@ function filledLinks(event) {
     for (const item of numbered) {
       const value = links[item.key];
       if (typeof value !== "string" || !value.trim()) continue;
-      entries.push({ key: field.key, label: field.label, href: value.trim() });
+      entries.push({ key: field.key, label: field.label, href: value.trim(), order: item.order });
     }
   }
   return entries;
@@ -704,14 +738,15 @@ function openEvent(id) {
         org.textContent = post;
         who.append(org);
       }
-      if (index === 0) who.append(sheetTitle);
+      appendContactIcons(who, contactsForSpeaker(event, index));
       item.append(who);
+      if (index === event.speakers.length - 1) item.append(sheetTitle);
       return item;
     }),
   );
   if (!event.speakers.length) sheetDesc.before(sheetTitle);
 
-  const links = filledLinks(event);
+  const links = filledLinks(event).filter((field) => field.key !== "telegram" && field.key !== "message");
   sheetMaterials.hidden = links.length === 0;
   sheetLinks.replaceChildren(
     ...links.map((field) => {
@@ -740,6 +775,22 @@ function closeSheet() {
   state.openId = null;
   if (sheet.open) sheet.close();
   if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+}
+
+function eventShareUrl(id) {
+  const url = new URL(location.href);
+  url.hash = id;
+  return url.href;
+}
+
+function linkedFromHash() {
+  const raw = location.hash.replace(/^#/, "");
+  if (!raw) return null;
+  try {
+    return byId.get(decodeURIComponent(raw)) || null;
+  } catch {
+    return byId.get(raw) || null;
+  }
 }
 
 function toggleFavorite(id, level) {
@@ -943,6 +994,65 @@ board.addEventListener("keydown", (event) => {
 });
 
 document.getElementById("sheet-close").addEventListener("click", closeSheet);
+
+const sheetShare = document.getElementById("sheet-share");
+const shareStatus = document.getElementById("sheet-share-status");
+const mobileLayout = window.matchMedia("(max-width: 839px)");
+let shareResetTimer = 0;
+
+function markShareCopied() {
+  sheetShare.classList.add("is-copied");
+  sheetShare.setAttribute("aria-label", "Ссылка скопирована");
+  shareStatus.textContent = "Ссылка скопирована";
+  window.clearTimeout(shareResetTimer);
+  shareResetTimer = window.setTimeout(() => {
+    sheetShare.classList.remove("is-copied");
+    sheetShare.setAttribute("aria-label", "Поделиться");
+    shareStatus.textContent = "";
+  }, 1600);
+}
+
+async function copyShareUrl(url) {
+  try {
+    await navigator.clipboard.writeText(url);
+  } catch {
+    try {
+      const field = document.createElement("textarea");
+      field.value = url;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.left = "-9999px";
+      document.body.append(field);
+      field.select();
+      const copied = document.execCommand("copy");
+      field.remove();
+      if (!copied) return;
+    } catch {
+      return;
+    }
+  }
+  markShareCopied();
+}
+
+async function shareOpenEvent() {
+  const event = byId.get(state.openId);
+  if (!event) return;
+  const url = eventShareUrl(event.id);
+  if (mobileLayout.matches && typeof navigator.share === "function") {
+    try {
+      await navigator.share({ title: event.title, url });
+    } catch (error) {
+      if (error && error.name === "AbortError") return;
+      await copyShareUrl(url);
+    }
+    return;
+  }
+  await copyShareUrl(url);
+}
+
+sheetShare.addEventListener("click", () => {
+  shareOpenEvent();
+});
 sheet.addEventListener("click", (event) => {
   if (event.target === sheet) closeSheet();
 });
@@ -952,13 +1062,10 @@ sheet.addEventListener("close", () => {
 });
 
 function start() {
-  const hashId = location.hash.replace("#", "");
-  const linked = byId.get(hashId);
-  if (linked) {
-    state.day = linked.day;
+  const linked = linkedFromHash();
+  if (days.some((day) => day.id === todayId())) state.day = todayId();
+  if (linked && linked.day === state.day) {
     state.hall = Math.max(0, halls.findIndex((hall) => hall.id === linked.hall));
-  } else if (days.some((day) => day.id === todayId())) {
-    state.day = todayId();
   }
 
   renderChrome();
@@ -967,8 +1074,10 @@ function start() {
   if (linked) {
     requestAnimationFrame(() => {
       const card = board.querySelector(`[data-id="${linked.id}"]`);
-      const top = card ? Math.max(0, card.offsetTop - 12) : 0;
-      board.scrollTo(state.hall * columnWidth(), top);
+      if (card) {
+        const top = Math.max(0, card.offsetTop - 12);
+        board.scrollTo(state.hall * columnWidth(), top);
+      }
       openEvent(linked.id);
     });
   }
@@ -976,7 +1085,7 @@ function start() {
 
 start();
 
-window.matchMedia("(max-width: 839px)").addEventListener("change", () => {
+mobileLayout.addEventListener("change", () => {
   if (!state.byHour) return;
   scrollLock += 1;
   renderChrome();

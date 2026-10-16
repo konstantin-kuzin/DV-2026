@@ -67,7 +67,24 @@
             <span id="sheet-secondary-label">Второй приоритет</span>
           </button>
         </div>
-        <button type="button" class="close" id="sheet-close">Закрыть</button>
+        <div class="sheet-actions">
+          <button type="button" class="close" id="sheet-close">Закрыть</button>
+          <button type="button" class="share" id="sheet-share" aria-label="Поделиться">
+            <svg class="icon-share" viewBox="0 0 24 24" aria-hidden="true">
+              <g fill="none" stroke="currentColor" stroke-width="2.12">
+                <path d="M8.94 10.07 15.11 6.98" />
+                <path d="M8.94 13.94 15.11 17.02" />
+                <circle cx="5.07" cy="12" r="3.62" />
+                <circle cx="18.98" cy="5.05" r="3.62" />
+                <circle cx="18.98" cy="18.95" r="3.62" />
+              </g>
+            </svg>
+            <svg class="icon-check" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6.5 12.5 10.25 16.25 17.5 8.25" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+        <p class="share-status" id="sheet-share-status" role="status"></p>
       </div>
     </dialog>
 

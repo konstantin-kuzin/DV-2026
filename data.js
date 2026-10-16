@@ -10,6 +10,7 @@
 //   video: "https://…",
 // }
 // Несколько ссылок одного типа — с цифрой: message, message1, message2.
+// В шторке telegram и message без цифры у первого спикера, с 1 — у второго, с 2 — у третьего.
 // Пустую строку интерфейс считает отсутствием ссылки.
 // description — аннотация доклада, показывается только в шторке.
 // photo — портрет спикера, ссылка с designweekend.ru/tula2026.
@@ -638,8 +639,12 @@ window.SCHEDULE = {
         { name: "Мария Верхунова", role: "участник", position: "Основатель лаборатории дизайна и клиентского опыта Мысли как дизайнер, сооснователь Cue", photo: "https://static.tildacdn.com/stor3463-6262-4531-a665-633565383831/7041c1b9c6441330bffbd6a50985a065.png" },
       ],
       links: {
-        telegram: "",
-        message: "",
+        telegram5: "https://t.me/jobtobogdan",
+        message5: "https://t.me/bogdanastafurov",
+        telegram6: "https://t.me/alyonashtrudel",
+        message6: "https://t.me/hinkalyona",
+        telegram7: "https://t.me/think_like_designer",
+        message7: "https://t.me/alavemaria",
         presentation: "",
         video: "",
       },
@@ -1362,7 +1367,8 @@ window.SCHEDULE = {
       ],
       links: {
         telegram: "https://t.me/yunoagency",
-        message: "",
+        message: "https://t.me/anstdesign",
+        message1: "https://t.me/kilundina",
         presentation: "",
         video: "",
       },
@@ -1650,7 +1656,7 @@ window.SCHEDULE = {
       speakers: [{ name: "Екатерина Мальцева", org: "ЛАДА Цифра", position: "Руководитель отдела дизайна коммуникаций ЛАДА Цифра", photo: "https://static.tildacdn.com/stor3938-3435-4062-b735-346131323064/35eaf39b651e8a3a275b80a007737803.png" }],
       links: {
         telegram: "",
-        message: "",
+        message1: "https://t.me/maltkate",
         presentation: "",
         video: "",
       },
@@ -1830,7 +1836,9 @@ window.SCHEDULE = {
         { name: "Дмитрий Терехов", org: "Арт-директор", position: "Арт-директор городских и культурных проектов из Санкт-Петербурга", photo: "https://static.tildacdn.com/stor3239-3765-4062-a633-323664306435/948aa6f9a4a848a2db53ee7a213446eb.jpg" },
       ],
       links: {
-        telegram: "https://t.me/terevision",
+        telegram: "",
+        telegram1: "",
+        telegram2: "https://t.me/terevision",
         message: "",
         presentation: "",
         video: "",
@@ -2267,8 +2275,14 @@ window.SCHEDULE = {
         { name: "Макс Кукушкин", role: "участник", position: "Арт-директор ЦЕХ. ДИЗАЙН", photo: "https://static.tildacdn.com/stor6331-6635-4661-b865-653139363033/18092688.jpg" },
       ],
       links: {
-        telegram: "",
+        telegram: "https://t.me/RomanVektorny",
         message: "",
+        telegram1: "https://t.me/ask_kira",
+        message1: "https://t.me/kira_kalimulina",
+        telegram2: "https://t.me/chtob_chto",
+        telegram3: "https://t.me/evgenyuprock",
+        telegram4: "https://t.me/controlmax",
+        message4: "https://t.me/maxkukushkin",
         presentation: "",
         video: "",
       },
@@ -2472,8 +2486,8 @@ window.SCHEDULE = {
       ],
       links: {
         telegram: "https://t.me/designerkate",
-        message: "https://t.me/maltkate",
-        message1: "http://t.me/artem_lukichev",
+        message: "http://t.me/artem_lukichev",
+        message1: "https://t.me/maltkate",
         presentation: "https://t.me/dsgnwknd/4421",
         video: "",
       },
