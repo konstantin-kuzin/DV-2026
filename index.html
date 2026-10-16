@@ -19,6 +19,11 @@
           <p class="place">Тула · 9–10 октября 2026</p>
         </div>
         <div class="mast-tools">
+          <button type="button" class="mode" id="favorites" aria-pressed="false" aria-label="Включение — Выключение избранного">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3.2 14.6 8.6l5.9.7-4.4 4 1.2 5.8L12 16.3 6.7 19.1l1.2-5.8-4.4-4 5.9-.7Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" />
+            </svg>
+          </button>
           <button type="button" class="mode" id="mode" aria-pressed="false" aria-label="Группировка по часам">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.75" />
@@ -46,6 +51,20 @@
         <p id="sheet-title"></p>
         <div class="materials" id="sheet-materials" hidden>
           <div class="material-links" id="sheet-links"></div>
+        </div>
+        <div class="marks">
+          <button type="button" class="favorite" id="sheet-favorite" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3.2 14.6 8.6l5.9.7-4.4 4 1.2 5.8L12 16.3 6.7 19.1l1.2-5.8-4.4-4 5.9-.7Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" />
+            </svg>
+            <span id="sheet-favorite-label">В избранное</span>
+          </button>
+          <button type="button" class="favorite is-secondary" id="sheet-secondary" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6.75 4.5h10.5a.75.75 0 0 1 .75.75V20.1l-6-3.35-6 3.35V5.25a.75.75 0 0 1 .75-.75Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" />
+            </svg>
+            <span id="sheet-secondary-label">Второй приоритет</span>
+          </button>
         </div>
         <button type="button" class="close" id="sheet-close">Закрыть</button>
       </div>

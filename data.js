@@ -89,22 +89,6 @@ window.SCHEDULE = {
   events: [
     // ——— 9 октября ———
     {
-      id: "fri-main-1130",
-      day: "2026-10-09",
-      hall: "main",
-      start: "11:30",
-      end: "12:00",
-      kind: "opening",
-      title: "Открытие первого дня Дизайн-выходных",
-      speakers: [],
-      links: {
-        telegram: "",
-        message: "",
-        presentation: "",
-        video: "",
-      },
-    },
-    {
       id: "fri-main-1200",
       day: "2026-10-09",
       hall: "main",
@@ -506,8 +490,8 @@ window.SCHEDULE = {
       speakers: [{ name: "Валентин Филиппов", org: "Дизайнер продукта" }],
       links: {
         telegram: "",
-        message: "",
-        presentation: "",
+        message: "https://t.me/hereandnow_msk",
+        presentation: "https://around.design/projects/russian-license-plates/",
         video: "",
       },
     },
@@ -1086,7 +1070,7 @@ window.SCHEDULE = {
       start: "17:00",
       end: "17:30",
       title: "Тишейповость в мире текста",
-      speakers: [{ name: "Иван Поликарпов", org: "Дизайнер" }],
+      speakers: [{ name: "Илья Поликарпов", org: "Дизайнер" }],
       links: {
         telegram: "https://t.me/proeditor_figma",
         message: "",

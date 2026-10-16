@@ -8,6 +8,7 @@
   --peek: 0px;
   --col: max(200px, calc(100vw - var(--time) - var(--peek)));
   --slot: 128px;
+  --slot-line: 28px;
   --head: 0px;
   --halls: 7;
   --shadow: 0 1px 0 rgba(26, 25, 22, 0.04);
@@ -83,6 +84,15 @@ button, a { font: inherit; color: inherit; }
 .mode[aria-pressed="true"] {
   background: var(--ink);
   color: #f7f4ee;
+}
+
+#favorites[aria-pressed="true"] {
+  background: #f08aaf;
+  color: var(--ink);
+}
+
+#favorites[aria-pressed="true"] svg path {
+  fill: currentColor;
 }
 
 .mode:focus-visible {
@@ -233,6 +243,7 @@ body.is-hours .board {
 }
 
 .hour-board {
+  position: relative;
   display: flex;
   align-items: stretch;
   width: max-content;
@@ -249,6 +260,20 @@ body.is-hours .board {
   scroll-snap-align: start;
   border-right: 1px solid var(--line);
   overflow: hidden;
+}
+
+.hour-col.is-empty {
+  flex: none;
+  width: max-content;
+  min-width: max-content;
+}
+
+.hour-col.is-empty .hall-head {
+  display: flex;
+}
+
+.hour-col.is-empty .hall-head strong {
+  white-space: nowrap;
 }
 
 .hour-list {
@@ -271,6 +296,7 @@ body.is-hours .board {
 
 .hour-col .hall-head strong {
   line-height: 1.2;
+  font-variant-numeric: tabular-nums;
 }
 
 .hour-col .card {
@@ -369,6 +395,11 @@ body.is-hours .board {
   font-weight: 680;
 }
 
+.tick.is-line {
+  padding: 0 0 0 8px;
+  line-height: 27px;
+}
+
 .card {
   scroll-snap-align: start;
   margin: 0;
@@ -390,6 +421,22 @@ body.is-hours .board {
 
 .card:hover {
   background: #f6f6f6;
+}
+
+.card.is-favorite {
+  background: #ffeceb;
+}
+
+.card.is-favorite:hover {
+  background: rgb(247, 183, 207);
+}
+
+.card.is-secondary {
+  background: #fef7e2;
+}
+
+.card.is-secondary:hover {
+  background: rgb(249, 216, 115);
 }
 
 .card:active { transform: scale(0.985); }
@@ -667,8 +714,61 @@ dialog::backdrop {
   color: var(--muted);
 }
 
-.close {
+.marks {
   margin-top: 18px;
+  display: flex;
+  gap: 8px;
+}
+
+.favorite {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: #ffd6e6;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.15;
+  text-align: center;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.favorite svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.favorite[aria-pressed="true"] {
+  background: #f08aaf;
+}
+
+.favorite.is-secondary {
+  background: #fff3c4;
+}
+
+.favorite.is-secondary[aria-pressed="true"] {
+  background: #f0c84a;
+}
+
+.favorite[aria-pressed="true"] svg path {
+  fill: currentColor;
+}
+
+.favorite:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.close {
+  margin-top: 8px;
   width: 100%;
   min-height: 48px;
   border: 0;
@@ -679,6 +779,13 @@ dialog::backdrop {
   cursor: pointer;
 }
 
+.empty-favorites {
+  margin: 0;
+  padding: 28px 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
 @media (min-width: 840px) {
   :root { --peek: 0px; --head: 52px; }
   .grid {
@@ -686,11 +793,17 @@ dialog::backdrop {
     grid-template-columns: var(--time) repeat(var(--halls), minmax(200px, 1fr));
   }
   .hour-board {
-    width: max(100%, calc(var(--hours) * 220px));
+    display: grid;
+    grid-template-columns: var(--hour-cols);
+    grid-template-rows: minmax(0, 1fr);
+    width: max(100%, var(--hour-min, 100%));
   }
   .hour-col {
     width: auto;
-    flex: 1 0 220px;
+    min-width: 0;
+  }
+  .hour-col.is-empty {
+    width: max-content;
   }
   .masthead { align-items: center; }
   .mast-tools { gap: 10px; }
@@ -712,6 +825,12 @@ dialog::backdrop {
   .card-link svg {
     width: 18px;
     height: 18px;
+  }
+  .sheet {
+    width: 400px;
+    left: 50%;
+    right: auto;
+    translate: -50% 0;
   }
 }
 

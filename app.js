@@ -1,4 +1,4 @@
-const START_MIN = 11 * 60 + 30;
+const START_MIN = 12 * 60 + 0;
 const END_MIN = 20 * 60;
 const SLOT_MIN = 30;
 const SLOT_COUNT = (END_MIN - START_MIN) / SLOT_MIN;
@@ -29,6 +29,11 @@ const byId = new Map(events.map((event) => [event.id, event]));
 const daysEl = document.getElementById("days");
 const hallsEl = document.getElementById("halls");
 const modeBtn = document.getElementById("mode");
+const favoritesBtn = document.getElementById("favorites");
+const sheetFavorite = document.getElementById("sheet-favorite");
+const sheetFavoriteLabel = document.getElementById("sheet-favorite-label");
+const sheetSecondary = document.getElementById("sheet-secondary");
+const sheetSecondaryLabel = document.getElementById("sheet-secondary-label");
 const sectionEl = document.getElementById("section");
 const board = document.getElementById("board");
 const sheet = document.getElementById("sheet");
@@ -43,11 +48,41 @@ const FIRST_HOUR = Math.floor(START_MIN / 60);
 const LAST_HOUR = Math.floor((END_MIN - 1) / 60);
 const HOURS = Array.from({ length: LAST_HOUR - FIRST_HOUR + 1 }, (_, index) => FIRST_HOUR + index);
 
+const FAVORITES_KEY = "dv-favorites";
+const SECONDARY_KEY = "dv-favorites-secondary";
+
+function readIds(key) {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(key) || "[]");
+    if (!Array.isArray(parsed)) return new Set();
+    return new Set(parsed.filter((id) => typeof id === "string" && byId.has(id)));
+  } catch {
+    return new Set();
+  }
+}
+
+function writeFavorites() {
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites]));
+    localStorage.setItem(SECONDARY_KEY, JSON.stringify([...secondary]));
+  } catch {
+    /* хранилище недоступно */
+  }
+}
+
+const favorites = readIds(FAVORITES_KEY);
+const secondary = readIds(SECONDARY_KEY);
+for (const id of secondary) {
+  if (favorites.has(id)) secondary.delete(id);
+}
+
 const state = {
   day: days[0].id,
   hall: 0,
   hour: HOURS[0],
   byHour: false,
+  favoritesOnly: false,
+  openId: null,
 };
 
 function minutes(value) {
@@ -111,9 +146,10 @@ function renderChrome() {
   );
 
   if (state.byHour) {
+    pinHour();
     hallsEl.setAttribute("aria-label", "Время");
     hallsEl.replaceChildren(
-      ...HOURS.map((hour) => {
+      ...visibleHours().map((hour) => {
         const button = document.createElement("button");
         button.type = "button";
         button.setAttribute("role", "tab");
@@ -124,9 +160,10 @@ function renderChrome() {
       }),
     );
   } else {
+    pinHall();
     hallsEl.setAttribute("aria-label", "Залы");
     hallsEl.replaceChildren(
-      ...halls.map((hall, index) => {
+      ...visibleHalls().map(({ hall, index }) => {
         const button = document.createElement("button");
         button.type = "button";
         button.setAttribute("role", "tab");
@@ -139,8 +176,109 @@ function renderChrome() {
   }
 
   modeBtn.setAttribute("aria-pressed", String(state.byHour));
+  favoritesBtn.setAttribute("aria-pressed", String(state.favoritesOnly));
   document.body.classList.toggle("is-hours", state.byHour);
   updateSection();
+}
+
+function isSaved(id) {
+  return favorites.has(id) || secondary.has(id);
+}
+
+function eventsForDay() {
+  return events.filter((event) => event.day === state.day && (!state.favoritesOnly || isSaved(event.id)));
+}
+
+function visibleHalls() {
+  const source = halls.map((hall, index) => ({ hall, index }));
+  if (!state.favoritesOnly) return source;
+  const ids = new Set(eventsForDay().map((event) => event.hall));
+  return source.filter((item) => ids.has(item.hall.id));
+}
+
+function hallIndexes() {
+  return visibleHalls().map((item) => item.index);
+}
+
+function pinHall() {
+  if (state.byHour) return;
+  const pool = hallIndexes();
+  if (!pool.length || pool.includes(state.hall)) return;
+  state.hall = pool[0];
+}
+
+function isCompact() {
+  return window.matchMedia("(max-width: 839px)").matches;
+}
+
+function hoursWithEvents() {
+  const present = new Set(eventsForDay().map((event) => hourOf(event.start)));
+  return HOURS.filter((hour) => present.has(hour));
+}
+
+function visibleHours() {
+  return isCompact() ? hoursWithEvents() : HOURS;
+}
+
+function pinHour() {
+  if (!state.byHour) return;
+  const pool = visibleHours();
+  if (!pool.length || pool.includes(state.hour)) return;
+  state.hour = pool.find((hour) => hour >= state.hour) ?? pool[pool.length - 1];
+}
+
+function hoursLayoutCurrent() {
+  const rendered = [...board.querySelectorAll(".hour-col")].map((column) => Number(column.dataset.hour));
+  const expected = visibleHours();
+  return rendered.length === expected.length && rendered.every((hour, index) => hour === expected[index]);
+}
+
+function occupiedSlots(dayEvents) {
+  const occupied = new Set();
+  dayEvents.forEach((event) => {
+    const start = slotIndex(event.start);
+    const end = slotIndex(event.end);
+    for (let slot = start; slot < end; slot += 1) occupied.add(slot);
+  });
+  return occupied;
+}
+
+function slotClock(slot) {
+  const total = START_MIN + slot * SLOT_MIN;
+  return `${pad(Math.floor(total / 60))}:${pad(total % 60)}`;
+}
+
+function favoriteRows(dayEvents) {
+  const starts = new Set(dayEvents.map((event) => slotIndex(event.start)));
+  const occupied = occupiedSlots(dayEvents);
+  const rows = [];
+  let index = 0;
+  while (index < SLOT_COUNT) {
+    const hour = Math.floor((START_MIN + index * SLOT_MIN) / 60);
+    const slots = [];
+    while (index < SLOT_COUNT && Math.floor((START_MIN + index * SLOT_MIN) / 60) === hour) {
+      slots.push(index);
+      index += 1;
+    }
+    if (!slots.some((slot) => occupied.has(slot))) {
+      const start = START_MIN + slots[0] * SLOT_MIN;
+      rows.push({ line: true, label: start % 60 === 0 ? hourLabel(hour) : slotClock(slots[0]), slots });
+      continue;
+    }
+    slots
+      .filter((slot) => starts.has(slot))
+      .forEach((slot) => rows.push({ line: false, label: slotClock(slot), slot }));
+  }
+  return rows;
+}
+
+function syncFavoriteButton(id) {
+  const primary = Boolean(id && favorites.has(id));
+  const later = Boolean(id && secondary.has(id));
+  sheetFavorite.setAttribute("aria-pressed", String(primary));
+  sheetFavoriteLabel.textContent = primary ? "Не Олния!" : "Олния!";
+  sheetSecondary.setAttribute("aria-pressed", String(later));
+  sheetSecondaryLabel.textContent = later ? "Не Ажно!" : "Ажно!";
 }
 
 function updateSection() {
@@ -156,6 +294,8 @@ function createCard(event, { showHall, span }) {
   const hall = hallById(event.hall);
   const button = document.createElement("div");
   button.className = "card";
+  if (favorites.has(event.id)) button.classList.add("is-favorite");
+  else if (secondary.has(event.id)) button.classList.add("is-secondary");
   button.dataset.id = event.id;
   if (span) button.dataset.span = String(span);
 
@@ -230,23 +370,50 @@ function createCard(event, { showHall, span }) {
 }
 
 function renderBoard() {
+  if (state.favoritesOnly && eventsForDay().length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "empty-favorites";
+    empty.textContent = "В избранном пока нет событий";
+    board.replaceChildren(empty);
+    return;
+  }
   if (state.byHour) renderHourBoard();
   else renderHallBoard();
 }
 
 function renderHallBoard() {
+  const shown = visibleHalls();
+  const dayEvents = eventsForDay();
+  const columnOf = new Map(shown.map((item, position) => [item.hall.id, position]));
+  pinHall();
+
+  const timeRows = state.favoritesOnly ? favoriteRows(dayEvents) : null;
+  const slotRow = new Map();
+  if (timeRows) {
+    timeRows.forEach((row, index) => {
+      if (row.slot !== undefined) slotRow.set(row.slot, index);
+    });
+  }
+
   const grid = document.createElement("div");
-  grid.className = "grid";
-  grid.style.setProperty("--halls", String(halls.length));
+  grid.className = timeRows ? "grid is-favorites" : "grid";
+  grid.style.setProperty("--halls", String(shown.length));
+  if (timeRows) {
+    const tracks = ["var(--head)"];
+    timeRows.forEach((row) => {
+      tracks.push(row.line ? "var(--slot-line)" : "auto");
+    });
+    grid.style.gridTemplateRows = tracks.join(" ");
+  }
 
   const corner = document.createElement("div");
   corner.className = "corner";
   grid.append(corner);
 
-  halls.forEach((hall, index) => {
+  shown.forEach(({ hall }, position) => {
     const head = document.createElement("div");
     head.className = "hall-head";
-    head.style.gridColumn = String(index + 2);
+    head.style.gridColumn = String(position + 2);
     const section = sectionOf(hall, state.day);
     const curator = section.curator ? ` · ${section.curator}` : "";
     const name = document.createElement("strong");
@@ -256,52 +423,81 @@ function renderHallBoard() {
     head.append(name, detail);
     const line = document.createElement("div");
     line.className = "col-line";
-    line.style.gridColumn = String(index + 2);
+    line.style.gridColumn = String(position + 2);
     grid.append(head, line);
   });
 
-  for (let index = 0; index < SLOT_COUNT; index += 1) {
-    const total = START_MIN + index * SLOT_MIN;
-    const hour = total % 60 === 0;
-    const tick = document.createElement("div");
-    tick.className = hour ? "tick hour" : "tick";
-    tick.style.gridRow = String(index + 2);
-    if (hour) tick.textContent = `${pad(Math.floor(total / 60))}:00`;
-    const rule = document.createElement("div");
-    rule.className = "rule";
-    rule.style.gridRow = String(index + 2);
-    grid.append(tick, rule);
+  if (timeRows) {
+    timeRows.forEach((row, index) => {
+      const tick = document.createElement("div");
+      tick.className = "tick";
+      if (row.label) tick.classList.add("hour");
+      if (row.line) tick.classList.add("is-line");
+      tick.style.gridRow = String(index + 2);
+      tick.textContent = row.label;
+      const rule = document.createElement("div");
+      rule.className = "rule";
+      rule.style.gridRow = String(index + 2);
+      grid.append(tick, rule);
+    });
+  } else {
+    for (let index = 0; index < SLOT_COUNT; index += 1) {
+      const total = START_MIN + index * SLOT_MIN;
+      const hour = total % 60 === 0;
+      const tick = document.createElement("div");
+      tick.className = hour ? "tick hour" : "tick";
+      tick.style.gridRow = String(index + 2);
+      if (hour) tick.textContent = `${pad(Math.floor(total / 60))}:00`;
+      const rule = document.createElement("div");
+      rule.className = "rule";
+      rule.style.gridRow = String(index + 2);
+      grid.append(tick, rule);
+    }
   }
 
-  events
-    .filter((event) => event.day === state.day)
-    .forEach((event) => {
-      const hallIndex = halls.findIndex((hall) => hall.id === event.hall);
-      const start = slotIndex(event.start);
-      const span = slotIndex(event.end) - start;
-      const card = createCard(event, { span });
-      card.style.gridColumn = String(hallIndex + 2);
+  dayEvents.forEach((event) => {
+    const position = columnOf.get(event.hall);
+    if (position === undefined) return;
+    const start = slotIndex(event.start);
+    const span = slotIndex(event.end) - start;
+    const card = createCard(event, { span });
+    card.style.gridColumn = String(position + 2);
+    if (timeRows) {
+      card.style.gridRow = String(slotRow.get(start) + 2);
+    } else {
       card.style.gridRow = `${start + 2} / span ${span}`;
-      grid.append(card);
-    });
+    }
+    grid.append(card);
+  });
 
-  const now = nowMarker();
+  const now = nowMarker(timeRows);
   if (now) grid.append(now);
 
   board.replaceChildren(grid);
-  scrollBoardTo(state.hall * columnWidth());
+  const column = Math.max(0, hallIndexes().indexOf(state.hall));
+  scrollBoardTo(column * columnWidth());
 }
 
 function renderHourBoard() {
   const boardList = document.createElement("div");
   boardList.className = "hour-board";
-  boardList.style.setProperty("--hours", String(HOURS.length));
 
-  const dayEvents = events.filter((event) => event.day === state.day);
-  HOURS.forEach((hour) => {
+  const dayEvents = eventsForDay();
+  const tracks = [];
+  let selected = null;
+  visibleHours().forEach((hour) => {
+    const items = dayEvents
+      .filter((event) => hourOf(event.start) === hour)
+      .sort((a, b) => {
+        const byHall = halls.findIndex((hall) => hall.id === a.hall) - halls.findIndex((hall) => hall.id === b.hall);
+        if (byHall) return byHall;
+        return minutes(a.start) - minutes(b.start);
+      });
+
     const column = document.createElement("section");
-    column.className = "hour-col";
+    column.className = items.length ? "hour-col" : "hour-col is-empty";
     column.dataset.hour = String(hour);
+    tracks.push(items.length ? "minmax(200px, 1fr)" : "max-content");
 
     const head = document.createElement("div");
     head.className = "hall-head";
@@ -311,23 +507,21 @@ function renderHourBoard() {
 
     const list = document.createElement("div");
     list.className = "hour-list";
-    dayEvents
-      .filter((event) => hourOf(event.start) === hour)
-      .sort((a, b) => {
-        const byHall = halls.findIndex((hall) => hall.id === a.hall) - halls.findIndex((hall) => hall.id === b.hall);
-        if (byHall) return byHall;
-        return minutes(a.start) - minutes(b.start);
-      })
-      .forEach((event) => list.append(createCard(event, { showHall: true })));
+    items.forEach((event) => list.append(createCard(event, { showHall: true })));
 
     column.append(head, list);
-
     boardList.append(column);
+    if (hour === state.hour) selected = column;
   });
 
+  boardList.style.setProperty("--hour-cols", tracks.join(" "));
   board.replaceChildren(boardList);
-  const index = Math.max(0, HOURS.indexOf(state.hour));
-  scrollBoardTo(index * hourColumnWidth());
+  const emptyColumns = boardList.querySelectorAll(".hour-col.is-empty");
+  const emptyWidth = emptyColumns[0] ? emptyColumns[0].offsetWidth : 0;
+  const filledCount = boardList.querySelectorAll(".hour-col:not(.is-empty)").length;
+  const minWidth = Math.ceil(filledCount * 200 + emptyColumns.length * emptyWidth);
+  boardList.style.setProperty("--hour-min", `${minWidth}px`);
+  scrollBoardTo(selected ? selected.offsetLeft : 0);
 }
 
 let scrollLock = 0;
@@ -342,17 +536,33 @@ function scrollBoardTo(left, behavior) {
   });
 }
 
-function nowMarker() {
+function nowMarker(rows) {
   if (state.day !== todayId()) return null;
   const now = new Date();
   const current = now.getHours() * 60 + now.getMinutes();
   if (current < START_MIN || current > END_MIN) return null;
   const offset = (current - START_MIN) / SLOT_MIN;
-  const row = Math.floor(offset);
-  const fraction = offset - row;
+  const slot = Math.floor(offset);
+  let gridIndex = slot;
+  let fraction = offset - slot;
+  if (rows) {
+    gridIndex = rows.findIndex((row) => row.slot === slot || row.slots?.includes(slot));
+    if (gridIndex < 0) {
+      for (let index = rows.length - 1; index >= 0; index -= 1) {
+        if (rows[index].slot !== undefined && rows[index].slot <= slot) {
+          gridIndex = index;
+          fraction = 1;
+          break;
+        }
+      }
+      if (gridIndex < 0) return null;
+    } else if (rows[gridIndex].slots) {
+      fraction = (rows[gridIndex].slots.indexOf(slot) + fraction) / rows[gridIndex].slots.length;
+    }
+  }
   const marker = document.createElement("div");
   marker.className = "now";
-  marker.style.gridRow = String(row + 2);
+  marker.style.gridRow = String(gridIndex + 2);
   marker.style.setProperty("--fraction", String(fraction));
   return marker;
 }
@@ -364,44 +574,69 @@ function columnWidth() {
   return parseFloat(columns[1]) || 0;
 }
 
-function hourColumnWidth() {
-  const column = board.querySelector(".hour-col");
-  return column ? column.offsetWidth : 0;
+function hourFromScroll() {
+  if (board.scrollWidth <= board.clientWidth + 1) return null;
+  const columns = [...board.querySelectorAll(".hour-col")];
+  if (!columns.length) return null;
+  const left = board.scrollLeft;
+  let best = columns[0];
+  let bestDistance = Infinity;
+  columns.forEach((column) => {
+    const distance = Math.abs(column.offsetLeft - left);
+    if (distance < bestDistance) {
+      best = column;
+      bestDistance = distance;
+    }
+  });
+  return Number(best.dataset.hour);
 }
 
 function setHall(index, scroll) {
-  const next = Math.max(0, Math.min(halls.length - 1, index));
+  const pool = hallIndexes();
+  if (!pool.length) return;
+  let next = index;
+  if (!pool.includes(index)) {
+    if (index > state.hall) next = pool.find((item) => item > state.hall) ?? pool[pool.length - 1];
+    else next = [...pool].reverse().find((item) => item < state.hall) ?? pool[0];
+  }
+  if (!pool.includes(next)) next = pool[0];
   if (next === state.hall && !scroll) return;
   state.hall = next;
-  hallsEl.querySelectorAll("button").forEach((button, buttonIndex) => {
-    button.setAttribute("aria-selected", String(buttonIndex === next));
+  hallsEl.querySelectorAll("button").forEach((button) => {
+    button.setAttribute("aria-selected", String(Number(button.dataset.hall) === next));
   });
   updateSection();
-  const chip = hallsEl.children[next];
+  const chip = hallsEl.querySelector(`[data-hall="${next}"]`);
   if (chip) {
     const left = chip.offsetLeft - (hallsEl.clientWidth - chip.offsetWidth) / 2;
     hallsEl.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
   }
   if (scroll) {
-    board.scrollTo({ left: next * columnWidth(), behavior: "smooth" });
+    board.scrollTo({ left: pool.indexOf(next) * columnWidth(), behavior: "smooth" });
   }
 }
 
 function setHour(hour, scroll) {
-  if (!HOURS.includes(hour)) return;
-  if (hour === state.hour && !scroll) return;
-  state.hour = hour;
-  const index = HOURS.indexOf(hour);
+  const pool = visibleHours();
+  if (!pool.length) return;
+  let next = hour;
+  if (!pool.includes(next)) {
+    if (hour > state.hour) next = pool.find((item) => item > state.hour) ?? pool[pool.length - 1];
+    else next = [...pool].reverse().find((item) => item < state.hour) ?? pool[0];
+  }
+  if (next === state.hour && !scroll) return;
+  state.hour = next;
   hallsEl.querySelectorAll("button").forEach((button) => {
-    button.setAttribute("aria-selected", String(Number(button.dataset.hour) === hour));
+    button.setAttribute("aria-selected", String(Number(button.dataset.hour) === next));
   });
-  const chip = hallsEl.children[index];
+  const chip = hallsEl.querySelector(`[data-hour="${next}"]`);
   if (chip) {
     const left = chip.offsetLeft - (hallsEl.clientWidth - chip.offsetWidth) / 2;
     hallsEl.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
   }
   if (scroll) {
-    board.scrollTo({ left: index * hourColumnWidth(), behavior: "smooth" });
+    const column = board.querySelector(`.hour-col[data-hour="${next}"]`);
+    if (column) board.scrollTo({ left: column.offsetLeft, behavior: "smooth" });
   }
 }
 
@@ -456,13 +691,39 @@ function openEvent(id) {
     }),
   );
 
+  state.openId = event.id;
+  syncFavoriteButton(event.id);
   if (!sheet.open) sheet.showModal();
   history.replaceState(null, "", `#${event.id}`);
 }
 
 function closeSheet() {
+  state.openId = null;
   if (sheet.open) sheet.close();
   if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+}
+
+function toggleFavorite(id, level) {
+  if (!id || !byId.has(id)) return;
+  const target = level === "secondary" ? secondary : favorites;
+  const other = level === "secondary" ? favorites : secondary;
+  if (target.has(id)) target.delete(id);
+  else {
+    target.add(id);
+    other.delete(id);
+  }
+  writeFavorites();
+  syncFavoriteButton(state.openId);
+  const staysVisible = !state.favoritesOnly || isSaved(id);
+  const card = board.querySelector(`[data-id="${id}"]`);
+  if (staysVisible && card) {
+    card.classList.toggle("is-favorite", favorites.has(id));
+    card.classList.toggle("is-secondary", secondary.has(id));
+  } else {
+    renderChrome();
+    renderBoard();
+  }
+  closeSheet();
 }
 
 daysEl.addEventListener("click", (event) => {
@@ -480,6 +741,20 @@ modeBtn.addEventListener("click", () => {
   state.byHour = !state.byHour;
   renderChrome();
   renderBoard();
+});
+
+favoritesBtn.addEventListener("click", () => {
+  state.favoritesOnly = !state.favoritesOnly;
+  renderChrome();
+  renderBoard();
+});
+
+sheetFavorite.addEventListener("click", () => {
+  toggleFavorite(state.openId, "primary");
+});
+
+sheetSecondary.addEventListener("click", () => {
+  toggleFavorite(state.openId, "secondary");
 });
 
 hallsEl.addEventListener("click", (event) => {
@@ -507,17 +782,17 @@ board.addEventListener(
     scrollFrame = requestAnimationFrame(() => {
       if (scrollLock) return;
       if (state.byHour) {
-        const width = hourColumnWidth();
-        if (!width) return;
-        const index = Math.max(0, Math.min(HOURS.length - 1, Math.round(board.scrollLeft / width)));
-        const hour = HOURS[index];
-        if (hour !== state.hour) setHour(hour, false);
+        if (!hoursLayoutCurrent()) return;
+        const hour = hourFromScroll();
+        if (hour !== null && hour !== state.hour) setHour(hour, false);
         return;
       }
       const width = columnWidth();
       if (!width) return;
-      const index = Math.round(board.scrollLeft / width);
-      if (index !== state.hall) setHall(index, false);
+      const pool = hallIndexes();
+      const column = Math.max(0, Math.min(pool.length - 1, Math.round(board.scrollLeft / width)));
+      const hallIndex = pool[column];
+      if (hallIndex !== undefined && hallIndex !== state.hall) setHall(hallIndex, false);
     });
   },
   { passive: true },
@@ -536,6 +811,7 @@ sheet.addEventListener("click", (event) => {
   if (event.target === sheet) closeSheet();
 });
 sheet.addEventListener("close", () => {
+  state.openId = null;
   if (location.hash) history.replaceState(null, "", location.pathname + location.search);
 });
 
@@ -550,6 +826,20 @@ if (linked) {
 
 renderChrome();
 renderBoard();
+
+window.matchMedia("(max-width: 839px)").addEventListener("change", () => {
+  if (!state.byHour) return;
+  scrollLock += 1;
+  renderChrome();
+  renderBoard();
+  requestAnimationFrame(() => {
+    const column = board.querySelector(`.hour-col[data-hour="${state.hour}"]`);
+    if (column) board.scrollTo({ left: column.offsetLeft, top: 0, behavior: "auto" });
+    requestAnimationFrame(() => {
+      scrollLock -= 1;
+    });
+  });
+});
 
 if (linked) {
   requestAnimationFrame(() => {
