@@ -307,7 +307,7 @@ body.is-hours .board {
   position: relative;
   display: grid;
   grid-template-columns: var(--time) repeat(var(--halls, 7), var(--col));
-  grid-template-rows: var(--head) repeat(17, minmax(var(--slot), auto));
+  grid-template-rows: var(--head) repeat(16, minmax(var(--slot), auto));
   width: max-content;
   min-height: min-content;
 }
@@ -484,7 +484,7 @@ body.is-hours .board {
   font-weight: 680;
 }
 
-.person + .person { margin-top: 8px; }
+.person + .person { margin-top: 8px;}
 
 .name {
   margin: 0;
@@ -523,6 +523,7 @@ body.is-hours .board {
 
 .card-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   margin-top: 8px;
   align-items: center;
@@ -549,6 +550,21 @@ body.is-hours .board {
 .card-link:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
+}
+
+.link-tip {
+  position: fixed;
+  z-index: 20;
+  max-width: min(320px, calc(100vw - 16px));
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: var(--ink);
+  color: #f7f4ee;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(26, 25, 22, 0.18);
 }
 
 .now {
@@ -624,6 +640,14 @@ dialog::backdrop {
   color: var(--muted);
   font-size: 13px;
 }
+.sheet-title {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  margin: 12px 0 4px;
+}
 
 .sheet-kind {
   margin: 10px 0 0;
@@ -639,6 +663,13 @@ dialog::backdrop {
   line-height: 1.2;
   letter-spacing: -0.03em;
   font-weight: 720;
+}
+
+.sheet-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--muted);
 }
 
 .people {
@@ -657,7 +688,7 @@ dialog::backdrop {
   gap: 1px;
   }
 
-.people strong { font-size: 20px; font-weight: 600; }
+.people strong { font-size: 24px; font-weight: 700; padding-bottom: 2px;}
 
 .people span,
 .role {
@@ -827,7 +858,7 @@ dialog::backdrop {
     height: 18px;
   }
   .sheet {
-    width: 400px;
+    width: 600px;
     left: 50%;
     right: auto;
     translate: -50% 0;

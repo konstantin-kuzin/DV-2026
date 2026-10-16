@@ -40,6 +40,7 @@ const sheet = document.getElementById("sheet");
 const sheetMeta = document.getElementById("sheet-meta");
 const sheetKind = document.getElementById("sheet-kind");
 const sheetTitle = document.getElementById("sheet-title");
+const sheetDesc = document.getElementById("sheet-desc");
 const sheetPeople = document.getElementById("sheet-people");
 const sheetMaterials = document.getElementById("sheet-materials");
 const sheetLinks = document.getElementById("sheet-links");
@@ -128,7 +129,24 @@ function peopleLine(event) {
 
 function filledLinks(event) {
   const links = event.links || {};
-  return LINK_FIELDS.filter((field) => typeof links[field.key] === "string" && links[field.key].trim());
+  const entries = [];
+  for (const field of LINK_FIELDS) {
+    const numbered = Object.keys(links)
+      .map((key) => {
+        if (key === field.key) return { key, order: 0 };
+        const suffix = key.startsWith(field.key) ? key.slice(field.key.length) : "";
+        if (!/^[1-9]\d*$/.test(suffix)) return null;
+        return { key, order: Number(suffix) };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.order - b.order);
+    for (const item of numbered) {
+      const value = links[item.key];
+      if (typeof value !== "string" || !value.trim()) continue;
+      entries.push({ key: field.key, label: field.label, href: value.trim() });
+    }
+  }
+  return entries;
 }
 
 function renderChrome() {
@@ -350,7 +368,7 @@ function createCard(event, { showHall, span }) {
     links.forEach((field) => {
       const link = document.createElement("a");
       link.className = "card-link";
-      link.href = event.links[field.key].trim();
+      link.href = field.href;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.setAttribute("aria-label", field.label);
@@ -370,6 +388,7 @@ function createCard(event, { showHall, span }) {
 }
 
 function renderBoard() {
+  hideLinkTip();
   if (state.favoritesOnly && eventsForDay().length === 0) {
     const empty = document.createElement("p");
     empty.className = "empty-favorites";
@@ -404,6 +423,8 @@ function renderHallBoard() {
       tracks.push(row.line ? "var(--slot-line)" : "auto");
     });
     grid.style.gridTemplateRows = tracks.join(" ");
+  } else {
+    grid.style.gridTemplateRows = `var(--head) repeat(${SLOT_COUNT}, minmax(var(--slot), auto))`;
   }
 
   const corner = document.createElement("div");
@@ -646,11 +667,14 @@ function openEvent(id) {
   const hall = hallById(event.hall);
   const day = days.find((item) => item.id === event.day);
   const section = sectionOf(hall, event.day);
-  sheetMeta.textContent = `${day.weekday}, ${day.date} · ${hall.name} · ${section.title} · ${event.start}–${event.end}`;
+  sheetMeta.textContent = `${day.weekday}, ${day.date} · ${event.start}–${event.end} · ${hall.name} · ${section.title}`;
   const kind = KINDS[event.kind];
   sheetKind.hidden = !kind;
   sheetKind.textContent = kind || "";
   sheetTitle.textContent = event.title;
+  const description = (event.description || "").trim();
+  sheetDesc.hidden = !description;
+  sheetDesc.textContent = description;
   sheetPeople.replaceChildren(
     ...event.speakers.map((speaker) => {
       const item = document.createElement("li");
@@ -677,7 +701,7 @@ function openEvent(id) {
   sheetLinks.replaceChildren(
     ...links.map((field) => {
       const link = document.createElement("a");
-      link.href = event.links[field.key];
+      link.href = field.href;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       const main = document.createElement("span");
@@ -774,6 +798,103 @@ board.addEventListener("click", (event) => {
   if (card) openEvent(card.dataset.id);
 });
 
+const linkTip = document.createElement("div");
+linkTip.className = "link-tip";
+linkTip.hidden = true;
+linkTip.setAttribute("role", "tooltip");
+document.body.append(linkTip);
+
+const LINK_TIP_DELAY = 300;
+let linkTipTarget = null;
+let linkTipTimer = 0;
+
+function placeLinkTip() {
+  if (!linkTipTarget || !linkTipTarget.isConnected) {
+    hideLinkTip();
+    return;
+  }
+  const rect = linkTipTarget.getBoundingClientRect();
+  const boardRect = board.getBoundingClientRect();
+  const visible = rect.width && rect.height
+    && rect.bottom > boardRect.top && rect.top < boardRect.bottom
+    && rect.right > boardRect.left && rect.left < boardRect.right;
+  if (!visible) {
+    hideLinkTip();
+    return;
+  }
+  linkTip.hidden = false;
+  const tipRect = linkTip.getBoundingClientRect();
+  const minLeft = 8;
+  const maxLeft = Math.max(minLeft, window.innerWidth - tipRect.width - 8);
+  let left = rect.left;
+  if (left > maxLeft) left = Math.max(minLeft, rect.right - tipRect.width);
+  left = Math.max(minLeft, Math.min(left, maxLeft));
+  let top = rect.top - tipRect.height - 8;
+  if (top < 8) top = rect.bottom + 8;
+  linkTip.style.left = `${left}px`;
+  linkTip.style.top = `${top}px`;
+}
+
+function revealLinkTip(link) {
+  linkTipTarget = link;
+  linkTip.textContent = link.getAttribute("href") || "";
+  placeLinkTip();
+}
+
+function showLinkTip(link) {
+  if (linkTipTarget === link && (linkTipTimer || !linkTip.hidden)) return;
+  window.clearTimeout(linkTipTimer);
+  linkTipTimer = 0;
+  if (!linkTip.hidden) {
+    revealLinkTip(link);
+    return;
+  }
+  linkTipTarget = link;
+  linkTipTimer = window.setTimeout(() => {
+    linkTipTimer = 0;
+    if (linkTipTarget === link) revealLinkTip(link);
+  }, LINK_TIP_DELAY);
+}
+
+function hideLinkTip() {
+  window.clearTimeout(linkTipTimer);
+  linkTipTimer = 0;
+  linkTipTarget = null;
+  linkTip.hidden = true;
+}
+
+function cardLinkFrom(event) {
+  return event.target instanceof Element ? event.target.closest(".card-link") : null;
+}
+
+board.addEventListener("pointerover", (event) => {
+  const link = cardLinkFrom(event);
+  if (link) showLinkTip(link);
+});
+
+board.addEventListener("pointerout", (event) => {
+  const link = cardLinkFrom(event);
+  if (!link || linkTipTarget !== link) return;
+  const next = event.relatedTarget;
+  if (next instanceof Node && link.contains(next)) return;
+  if (next instanceof Element && next.closest(".card-link")) return;
+  hideLinkTip();
+});
+
+board.addEventListener("focusin", (event) => {
+  const link = cardLinkFrom(event);
+  if (link) showLinkTip(link);
+});
+
+board.addEventListener("focusout", (event) => {
+  const link = cardLinkFrom(event);
+  if (link && linkTipTarget === link) hideLinkTip();
+});
+
+document.addEventListener("scroll", () => {
+  if (linkTipTarget && !linkTip.hidden) placeLinkTip();
+}, true);
+
 let scrollFrame = 0;
 board.addEventListener(
   "scroll",
@@ -815,17 +936,30 @@ sheet.addEventListener("close", () => {
   if (location.hash) history.replaceState(null, "", location.pathname + location.search);
 });
 
-const hashId = location.hash.replace("#", "");
-const linked = byId.get(hashId);
-if (linked) {
-  state.day = linked.day;
-  state.hall = Math.max(0, halls.findIndex((hall) => hall.id === linked.hall));
-} else if (days.some((day) => day.id === todayId())) {
-  state.day = todayId();
+function start() {
+  const hashId = location.hash.replace("#", "");
+  const linked = byId.get(hashId);
+  if (linked) {
+    state.day = linked.day;
+    state.hall = Math.max(0, halls.findIndex((hall) => hall.id === linked.hall));
+  } else if (days.some((day) => day.id === todayId())) {
+    state.day = todayId();
+  }
+
+  renderChrome();
+  renderBoard();
+
+  if (linked) {
+    requestAnimationFrame(() => {
+      const card = board.querySelector(`[data-id="${linked.id}"]`);
+      const top = card ? Math.max(0, card.offsetTop - 12) : 0;
+      board.scrollTo(state.hall * columnWidth(), top);
+      openEvent(linked.id);
+    });
+  }
 }
 
-renderChrome();
-renderBoard();
+start();
 
 window.matchMedia("(max-width: 839px)").addEventListener("change", () => {
   if (!state.byHour) return;
@@ -841,11 +975,3 @@ window.matchMedia("(max-width: 839px)").addEventListener("change", () => {
   });
 });
 
-if (linked) {
-  requestAnimationFrame(() => {
-    const card = board.querySelector(`[data-id="${linked.id}"]`);
-    const top = card ? Math.max(0, card.offsetTop - 12) : 0;
-    board.scrollTo(state.hall * columnWidth(), top);
-    openEvent(linked.id);
-  });
-}
