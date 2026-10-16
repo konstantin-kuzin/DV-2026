@@ -188,7 +188,7 @@ window.SCHEDULE = {
       title: "Личный бренд: мода или необходимость?",
       speakers: [{ name: "Андрей Фрольченков", org: "Один из самых знаменитых SMM России" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/fro1ch",
         message: "",
         presentation: "",
         video: "",
@@ -354,9 +354,9 @@ window.SCHEDULE = {
       title: "Дизайнер растёт не из критики. Фидбек как система координат",
       speakers: [{ name: "Алёна Арден", org: "ad.nomad" }],
       links: {
-        telegram: "",
-        message: "",
-        presentation: "",
+        telegram: "https://t.me/alena_arden",
+        message: "https://t.me/alenaarden",
+        presentation: "https://t.me/c/2450084595/1146/1914",
         video: "",
       },
     },
@@ -369,7 +369,7 @@ window.SCHEDULE = {
       title: "Как сломать и починить путь клиента. Редактор как UX-дизайнер",
       speakers: [{ name: "Роман Гунькин", org: "МТС" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/Axwe11_Roman",
         message: "",
         presentation: "",
         video: "",
@@ -475,7 +475,7 @@ window.SCHEDULE = {
       title: "Графический дизайн экспозиции: иерархия контента, режиссура внимания и визуальная драматургия",
       speakers: [{ name: "Лев Маврин", org: "ООО Калинин/Маврин" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/leomavrin",
         message: "",
         presentation: "",
         video: "",
@@ -651,7 +651,7 @@ window.SCHEDULE = {
       title: "Дизайн-взросление: кем я стал, когда вырос",
       speakers: [{ name: "Лев Зайченко", org: "Брендинговый дизайнер" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/levzayac",
         message: "",
         presentation: "",
         video: "",
@@ -771,7 +771,7 @@ window.SCHEDULE = {
       title: "Дизайн и образование",
       speakers: [{ name: "Екатерина Панова", org: "Сбер" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/chtob_chto",
         message: "",
         presentation: "",
         video: "",
@@ -786,7 +786,7 @@ window.SCHEDULE = {
       title: "Как работать с людьми, когда вокруг одни агенты",
       speakers: [{ name: "Максим Чистов", org: "Девять квадратов" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/cubiks_rube",
         message: "",
         presentation: "",
         video: "",
@@ -817,7 +817,7 @@ window.SCHEDULE = {
       title: "AI ускорил дизайн. Почему мы не стали работать меньше?",
       speakers: [{ name: "Фёдор Михайлов", org: "MIKHAILOV studio" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/mikhailov_blog",
         message: "",
         presentation: "",
         video: "",
@@ -892,7 +892,7 @@ window.SCHEDULE = {
       title: "Без испорченного телефона: как дизайнер начал продавать дизайн сам",
       speakers: [{ name: "Анастасия Лагода", org: "ООО «Онпик»" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/lagoda_des",
         message: "",
         presentation: "",
         video: "",
@@ -907,7 +907,7 @@ window.SCHEDULE = {
       title: "Смотри, могу без рук",
       speakers: [{ name: "Алина Васильева", org: "Depot" }],
       links: {
-        telegram: "https://t.me/depot_branding",
+        telegram: "https://t.me/fio1etovo",
         message: "",
         presentation: "",
         video: "",
@@ -970,7 +970,7 @@ window.SCHEDULE = {
       links: {
         telegram: "",
         message: "",
-        presentation: "",
+        presentation: "https://t.me/c/2450084595/1146/1865",
         video: "",
       },
     },
@@ -983,7 +983,7 @@ window.SCHEDULE = {
       title: "Зачем нам интерфейс в интерфейсе: вы тоже захотите",
       speakers: [{ name: "Настя Кожаева", org: "Ozon" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/lettersandlines",
         message: "",
         presentation: "",
         video: "",
@@ -1015,7 +1015,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/uxlynx",
         message: "",
-        presentation: "",
+        presentation: "https://t.me/c/2450084595/1146/1866",
         video: "",
       },
     },
@@ -1030,7 +1030,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/blablabutenko",
         message: "https://t.me/butenkoii",
-        presentation: "",
+        presentation: "https://t.me/c/2450084595/1146/1868",
         video: "",
       },
     },
@@ -1045,7 +1045,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/odnimslovom_naming",
         message: "",
-        presentation: "",
+        presentation: "https://t.me/c/2450084595/1146/1867",
         video: "",
       },
     },
@@ -1105,7 +1105,7 @@ window.SCHEDULE = {
       links: {
         telegram: "",
         message: "",
-        presentation: "",
+        presentation: "https://t.me/c/2450084595/1146/1864",
         video: "",
       },
     },
@@ -1118,9 +1118,9 @@ window.SCHEDULE = {
       title: "Превращаем редполитику в граф знаний для AI-агента",
       speakers: [{ name: "Лёша Фирсов", org: "ВТБ" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/solomkr",
         message: "",
-        presentation: "",
+        presentation: "https://t.me/solomkr/27",
         video: "",
       },
     },
@@ -1195,7 +1195,7 @@ window.SCHEDULE = {
       title: "Любовь живёт три года? 11 способов не превратить любимую профессию в конвейер",
       speakers: [{ name: "София Бакланова", org: "Krona Studio&School" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/blondindesign",
         message: "",
         presentation: "",
         video: "",
@@ -1287,7 +1287,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/valeriawcreaator",
         message: "https://t.me/valeriawcreator",
-        presentation: "",
+        presentation: "https://t.me/valeriawcreaator/422",
         video: "",
       },
     },
@@ -1366,7 +1366,7 @@ window.SCHEDULE = {
       title: "Пять слов о дизайне",
       speakers: [{ name: "Сергей Гуров", org: "Творческий руководитель" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/gurovplus",
         message: "",
         presentation: "",
         video: "",
@@ -1411,8 +1411,8 @@ window.SCHEDULE = {
       title: "Создаём новые миры в кино — и не только",
       speakers: [{ name: "Егор Мызник", org: "Пленум" }],
       links: {
-        telegram: "",
-        message: "",
+        telegram: "https://t.me/designtimeline",
+        message: "https://t.me/vonshnauzer",
         presentation: "",
         video: "",
       },
@@ -1426,7 +1426,7 @@ window.SCHEDULE = {
       title: "Мечтают ли альтушки об электросайтах? Или как становятся настоящими дизайнерами",
       speakers: [{ name: "Влад Меркулов", org: "Beta Disrupt" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/betamoscow",
         message: "",
         presentation: "",
         video: "",
@@ -1456,7 +1456,7 @@ window.SCHEDULE = {
       title: "Работа руками",
       speakers: [{ name: "Владимир Лифанов", org: "Супрематика" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/blackbeatlesinmyhead",
         message: "",
         presentation: "",
         video: "",
@@ -1532,9 +1532,9 @@ window.SCHEDULE = {
       title: "Дизайнеры, пора взрослеть. Как сделать, чтобы к тебе прислушивались",
       speakers: [{ name: "Андрей Богданов", org: "МТС Банк" }],
       links: {
-        telegram: "",
-        message: "",
-        presentation: "",
+        telegram: "https://t.me/na_produkte",
+        message: "https://t.me/ay_bogdanov",
+        presentation: "https://t.me/na_produkte/2411",
         video: "",
       },
     },
@@ -1683,7 +1683,7 @@ window.SCHEDULE = {
       title: "Текст — это изображение",
       speakers: [{ name: "Виктория Трубицина", org: "Dotorg" }],
       links: {
-        telegram: "https://t.me/dotorgia",
+        telegram: "https://t.me/pickmecover",
         message: "",
         presentation: "",
         video: "",
@@ -1779,7 +1779,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/snake_vision",
         message: "https://t.me/buzenkova",
-        presentation: "",
+        presentation: "https://t.me/c/2450084595/1146/1881",
         video: "",
       },
     },
@@ -1793,7 +1793,7 @@ window.SCHEDULE = {
       title: "Принципы театральной импровизации в дизайн-менеджменте",
       speakers: [{ name: "Анна Маркова", org: "Vagabond agency" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/bytsvetom",
         message: "",
         presentation: "",
         video: "",
@@ -1823,7 +1823,7 @@ window.SCHEDULE = {
       title: "Скрытые слои. На чём стоит дизайн-агентство",
       speakers: [{ name: "Евгений Опутин", org: "Vagabond" }],
       links: {
-        telegram: "https://t.me/vagabondagency",
+        telegram: "https://t.me/oputin_live",
         message: "",
         presentation: "",
         video: "",
@@ -1898,7 +1898,7 @@ window.SCHEDULE = {
       title: "Согласовано! Как работать с клиентами, не теряя себя",
       speakers: [{ name: "Пётр Губанов", org: "PostPost" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/digitalpetya",
         message: "",
         presentation: "",
         video: "",
@@ -1913,7 +1913,7 @@ window.SCHEDULE = {
       title: "Ожидание и реальность: от авторской концепции до правок заказчика",
       speakers: [{ name: "Рустам Усманов", org: "Дизайнер-художник" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/GORI_TVORI",
         message: "",
         presentation: "",
         video: "",
@@ -1928,9 +1928,9 @@ window.SCHEDULE = {
       title: "7 грехов нейминга",
       speakers: [{ name: "Богдан Астафуров", org: "Вольный неймер" }],
       links: {
-        telegram: "t.me/jobtobogdan",
+        telegram: "https://t.me/jobtobogdan",
         message: "https://t.me/bogdanastafurov",
-        presentation: "",
+        presentation: "https://t.me/c/2450084595/1146/1908",
         video: "",
       },
     },
@@ -1959,7 +1959,7 @@ window.SCHEDULE = {
       title: "Нейросети: адепты и скептики",
       speakers: [{ name: "Макс Кукушкин", org: "ЦЕХ.ДИЗАЙН" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/controlmax",
         message: "",
         presentation: "",
         video: "",
@@ -1989,7 +1989,7 @@ window.SCHEDULE = {
       title: "Личный видеопродакшен у тебя в ноутбуке",
       speakers: [{ name: "Владимир Доронин", org: "VK" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/shape_art",
         message: "",
         presentation: "",
         video: "",
@@ -2139,7 +2139,7 @@ window.SCHEDULE = {
       title: "ИИ-усталость и возвращение ценности ручного труда",
       speakers: [{ name: "Игорь Фроловский", org: "AffArts" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/igor_affarts",
         message: "",
         presentation: "",
         video: "",
@@ -2177,7 +2177,7 @@ window.SCHEDULE = {
       title: "Буквы не то, чем кажутся",
       speakers: [{ name: "Александра Королькова", org: "Paratype" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/paratype_fonts",
         message: "",
         presentation: "",
         video: "",
@@ -2192,8 +2192,8 @@ window.SCHEDULE = {
       title: "Как связаны каллиграфия, леттеринг и шрифт",
       speakers: [{ name: "Тома Стрельцова", org: "Paratype" }],
       links: {
-        telegram: "",
-        message: "",
+        telegram: "https://t.me/loyssso",
+        message: "https://t.me/ololoysa",
         presentation: "",
         video: "",
       },
@@ -2353,8 +2353,8 @@ window.SCHEDULE = {
         { name: "Екатерина Мальцева", org: "ЛАДА Цифра" },
       ],
       links: {
-        telegram: "",
-        message: "",
+        telegram: "https://t.me/designerkate",
+        message: "https://t.me/maltkate",
         presentation: "https://t.me/dsgnwknd/4421",
         video: "",
       },
@@ -2401,7 +2401,7 @@ window.SCHEDULE = {
       title: "Дизайн-система и дизайн-лид в эпоху ИИ: три роли — пастух, пожарный и архитектор",
       speakers: [{ name: "Ярослав Приступа", org: "X5 Group" }],
       links: {
-        telegram: "",
+        telegram: "https://t.me/yapristupa",
         message: "",
         presentation: "",
         video: "",
