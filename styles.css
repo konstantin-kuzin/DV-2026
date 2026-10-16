@@ -6,7 +6,7 @@
   --card: #fff;
   --time: 52px;
   --peek: 36px;
-  --col: max(250px, calc(100vw - var(--time) - var(--peek)));
+  --col: max(200px, calc(100vw - var(--time) - var(--peek)));
   --slot: 128px;
   --head: 0px;
   --halls: 7;
@@ -288,6 +288,10 @@ h1 {
   user-select: none;
 }
 
+.card:hover {
+  background: #f6f6f6;
+}
+
 .card:active { transform: scale(0.985); }
 
 .card:focus-visible {
@@ -432,7 +436,7 @@ dialog::backdrop {
   bottom: 0;
   max-height: min(86dvh, 760px);
   overflow: auto;
-  background: #fffcf7;
+  background: #fff;
   border-radius: 22px 22px 0 0;
   padding: 8px 20px calc(18px + env(safe-area-inset-bottom));
   box-shadow: 0 -12px 40px rgba(26, 25, 22, 0.16);
@@ -475,15 +479,16 @@ dialog::backdrop {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  
 }
 
 .people li {
   display: flex;
   flex-direction: column;
   gap: 1px;
-}
+  }
 
-.people strong { font-size: 16px; font-weight: 650; }
+.people strong { font-size: 20px; font-weight: 600; }
 
 .people span,
 .role {
@@ -491,7 +496,7 @@ dialog::backdrop {
   font-size: 14px;
 }
 
-.materials { margin-top: 18px; }
+.materials { margin-top: 16px; }
 
 .materials-label {
   margin: 0 0 8px;
@@ -512,15 +517,33 @@ dialog::backdrop {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   min-height: 48px;
   padding: 0 14px;
   border-radius: 12px;
-  background: #f3f0e8;
+  background: #d9edf2;
   text-decoration: none;
   font-weight: 620;
 }
 
-.material-links a::after { content: "↗"; color: var(--muted); }
+.material-link-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.material-links svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.material-links a::after {
+  content: "↗";
+  flex: none;
+  color: var(--muted);
+}
 
 .close {
   margin-top: 18px;
@@ -537,8 +560,8 @@ dialog::backdrop {
 @media (min-width: 840px) {
   :root { --peek: 0px; --head: 52px; }
   .grid {
-    width: max(100%, calc(var(--time) + var(--halls) * 250px));
-    grid-template-columns: var(--time) repeat(var(--halls), minmax(250px, 1fr));
+    width: max(100%, calc(var(--time) + var(--halls) * 200px));
+    grid-template-columns: var(--time) repeat(var(--halls), minmax(200px, 1fr));
   }
   .top  { padding-left: 24px; padding-right: 24px; }
   h1 { font-size: 32px; }

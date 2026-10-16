@@ -11,7 +11,7 @@ const KINDS = {
 
 const LINK_FIELDS = [
   { key: "telegram", label: "Телеграм-канал" },
-  { key: "message", label: "Личный канал" },
+  { key: "message", label: "Сообщение" },
   { key: "presentation", label: "Презентация" },
   { key: "video", label: "Видео" },
 ];
@@ -310,7 +310,13 @@ function openEvent(id) {
       link.href = event.links[field.key];
       link.target = "_blank";
       link.rel = "noopener noreferrer";
-      link.textContent = field.label;
+      const main = document.createElement("span");
+      main.className = "material-link-main";
+      main.innerHTML = LINK_ICONS[field.key];
+      const text = document.createElement("span");
+      text.textContent = field.label;
+      main.append(text);
+      link.append(main);
       return link;
     }),
   );
