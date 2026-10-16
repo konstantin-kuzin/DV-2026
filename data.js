@@ -385,7 +385,7 @@ window.SCHEDULE = {
       speakers: [{ name: "Даниил Чураков", org: "ВТБ" }],
       links: {
         telegram: "",
-        message: "",
+        message: "https://t.me/tchurakov",
         presentation: "",
         video: "",
       },
@@ -1073,8 +1073,8 @@ window.SCHEDULE = {
       title: "Промпт и его мальчик",
       speakers: [{ name: "Соня Львова", org: "Билайн" }],
       links: {
-        telegram: "",
-        message: "",
+        telegram: "https://t.me/uxw_sobor",
+        message: "https://t.me/seeuspacecowboy",
         presentation: "",
         video: "",
       },

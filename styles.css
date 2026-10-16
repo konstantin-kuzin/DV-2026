@@ -5,7 +5,7 @@
   --line: #dedede;
   --card: #fff;
   --time: 52px;
-  --peek: 36px;
+  --peek: 0px;
   --col: max(200px, calc(100vw - var(--time) - var(--peek)));
   --slot: 128px;
   --head: 0px;
@@ -44,7 +44,50 @@ button, a { font: inherit; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+}
+
+.mast-tools {
+  flex: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 16px;
+}
+
+.mode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 36px;
+  border: 0;
+  border-radius: 4px;
+  background: #eaeaea;
+  color: var(--ink);
+  padding: 0;
+  cursor: pointer;
+  transition: transform 140ms ease, background-color 140ms ease, color 140ms ease;
+}
+
+.mode svg {
+  width: 22px;
+  height: 22px;
+}
+
+.mode:active,
+.mode[aria-pressed="true"] {
+  transform: scale(0.92);
+}
+
+.mode[aria-pressed="true"] {
+  background: var(--ink);
+  color: #f7f4ee;
+}
+
+.mode:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
 }
 
 .brand { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
@@ -65,7 +108,10 @@ h1 {
   letter-spacing: -0.03em;
 }
 
+.title-full { display: none; }
+
 .place {
+  display: none;
   margin: 2px 0 0;
   color: var(--muted);
   font-size: 14px;
@@ -77,13 +123,13 @@ h1 {
   gap: 2px;
   padding: 0;
   background: #eaeaea;
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
 .days button {
   border: 0;
   background: transparent;
-  border-radius: 9px;
+  border-radius: 4px;
   min-height: 36px;
   min-width: 44px;
   padding: 0 12px;
@@ -113,7 +159,7 @@ h1 {
   flex: none;
   border: 1px solid var(--line);
   background: transparent;
-  border-radius: 999px;
+  border-radius: 4px;
   min-height: 36px;
   padding: 0 12px;
   display: inline-flex;
@@ -126,6 +172,10 @@ h1 {
   background: var(--ink);
   border-color: var(--ink);
   color: #f7f4ee;
+}
+
+body.is-hours .halls button {
+  font-variant-numeric: tabular-nums;
 }
 
 .section {
@@ -175,6 +225,56 @@ h1 {
   scroll-padding-left: var(--time);
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+}
+
+body.is-hours .board {
+  scroll-padding-left: 0;
+  overflow-y: hidden;
+}
+
+.hour-board {
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  height: 100%;
+}
+
+.hour-col {
+  flex: none;
+  width: max(200px, calc(100vw - var(--peek)));
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  border-right: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.hour-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.hour-list::-webkit-scrollbar { display: none; }
+
+.hour-col .hall-head {
+  position: static;
+  flex: none;
+  overflow: visible;
+  border-right: 0;
+  scroll-snap-align: none;
+}
+
+.hour-col .hall-head strong {
+  line-height: 1.2;
+}
+
+.hour-col .card {
+  scroll-snap-align: none;
 }
 
 .grid {
@@ -304,6 +404,28 @@ h1 {
   font-size: 12px;
   font-variant-numeric: tabular-nums;
   color: var(--muted);
+}
+
+.card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-top .when-line {
+  flex: none;
+}
+
+.where {
+  margin: 0;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 680;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .kind {
@@ -437,8 +559,8 @@ dialog::backdrop {
   max-height: min(86dvh, 760px);
   overflow: auto;
   background: #fff;
-  border-radius: 22px 22px 0 0;
-  padding: 8px 20px calc(18px + env(safe-area-inset-bottom));
+  border-radius: 8px 8px 0 0;
+  padding: 16px 20px calc(18px + env(safe-area-inset-bottom));
   box-shadow: 0 -12px 40px rgba(26, 25, 22, 0.16);
 }
 
@@ -520,10 +642,10 @@ dialog::backdrop {
   gap: 12px;
   min-height: 48px;
   padding: 0 14px;
-  border-radius: 12px;
+  border-radius: 4px;
   background: #d9edf2;
   text-decoration: none;
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .material-link-main {
@@ -550,7 +672,7 @@ dialog::backdrop {
   width: 100%;
   min-height: 48px;
   border: 0;
-  border-radius: 14px;
+  border-radius: 4px;
   background: var(--ink);
   color: #f7f4ee;
   font-weight: 650;
@@ -563,8 +685,20 @@ dialog::backdrop {
     width: max(100%, calc(var(--time) + var(--halls) * 200px));
     grid-template-columns: var(--time) repeat(var(--halls), minmax(200px, 1fr));
   }
+  .hour-board {
+    width: max(100%, calc(var(--hours) * 220px));
+  }
+  .hour-col {
+    width: auto;
+    flex: 1 0 220px;
+  }
+  .masthead { align-items: center; }
+  .mast-tools { gap: 10px; }
   .top  { padding-left: 24px; padding-right: 24px; }
   h1 { font-size: 32px; }
+  .title-full { display: inline; }
+  .title-short { display: none; }
+  .place { display: block; }
   .corner { display: block; }
   .hall-head { display: flex; }
   .halls,
@@ -584,4 +718,5 @@ dialog::backdrop {
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }
   .card:active { transform: none; }
+  .mode { transition: none; }
 }

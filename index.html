@@ -5,17 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f3f0e8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Дизайн-выходные. Тула</title>
+    <title>Дизайн-выходные 2026. Тула</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="top">
       <div class="masthead">
         <div class="brand">
-          <h1>Дизайн-выходные</h1>
+          <h1>
+            <span class="title-full">Дизайн-выходные</span>
+            <span class="title-short">ДВ'26</span>
+          </h1>
           <p class="place">Тула · 9–10 октября 2026</p>
         </div>
-        <div class="days" id="days" role="tablist" aria-label="День"></div>
+        <div class="mast-tools">
+          <button type="button" class="mode" id="mode" aria-pressed="false" aria-label="Группировка по часам">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.75" />
+              <path d="M12 8.25V12.1l2.6 1.7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="days" id="days" role="tablist" aria-label="День"></div>
+        </div>
       </div>
       <div class="halls" id="halls" role="tablist" aria-label="Залы"></div>
       <p class="section" id="section"></p>
@@ -29,7 +40,6 @@
 
     <dialog id="sheet" aria-labelledby="sheet-title">
       <div class="sheet">
-        <div class="grab" aria-hidden="true"></div>
         <p class="sheet-meta" id="sheet-meta"></p>
         <p class="sheet-kind" id="sheet-kind" hidden></p>
         <ul class="people" id="sheet-people"></ul>
