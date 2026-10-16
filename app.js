@@ -676,7 +676,7 @@ function openEvent(id) {
   sheetDesc.hidden = !description;
   sheetDesc.textContent = description;
   sheetPeople.replaceChildren(
-    ...event.speakers.map((speaker) => {
+    ...event.speakers.map((speaker, index) => {
       const item = document.createElement("li");
       const photo = document.createElement(speaker.photo ? "img" : "span");
       photo.className = "portrait";
@@ -698,15 +698,18 @@ function openEvent(id) {
         role.textContent = speaker.role;
         who.append(role);
       }
-      if (speaker.org) {
+      const post = speaker.position || speaker.org;
+      if (post) {
         const org = document.createElement("span");
-        org.textContent = speaker.org;
+        org.textContent = post;
         who.append(org);
       }
+      if (index === 0) who.append(sheetTitle);
       item.append(who);
       return item;
     }),
   );
+  if (!event.speakers.length) sheetDesc.before(sheetTitle);
 
   const links = filledLinks(event);
   sheetMaterials.hidden = links.length === 0;
