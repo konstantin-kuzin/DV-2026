@@ -12,6 +12,7 @@
 // Несколько ссылок одного типа — с цифрой: message, message1, message2.
 // Пустую строку интерфейс считает отсутствием ссылки.
 // description — аннотация доклада, показывается только в шторке.
+// photo — портрет спикера, ссылка с designweekend.ru/tula2026.
 
 window.SCHEDULE = {
   days: [
@@ -99,7 +100,7 @@ window.SCHEDULE = {
       end: "13:00",
       title: "Почему в России такой дизайн?",
       description: "Российские банковские приложения — одни из лучших в мире, а упаковки в магазине — одни из худших. Разберёмся, кто на самом деле решает, каким будет дизайн. И почему это почти никогда не дизайнер.",
-      speakers: [{ name: "Никита Нова", org: "Дизайнер и документалист" }],
+      speakers: [{ name: "Никита Нова", org: "Дизайнер и документалист", photo: "https://static.tildacdn.com/stor3163-3039-4139-a635-356165333264/60401803.jpg" }],
       links: {
         telegram: "https://t.me/nikitanova",
         message: "https://t.me/nikita_nova",
@@ -114,7 +115,7 @@ window.SCHEDULE = {
       start: "13:00",
       end: "13:30",
       title: "Дизайнер будущего",
-      speakers: [{ name: "Миша Пименова", org: "CEO Mish" }],
+      speakers: [{ name: "Миша Пименова", org: "CEO Mish", photo: "https://static.tildacdn.com/stor6337-3264-4634-b665-643835306336/644ecbb23b0fe863c4194761a45805bd.jpg" }],
       links: {
         telegram: "https://t.me/mishapimenova",
         message: "https://t.me/mishaisnohero",
@@ -129,7 +130,7 @@ window.SCHEDULE = {
       start: "13:30",
       end: "14:00",
       title: "Хороший дизайнер = плохой бизнес?",
-      speakers: [{ name: "Виктор Рындин", org: "Wemakefab, Dprofile" }],
+      speakers: [{ name: "Виктор Рындин", org: "Wemakefab, Dprofile", photo: "https://static.tildacdn.com/stor6136-3361-4266-b632-356261306536/5c348731298e8ac0063dcd77b67c5202.jpg" }],
       links: {
         telegram: "https://t.me/rukovozhu",
         message: "",
@@ -145,7 +146,7 @@ window.SCHEDULE = {
       end: "15:00",
       title: "От кнопки до коробки: где на самом деле живёт дизайн",
       description: "От кнопки на экране до коробки на полке продукт проходит через десятки решений, компромиссов и ограничений. Интерфейс, корпус, технологии, производство, бренд, сроки, стоимость и коммуникации постоянно влияют друг на друга — и дизайн рождается не в одной точке, а в поиске баланса между ними. В докладе я хочу показать, как на самом деле создаётся цельный продукт: где заканчивается «чистый дизайн», как решения меняются под давлением реальности и почему самые важные находки часто появляются именно на стыке софта, харда, бизнеса и людей.",
-      speakers: [{ name: "Антон Тен", org: "СберДевайсы" }],
+      speakers: [{ name: "Антон Тен", org: "СберДевайсы", photo: "https://static.tildacdn.com/stor3631-6532-4732-b661-373030353161/35f72fc6777d1f595088d099aeb41eed.webp" }],
       links: {
         telegram: "https://t.me/tenthinksabout",
         message: "https://t.me/funwatercat",
@@ -161,7 +162,7 @@ window.SCHEDULE = {
       end: "16:00",
       title: "До самой смерти",
       description: "Странный доклад. Возможно, слишком странный для дизайн-конференции. Поэтому я его и сделал. Мы привыкли думать о дизайне как о способе создавать вещи. Но что на самом деле останется после работы дизайнера?",
-      speakers: [{ name: "Евгений Филатов", org: "Дизайнер" }],
+      speakers: [{ name: "Евгений Филатов", org: "Дизайнер", photo: "https://static.tildacdn.com/stor3837-6438-4063-b265-383964626166/03c476521f641e9dd260a87452339323.png" }],
       links: {
         telegram: "https://t.me/evgfilatov_public",
         message: "",
@@ -177,7 +178,7 @@ window.SCHEDULE = {
       end: "17:00",
       title: "Личный бренд: мода или необходимость?",
       description: "Не важно собираешься ли ты развивать блог или развиваешь карьеру через соцсети. На лекции мы рассмотрим как правильно и неправильно собирать подписчиков, какой контент давать, как часто и как ставить перед собой цели в блогинге, которые вы достигнете.",
-      speakers: [{ name: "Андрей Фрольченков", org: "Один из самых знаменитых SMM России" }],
+      speakers: [{ name: "Андрей Фрольченков", org: "Один из самых знаменитых SMM России", photo: "https://static.tildacdn.com/stor3133-3566-4738-b937-613938636361/eae13a6e68f48234a047cd6d9049c640.jpg" }],
       links: {
         telegram: "https://t.me/fro1ch",
         message: "https://t.me/frolchenkov",
@@ -193,7 +194,7 @@ window.SCHEDULE = {
       end: "18:00",
       title: "Шрифт в вебе — от базы до нюансов",
       description: "Большинство дизайнеров интерфейсов и веб-дизайнеров использует для своей работы Montserrat, Inter или Roboto. Эти три шрифта в принципе закрывают базовые задачи… но можно посмотреть шире и глубже. Каковы принципы работы шрифта? Как выбирать шрифты и не бояться, что сделаешь что‑то не так? Лекция включает общую теорию, примеры, конкретные советы и ссылки на материалы для дальнейшего изучения.",
-      speakers: [{ name: "Александра Королькова", org: "Paratype" }],
+      speakers: [{ name: "Александра Королькова", org: "Paratype", photo: "https://static.tildacdn.com/stor3935-3437-4663-a434-663431333362/ac3af32d86ad849202e7f2787b1c49e3.webp" }],
       links: {
         telegram: "https://t.me/paratype_fonts",
         message: "https://t.me/alexandra_korolkova",
@@ -209,7 +210,7 @@ window.SCHEDULE = {
       end: "19:00",
       title: "Завтра начинается с эксперимента",
       description: "Давайте поговорим про прорывной дизайн, про смелость идей и про умение создавать то, что будет востребовано. Про слом стереотипов в брендинге, новые приёмы, креативный кодинг, необычные шрифты, про будущее и куда мы движемся.",
-      speakers: [{ name: "Ольга Кутовая", org: "Dotorg" }],
+      speakers: [{ name: "Ольга Кутовая", org: "Dotorg", photo: "https://static.tildacdn.com/stor6161-3564-4636-b530-616330663134/47763570.jpg" }],
       links: {
         telegram: "https://t.me/dotorgia",
         message: "",
@@ -225,7 +226,7 @@ window.SCHEDULE = {
       end: "20:00",
       title: "Постгуманизм: тёмный дизайн",
       description: "«Тёмный» — не как в dark patterns, а как в «тёмной философии». Отказ от человекоцентричности в философии обобщённо называется тёмным.«Тёмный дизайн» не является манипуляцией или злым умыслом, это простое обстоятельство, что мир больше не проектируется через человеческий опыт и для него.",
-      speakers: [{ name: "Дмитрий Черненко", org: "Команда «Нате»" }],
+      speakers: [{ name: "Дмитрий Черненко", org: "Команда «Нате»", photo: "https://static.tildacdn.com/stor3061-3365-4530-b930-316364323161/e726161a22d4d71a74e70b4875beb586.png" }],
       links: {
         telegram: "https://t.me/design_lambada",
         message: "",
@@ -241,7 +242,7 @@ window.SCHEDULE = {
       start: "12:00",
       end: "12:30",
       title: "Компонент не виноват",
-      speakers: [{ name: "Саша Тихомирова", org: "Сбер" }],
+      speakers: [{ name: "Саша Тихомирова", org: "Сбер", photo: "https://static.tildacdn.com/stor3532-3632-4130-b137-613563646164/41ad33e97b187c84048be78361f1c58b.png" }],
       links: {
         telegram: "https://t.me/tiho_design",
         message: "https://t.me/alexandra_tiho",
@@ -256,7 +257,7 @@ window.SCHEDULE = {
       start: "12:30",
       end: "13:00",
       title: "В будущее возьмут не всех: эмпатия как hard skill дизайн-лидера",
-      speakers: [{ name: "Алена Бадзюк", org: "Создатели 2.0" }],
+      speakers: [{ name: "Алена Бадзюк", org: "Создатели 2.0", photo: "https://static.tildacdn.com/stor3835-3265-4435-b461-313830646131/f8b33b85c4403c2b060f092f92a92c6b.jpg" }],
       links: {
         telegram: "https://t.me/braindesignbad",
         message: "https://t.me/alenochkamurmur",
@@ -272,7 +273,7 @@ window.SCHEDULE = {
       end: "14:00",
       title: "Дизайн-культура: какие ритуалы помогают строить сплочённые команды",
       description: "Расскажу, от каких традиционных практик мы отказались и как помогаем дизайнерам знакомиться, общаться и чувствовать себя частью команды, если они работают удалённо и живут в разных городах.",
-      speakers: [{ name: "Анна Лебедева", org: "Вондо" }],
+      speakers: [{ name: "Анна Лебедева", org: "Вондо", photo: "https://static.tildacdn.com/stor6139-6235-4537-b064-383631636163/c0e44f2d085475a8eb25b2076a7760ec.png" }],
       links: {
         telegram: "https://t.me/vondostudio",
         message: "",
@@ -287,7 +288,7 @@ window.SCHEDULE = {
       start: "14:00",
       end: "14:30",
       title: "После нас хоть пожар: дизайн как забота о тех, кто работает рядом",
-      speakers: [{ name: "Вадим Казанцев", org: "ВКонтакте, Sber, Озон, ВТБ" }],
+      speakers: [{ name: "Вадим Казанцев", org: "ВКонтакте, Sber, Озон, ВТБ", photo: "https://static.tildacdn.com/stor3738-6163-4966-a462-393339333832/281806497c860f0be71796fa6ec52314.jpg" }],
       links: {
         telegram: "https://t.me/prism_vadim",
         message: "https://t.me/vadimguaje",
@@ -302,7 +303,7 @@ window.SCHEDULE = {
       start: "14:30",
       end: "15:00",
       title: "Поиск работы на языке дизайн-менеджеров: перевод без словаря",
-      speakers: [{ name: "Никита Трунов", org: "МТС Банк" }],
+      speakers: [{ name: "Никита Трунов", org: "МТС Банк", photo: "https://static.tildacdn.com/stor6161-6235-4132-b461-626531643365/f8d506b6844d112687a33f3bd6c9b8ef.png" }],
       links: {
         telegram: "https://t.me/nikitatrunov",
         message: "",
@@ -317,7 +318,7 @@ window.SCHEDULE = {
       start: "15:00",
       end: "15:30",
       title: "Коммуникация как мета-навык дизайнера",
-      speakers: [{ name: "Денис Барашевич", org: "Студия «Работяги»" }],
+      speakers: [{ name: "Денис Барашевич", org: "Студия «Работяги»", photo: "https://static.tildacdn.com/stor3534-6238-4961-a632-633239633066/5bee378861bc454e4e0cd7b2fa160880.jpg" }],
       links: {
         telegram: "https://t.me/eclecthoughts",
         message: "https://t.me/rockswichyu",
@@ -332,7 +333,7 @@ window.SCHEDULE = {
       start: "15:30",
       end: "16:00",
       title: "Как перестать быть бутылочным горлышком: делегирование, шаблоны и другие способы делать больше",
-      speakers: [{ name: "Арина Бердникова", org: "МТС" }],
+      speakers: [{ name: "Арина Бердникова", org: "МТС", photo: "https://static.tildacdn.com/stor3164-6633-4236-b865-303131666434/959032a731e893276d1e0bae95c1073f.jpg" }],
       links: {
         telegram: "https://t.me/arina_graph_public",
         message: "https://t.me/Arina_graph",
@@ -348,7 +349,7 @@ window.SCHEDULE = {
       end: "17:00",
       title: "Дизайнер растёт не из критики. Фидбек как система координат",
       description: "Если тебе ничего не говорят — ты хорошо работаешь или просто никто не сказал обратного? Фидбек — это способ понять, где ты сейчас, в чем уже силён и куда тебе расти дальше. Поговорим о том, почему молчание руководителя тоже формирует нас. И как перестать строить свою профессиональную самооценку на догадках.",
-      speakers: [{ name: "Алёна Арден", org: "ad.nomad" }],
+      speakers: [{ name: "Алёна Арден", org: "ad.nomad", photo: "https://static.tildacdn.com/stor3931-6339-4466-b666-353436386665/ff5e0677e8679f236687cd8809428a72.jpg" }],
       links: {
         telegram: "https://t.me/alena_arden",
         message: "https://t.me/alenaarden",
@@ -363,7 +364,7 @@ window.SCHEDULE = {
       start: "17:00",
       end: "17:30",
       title: "Как сломать и починить путь клиента. Редактор как UX-дизайнер",
-      speakers: [{ name: "Роман Гунькин", org: "МТС" }],
+      speakers: [{ name: "Роман Гунькин", org: "МТС", photo: "https://static.tildacdn.com/stor6235-3662-4264-b261-643134643366/11f21b5910742c78099800b6de63071a.jpg" }],
       links: {
         telegram: "https://t.me/Axwe11_Roman",
         message: "",
@@ -378,7 +379,7 @@ window.SCHEDULE = {
       start: "17:30",
       end: "18:00",
       title: "Клиент не видит вашу оргструктуру. Почему команды должны научиться договариваться",
-      speakers: [{ name: "Даниил Чураков", org: "ВТБ" }],
+      speakers: [{ name: "Даниил Чураков", org: "ВТБ", photo: "https://static.tildacdn.com/stor6362-3635-4238-a463-356361633364/69b44400050acb4a0ad6fcbce3997974.jpg" }],
       links: {
         telegram: "",
         message: "https://t.me/tchurakov",
@@ -393,7 +394,7 @@ window.SCHEDULE = {
       start: "18:00",
       end: "18:30",
       title: "Дизайн терпения или как проектировать ожидание в интерфейсе",
-      speakers: [{ name: "Артур Исрафилов", org: "МТС" }],
+      speakers: [{ name: "Артур Исрафилов", org: "МТС", photo: "https://static.tildacdn.com/stor3036-3736-4330-b139-303632326139/70c24ddea3ecfc374ebf93a5f331dc0e.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -408,7 +409,7 @@ window.SCHEDULE = {
       start: "18:30",
       end: "19:00",
       title: "Закрой гештальт. Как работает восприятие в визуальной коммуникации и искусстве",
-      speakers: [{ name: "Елизавета Жигулева", org: "МТС" }],
+      speakers: [{ name: "Елизавета Жигулева", org: "МТС", photo: "https://static.tildacdn.com/stor6133-3838-4366-b961-623265323936/015cf20bf7b26bdc2fb807add691cb2e.jpg" }],
       links: {
         telegram: "https://t.me/ezhnotes",
         message: "https://t.me/lizazhiguleva",
@@ -423,7 +424,7 @@ window.SCHEDULE = {
       start: "19:00",
       end: "19:30",
       title: "Эволюция продукта под прессом регулятора",
-      speakers: [{ name: "Василий Бодров", org: "МТС" }],
+      speakers: [{ name: "Василий Бодров", org: "МТС", photo: "https://static.tildacdn.com/stor3537-6336-4465-b638-303061346437/59ca7f01eb1bd0bc5f1b678f6c55a3c2.jpg" }],
       links: {
         telegram: "https://t.me/UnstoppableCuriosity",
         message: "https://t.me/v_unstoppable_b",
@@ -438,7 +439,7 @@ window.SCHEDULE = {
       start: "19:30",
       end: "20:00",
       title: "Зачем баловаться на работе",
-      speakers: [{ name: "Виталий Асташкин", org: "Далее" }],
+      speakers: [{ name: "Виталий Асташкин", org: "Далее", photo: "https://static.tildacdn.com/stor3164-3539-4639-b536-663439613262/47d326d7040c0c0b5fee6ca564734d0b.jpg" }],
       links: {
         telegram: "https://t.me/astashkin_dsgn",
         message: "",
@@ -455,7 +456,7 @@ window.SCHEDULE = {
       end: "13:00",
       title: "Проектирование дизайн-языка",
       description: "Лекция посвящена практике разработки дизайн-языка для крупного бренда. Поговорим о том как упорядочить примерно все: радиусы, цвета, размеры транспортных коробок, корпоративные бланки, типы пластика, а в процессе не растерять заложенные смыслы и уважение коллег.",
-      speakers: [{ name: "Михаил Чистяков", org: "IEK Холдинг" }],
+      speakers: [{ name: "Михаил Чистяков", org: "IEK Холдинг", photo: "https://static.tildacdn.com/stor3533-3362-4562-b335-616566306430/6dd6e2484e7131b50859b8be70d23110.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -471,7 +472,7 @@ window.SCHEDULE = {
       end: "14:00",
       title: "Графический дизайн экспозиции: иерархия контента, режиссура внимания и визуальная драматургия",
       description: "Айдентика, навигация, инфографика, проекции, титры и печатные материалы как единая повествовательная система. Как создать визуальный ритм, обозначить переходы между сюжетами и сохранить целостность при большом количестве форматов.",
-      speakers: [{ name: "Лев Маврин", org: "ООО Калинин/Маврин" }],
+      speakers: [{ name: "Лев Маврин", org: "ООО Калинин/Маврин", photo: "https://static.tildacdn.com/stor3061-3862-4138-a534-396137616664/92b3463c4de98e0e971d9464612b21eb.png" }],
       links: {
         telegram: "https://t.me/leomavrin",
         message: "",
@@ -486,7 +487,7 @@ window.SCHEDULE = {
       start: "14:00",
       end: "14:30",
       title: "Как в СССР дизайн среды изобретали. Наследие Сенежской студии дизайна",
-      speakers: [{ name: "Вячеслав Правдзинский", org: "Сенеж" }],
+      speakers: [{ name: "Вячеслав Правдзинский", org: "Сенеж", photo: "https://static.tildacdn.com/stor6631-3965-4462-b534-383565366233/7e2f80c87be40752a8da507aed891a20.jpg" }],
       links: {
         telegram: "https://t.me/prawdz",
         message: "",
@@ -501,7 +502,7 @@ window.SCHEDULE = {
       start: "14:30",
       end: "15:00",
       title: "Российские автомобильные знаки: история, проблемы и редизайн",
-      speakers: [{ name: "Валентин Филиппов", org: "Дизайнер продукта" }],
+      speakers: [{ name: "Валентин Филиппов", org: "Дизайнер продукта", photo: "https://static.tildacdn.com/stor3163-3638-4865-a435-393763353735/c3a53b6c2fac52247ea6ed8a97c2c383.jpg" }],
       links: {
         telegram: "",
         message: "https://t.me/hereandnow_msk",
@@ -516,7 +517,7 @@ window.SCHEDULE = {
       start: "15:00",
       end: "15:30",
       title: "«Меня не слышат» — не про статус",
-      speakers: [{ name: "Дарья Соколова", org: "Hoff" }],
+      speakers: [{ name: "Дарья Соколова", org: "Hoff", photo: "https://static.tildacdn.com/stor3332-3366-4838-b934-646137613762/51d4f9b204bdafdfc450309cfd3e7317.jpg" }],
       links: {
         telegram: "https://t.me/otomosyomme",
         message: "",
@@ -531,7 +532,7 @@ window.SCHEDULE = {
       start: "15:30",
       end: "16:00",
       title: "Совмещение материнства и карьеры",
-      speakers: [{ name: "Елизавета Присяжнюк", org: "Дизайн-бюро Spot" }],
+      speakers: [{ name: "Елизавета Присяжнюк", org: "Дизайн-бюро Spot", photo: "https://static.tildacdn.com/stor3564-3433-4233-a465-326538663333/fb32e4a9a9f0c937e636082c85bb8d77.jpg" }],
       links: {
         telegram: "https://t.me/designsolyanka",
         message: "https://t.me/lizapris",
@@ -546,7 +547,7 @@ window.SCHEDULE = {
       start: "16:00",
       end: "16:30",
       title: "Женское лидерство: мифы, реальность и точки роста",
-      speakers: [{ name: "Наталья Сухина", org: "Несущая конструкция" }],
+      speakers: [{ name: "Наталья Сухина", org: "Несущая конструкция", photo: "https://static.tildacdn.com/stor6566-3239-4331-a330-636361643630/5dd42e0f92886ec1b1bfce15d5e7af4a.jpg" }],
       links: {
         telegram: "https://t.me/NK_bureau",
         message: "",
@@ -561,7 +562,7 @@ window.SCHEDULE = {
       start: "16:30",
       end: "17:00",
       title: "Когда ты батя и арт-директор",
-      speakers: [{ name: "Эд Хайрутдинов", org: "GMK" }],
+      speakers: [{ name: "Эд Хайрутдинов", org: "GMK", photo: "https://static.tildacdn.com/stor3532-3034-4238-a533-333161663663/07e3640435f872a261cf0ba87ee1219b.jpg" }],
       links: {
         telegram: "https://t.me/e_d_dsgn",
         message: "",
@@ -576,7 +577,7 @@ window.SCHEDULE = {
       start: "17:00",
       end: "17:30",
       title: "Руководить и не истощаться: что увеличивает нагрузку женщин-лидеров",
-      speakers: [{ name: "Вера Илюшкина", org: "Несущая конструкция" }],
+      speakers: [{ name: "Вера Илюшкина", org: "Несущая конструкция", photo: "https://static.tildacdn.com/stor6232-6263-4335-a362-626230353164/e26841778d9ab67054f79aeecea65b87.jpg" }],
       links: {
         telegram: "https://t.me/vera_ilyushkina",
         message: "https://t.me/Verailyushkina",
@@ -591,7 +592,7 @@ window.SCHEDULE = {
       start: "17:30",
       end: "18:00",
       title: "Сестринство — это глагол. Как эмпатия превращает ценности в действия",
-      speakers: [{ name: "Алена Бадзюк", org: "Создатели 2.0" }],
+      speakers: [{ name: "Алена Бадзюк", org: "Создатели 2.0", photo: "https://static.tildacdn.com/stor3835-3265-4435-b461-313830646131/f8b33b85c4403c2b060f092f92a92c6b.jpg" }],
       links: {
         telegram: "https://t.me/braindesignbad",
         message: "https://t.me/alenochkamurmur",
@@ -609,14 +610,14 @@ window.SCHEDULE = {
       title: "Нужно ли говорить о женском опыте в дизайне? Взгляд со всех сторон",
       description: "Участники с разными позициями обсудят, нужна ли для этого отдельная секция, какие возможности она открывает и какие риски создаёт и что может изменить на практике.",
       speakers: [
-        { name: "Алена Бадзюк", role: "модератор" },
+        { name: "Алена Бадзюк", role: "модератор", photo: "https://static.tildacdn.com/stor3835-3265-4435-b461-313830646131/f8b33b85c4403c2b060f092f92a92c6b.jpg" },
         { name: "Полина Бондаренко", role: "модератор" },
         { name: "Ксения Жаворонок", role: "участник" },
-        { name: "Денис Золотарев", role: "участник" },
+        { name: "Денис Золотарев", role: "участник", photo: "https://static.tildacdn.com/stor6266-6234-4865-a234-653662386131/b0cc7a565d021805b9fd6abc4d3c35c6.png" },
         { name: "Настя Tochka", role: "участник" },
-        { name: "Богдан Астафуров", role: "участник" },
+        { name: "Богдан Астафуров", role: "участник", photo: "https://static.tildacdn.com/stor3432-3535-4336-a632-383265666661/9659313b1e7e7c37abeb8742c049dccf.png" },
         { name: "Алёна Штрудель", role: "участник" },
-        { name: "Мария Верхунова", role: "участник" },
+        { name: "Мария Верхунова", role: "участник", photo: "https://static.tildacdn.com/stor3463-6262-4531-a665-633565383831/7041c1b9c6441330bffbd6a50985a065.png" },
       ],
       links: {
         telegram: "",
@@ -650,7 +651,7 @@ window.SCHEDULE = {
       end: "13:00",
       title: "Дизайн-взросление: кем я стал, когда вырос",
       description: "Путь молодого дизайнера, который начал в 14 лет и ещё школьником стал работать с зарубежными брендами. Расскажу про свой опыт исследования профессии одновременно со взрослением. Каково было сталкиваться с первыми разочарованиями, пересматривать собственный вкус, находить своих людей и учиться отвечать за общий результат. Поговорим о том, как коммьюнити и окружение меняют взгляд, помогают расти и находить собственные ориентиры. И вместе зарядимся на знакомства, нетворкинг и хорошую энергию перед началом Д-в!",
-      speakers: [{ name: "Лев Зайченко", org: "Брендинговый дизайнер" }],
+      speakers: [{ name: "Лев Зайченко", org: "Брендинговый дизайнер", photo: "https://static.tildacdn.com/stor3566-3639-4231-b661-343839353565/aae74fead9bf8c7836d36314a638114f.jpg" }],
       links: {
         telegram: "https://t.me/levzayac",
         message: "",
@@ -665,7 +666,7 @@ window.SCHEDULE = {
       start: "13:00",
       end: "13:30",
       title: "3D-дизайнер в эпоху ИИ-помешательства",
-      speakers: [{ name: "Дима Еремеев", org: "Т-Банк" }],
+      speakers: [{ name: "Дима Еремеев", org: "Т-Банк", photo: "https://static.tildacdn.com/stor3938-3936-4037-a663-666331336361/7c0b096211f9605ec3f65d2748e8635c.jpg" }],
       links: {
         telegram: "https://t.me/onsadima",
         message: "",
@@ -680,7 +681,7 @@ window.SCHEDULE = {
       start: "13:30",
       end: "14:00",
       title: "Красиво. А зачем? Что такое Product-Market Fit и как дизайнеру приносить пользу бизнесу",
-      speakers: [{ name: "Сергей Шук", org: "Дизайнер" }],
+      speakers: [{ name: "Сергей Шук", org: "Дизайнер", photo: "https://static.tildacdn.com/stor6561-3863-4736-b536-623835386664/5a69fda1cdda0b056ee5bb1ff819d44a.webp" }],
       links: {
         telegram: "",
         message: "",
@@ -695,7 +696,7 @@ window.SCHEDULE = {
       start: "14:00",
       end: "14:30",
       title: "Сколько весит страх ошибки в карьере дизайнера",
-      speakers: [{ name: "Диана Ремарчук", org: "Pragmatica" }],
+      speakers: [{ name: "Диана Ремарчук", org: "Pragmatica", photo: "https://static.tildacdn.com/stor3139-6331-4562-b334-323762336530/f31991df7a99124350f79d732ad5ad19.png" }],
       links: {
         telegram: "https://t.me/hrpragmatica",
         message: "",
@@ -710,7 +711,7 @@ window.SCHEDULE = {
       start: "14:30",
       end: "15:00",
       title: "«Откуда я это знаю?»: ревизия исследовательского мышления",
-      speakers: [{ name: "Дарья Маткина", org: "Эксперт клиентского опыта" }],
+      speakers: [{ name: "Дарья Маткина", org: "Эксперт клиентского опыта", photo: "https://static.tildacdn.com/stor6266-6539-4637-a433-333835643066/67d7d3ad6f715e98408f2e33e163fa73.jpg" }],
       links: {
         telegram: "https://t.me/vselennaya_cx",
         message: "https://t.me/dariamihailovna",
@@ -726,7 +727,7 @@ window.SCHEDULE = {
       end: "16:00",
       title: "Дизайн-мышление в дизайне: как разрабатывать то, чего ни у кого нет",
       description: "Как дизайнеру исследовать и разрабатывать в цифровых сервисах то, чего ещё нет ни у кого на рынке и быстро экспериментировать. Захватим как генерацию крутых идей, так и вайбкодинг для экспериментов и проверки гипотез.",
-      speakers: [{ name: "Мария Верхунова", org: "Мысли как дизайнер" }],
+      speakers: [{ name: "Мария Верхунова", org: "Мысли как дизайнер", photo: "https://static.tildacdn.com/stor3463-6262-4531-a665-633565383831/7041c1b9c6441330bffbd6a50985a065.png" }],
       links: {
         telegram: "https://t.me/think_like_designer",
         message: "https://t.me/alavemaria",
@@ -742,7 +743,7 @@ window.SCHEDULE = {
       end: "17:00",
       title: "Как дизайнеру не поехать кукухой",
       description: "Лекция о том, как авторские проекты спасают дизайнера от усталости и рутины, как находить внутри себя силы на это. Разговор о профессии и мотивации, через личный опыт.",
-      speakers: [{ name: "Маша Сальникова", org: "Старший бренд-дизайнер" }],
+      speakers: [{ name: "Маша Сальникова", org: "Старший бренд-дизайнер", photo: "https://static.tildacdn.com/stor6166-6331-4339-b434-646564356465/0d544454da7f66a5d306add74c10a6d9.webp" }],
       links: {
         telegram: "https://t.me/look_salnikova",
         message: "https://t.me/salnikova_maria",
@@ -758,7 +759,7 @@ window.SCHEDULE = {
       end: "18:00",
       title: "Субъектность в дизайне",
       description: "О том как важно учиться принимать решения самостоятельно и воспитывать в себе внутреннюю систему оценки работы. Лекция для бренд-дизайнеров или тех, кто стремится ими стать.",
-      speakers: [{ name: "Софья Хмелёва", org: "Супрематика" }],
+      speakers: [{ name: "Софья Хмелёва", org: "Супрематика", photo: "https://static.tildacdn.com/stor3432-3363-4939-b737-363862636332/7b0c24458067db1d75fa342046041c28.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -773,7 +774,7 @@ window.SCHEDULE = {
       start: "18:00",
       end: "18:30",
       title: "Дизайн и образование",
-      speakers: [{ name: "Екатерина Панова", org: "Сбер" }],
+      speakers: [{ name: "Екатерина Панова", org: "Сбер", photo: "https://static.tildacdn.com/stor6663-3333-4133-b862-653833373031/c07d51052bba6a435ef96239f0669df1.png" }],
       links: {
         telegram: "https://t.me/chtob_chto",
         message: "",
@@ -821,7 +822,7 @@ window.SCHEDULE = {
       end: "13:00",
       title: "AI ускорил дизайн. Почему мы не стали работать меньше?",
       description: "AI уже умеет за минуты делать то, на что раньше у дизайнера уходили часы. Но проекты почему‑то не стали короче, а команды — свободнее: мы генерируем больше вариантов, дольше выбираем, чаще переделываем и по‑прежнему вязнем в согласованиях. Разберёмся, почему ускорение производства не привело к экономии времени и как перестроить процесс так, чтобы AI действительно сокращал работу, а не просто увеличивал её объём.",
-      speakers: [{ name: "Фёдор Михайлов", org: "MIKHAILOV studio" }],
+      speakers: [{ name: "Фёдор Михайлов", org: "MIKHAILOV studio", photo: "https://static.tildacdn.com/stor6636-6331-4361-a561-633032653163/25292d9993291f5cf1d85cce4a77c1d1.jpg" }],
       links: {
         telegram: "https://t.me/mikhailov_blog",
         message: "http://t.me/fedor_mikhailov",
@@ -837,7 +838,7 @@ window.SCHEDULE = {
       end: "14:00",
       title: "Как найти работу в кризис без мам, пап и кредитов",
       description: "Узнаете, как проявленность, нетворкинг и личный бренд помогают накопить социальный капитал, который потом работает на вас. На личном кейсе покажу, как нашла работу за неделю в IT компании — и почему на самом деле шла к этому почти два года.",
-      speakers: [{ name: "Дарья Приходько", org: "Далее" }],
+      speakers: [{ name: "Дарья Приходько", org: "Далее", photo: "https://static.tildacdn.com/stor3739-3666-4438-b161-336439626234/c3c6061612ce13655a225452b90058a4.webp" }],
       links: {
         telegram: "https://t.me/pridari",
         message: "https://t.me/pri_dari",
@@ -853,7 +854,7 @@ window.SCHEDULE = {
       end: "15:00",
       title: "Почему хороших дизайнеров не берут на работу",
       description: "Можно быть отличным дизайнером, но слабым кандидатом. Что остается за пределами портфолио",
-      speakers: [{ name: "Саша Тихомирова", org: "Сбер" }],
+      speakers: [{ name: "Саша Тихомирова", org: "Сбер", photo: "https://static.tildacdn.com/stor3532-3632-4130-b137-613563646164/41ad33e97b187c84048be78361f1c58b.png" }],
       links: {
         telegram: "https://t.me/tiho_design",
         message: "https://t.me/alexandra_tiho",
@@ -869,7 +870,7 @@ window.SCHEDULE = {
       end: "16:00",
       title: "На рынке полно дизайнеров. Почему тогда нормального невозможно найти?",
       description: "Дизайнеров стало так много, что кажется — найти специалиста можно за пять минут. Но компании месяцами не закрывают вакансии, заказчики перебирают десятки исполнителей, а сами дизайнеры жалуются, что работы нет. Мы с вами разберёмся, как так получилось и что на самом деле делает дизайнера человеком, которого хотят нанять, удержать и рекомендовать.",
-      speakers: [{ name: "Миша Таби", org: "Веб и бренд-дизайнер" }],
+      speakers: [{ name: "Миша Таби", org: "Веб и бренд-дизайнер", photo: "https://static.tildacdn.com/stor3232-3432-4764-b532-353938363766/ec486022f6a9bff23abc321f7b361e3d.png" }],
       links: {
         telegram: "https://t.me/hellomishatabi",
         message: "https://t.me/mishatabi",
@@ -885,7 +886,7 @@ window.SCHEDULE = {
       end: "17:00",
       title: "Веб-дизайн. Почему его снова достали, отряхнули и сдули пыль в 21-м веке. Как с этим жить?",
       description: "На лекции разберем, почему брутализм, хаос и эстетика 2000-х триумфально вернулись в XXI век и как бренды используют цифровую ностальгию. Вы узнаете, как No-code и нейросети убили рутину, превратив дизайнера в режиссера эмоций. И главное — как ломать правила интерфейсов ради креатива, не теряя бизнес-метрики.",
-      speakers: [{ name: "Дмитрий Волков", org: "ФАУ НИА" }],
+      speakers: [{ name: "Дмитрий Волков", org: "ФАУ НИА", photo: "https://static.tildacdn.com/stor3166-3233-4534-a663-333965643466/0d1f1339e7162936c0d453d2d10b67b6.jpg" }],
       links: {
         telegram: "https://t.me/volkovtalks",
         message: "",
@@ -901,7 +902,7 @@ window.SCHEDULE = {
       end: "18:00",
       title: "Без испорченного телефона: как дизайнер начал продавать дизайн сам",
       description: "В нашем агентстве продают дизайнеры. Не потому, что мы превратили их в менеджеров, а потому, что стало очевидно, что между запросом клиента и тем, что в итоге предлагала команда, слишком часто возникал «испорченный телефон».",
-      speakers: [{ name: "Анастасия Лагода", org: "ООО «Онпик»" }],
+      speakers: [{ name: "Анастасия Лагода", org: "ООО «Онпик»", photo: "https://static.tildacdn.com/stor6336-6263-4634-b937-336236303731/abe2214a4caaa12aa89ac0f69aaa635d.jpg" }],
       links: {
         telegram: "https://t.me/lagoda_des",
         message: "",
@@ -917,7 +918,7 @@ window.SCHEDULE = {
       end: "19:00",
       title: "Смотри, могу без рук",
       description: "Веб-дизайн долго жил как отдельная профессия — со своими инструментами, правилами и ограничениями. Сейчас просто красиво и правильно собрать страницу уже мало. Поэтому в веб всё чаще заходят из брендинга, графдизайна и креатива. Где без веб-дизайнера правда никуда, а где сайт становится интереснее, когда его начинают придумывать не с веба? И что происходит, когда веб-дизайнера в проекте вообще нет.",
-      speakers: [{ name: "Алина Васильева", org: "Depot" }],
+      speakers: [{ name: "Алина Васильева", org: "Depot", photo: "https://static.tildacdn.com/stor3132-6337-4635-b737-393438363066/709099f52c4188de6d29904504e03e4e.jpg" }],
       links: {
         telegram: "https://t.me/fio1etovo",
         message: "",
@@ -933,7 +934,7 @@ window.SCHEDULE = {
       end: "20:00",
       title: "Мы договорились. Но каждый о своём. Как собрать цельный дизайн-проект",
       description: "Как собрать цельный дизайн-проект, когда у команд разные представления о сроках, качестве и ответственности",
-      speakers: [{ name: "Виктория Барабанова", org: "from scratch_" }],
+      speakers: [{ name: "Виктория Барабанова", org: "from scratch_", photo: "https://static.tildacdn.com/stor3333-3662-4733-a261-393334336530/c29cfe479c8fbf71051f14d22a2d297e.webp" }],
       links: {
         telegram: "https://t.me/ohwowux",
         message: "https://t.me/gingervic",
@@ -949,7 +950,7 @@ window.SCHEDULE = {
       start: "12:00",
       end: "12:30",
       title: "Что делать редактору, если он устал от текстов и редактуры",
-      speakers: [{ name: "Евгений Волохин", org: "Стая22" }],
+      speakers: [{ name: "Евгений Волохин", org: "Стая22", photo: "https://static.tildacdn.com/stor6236-3230-4666-b636-393630323639/97d717f275d69757db563e94c02767b3.jpg" }],
       links: {
         telegram: "https://t.me/leadofcringejobs",
         message: "https://t.me/komradsql",
@@ -964,7 +965,7 @@ window.SCHEDULE = {
       start: "12:30",
       end: "13:00",
       title: "Как писать нестандартные UX-тексты, которые всем нравятся",
-      speakers: [{ name: "Кристина Попова", org: "Wildberries & Russ" }],
+      speakers: [{ name: "Кристина Попова", org: "Wildberries & Russ", photo: "https://static.tildacdn.com/stor3739-3562-4234-a162-313262323732/33695c07b3f6fe3c8769fce33e05740b.png" }],
       links: {
         telegram: "",
         message: "",
@@ -979,7 +980,7 @@ window.SCHEDULE = {
       start: "13:00",
       end: "13:30",
       title: "UX-тексты за пределами смартфона: опыт касс самообслуживания",
-      speakers: [{ name: "Дарья Адамова", org: "Магнит OMNI" }],
+      speakers: [{ name: "Дарья Адамова", org: "Магнит OMNI", photo: "https://static.tildacdn.com/stor3264-3164-4161-b631-306433653065/ddf463832246fa6b5387679ddd9b6901.png" }],
       links: {
         telegram: "",
         message: "",
@@ -994,7 +995,7 @@ window.SCHEDULE = {
       start: "13:30",
       end: "14:00",
       title: "Зачем нам интерфейс в интерфейсе: вы тоже захотите",
-      speakers: [{ name: "Настя Кожаева", org: "Ozon" }],
+      speakers: [{ name: "Настя Кожаева", org: "Ozon", photo: "https://static.tildacdn.com/stor3661-6663-4361-b763-663633643862/f0fe7296c2e563f1323cf88592581d31.png" }],
       links: {
         telegram: "https://t.me/lettersandlines",
         message: "",
@@ -1009,7 +1010,7 @@ window.SCHEDULE = {
       start: "14:00",
       end: "14:30",
       title: "Да это всё равно никто не читает: как писать тексты для геймификации",
-      speakers: [{ name: "Толя Горовенко", org: "Магнит OMNI" }],
+      speakers: [{ name: "Толя Горовенко", org: "Магнит OMNI", photo: "https://static.tildacdn.com/stor3862-6462-4363-b163-353631306433/6dd88195b59663372ad070e77be21f6e.png" }],
       links: {
         telegram: "",
         message: "",
@@ -1024,7 +1025,7 @@ window.SCHEDULE = {
       start: "14:30",
       end: "15:00",
       title: "Становимся БОССами: как найти опору в профессии в условиях турбулентности",
-      speakers: [{ name: "Юля Рысь", org: "Совкомбанк" }],
+      speakers: [{ name: "Юля Рысь", org: "Совкомбанк", photo: "https://static.tildacdn.com/stor3233-3337-4133-b162-323534353832/d63409bc642070176e19eb0c5cae3bc9.png" }],
       links: {
         telegram: "https://t.me/uxlynx",
         message: "",
@@ -1039,7 +1040,7 @@ window.SCHEDULE = {
       start: "15:00",
       end: "15:30",
       title: "Редполитика не аргумент: когда правила делают текст хуже",
-      speakers: [{ name: "Иван Бутенко", org: "Совкомбанк" }],
+      speakers: [{ name: "Иван Бутенко", org: "Совкомбанк", photo: "https://static.tildacdn.com/stor3263-3661-4932-b435-376262303865/4295c05b93827d241e7a3b86b1bb3a7a.png" }],
       links: {
         telegram: "https://t.me/blablabutenko",
         message: "https://t.me/butenkoii",
@@ -1054,7 +1055,7 @@ window.SCHEDULE = {
       start: "15:30",
       end: "16:00",
       title: "Самонейминг. Придумать, чтоб работало",
-      speakers: [{ name: "Анатолий Татауров", org: "Однимсловом" }],
+      speakers: [{ name: "Анатолий Татауров", org: "Однимсловом", photo: "https://static.tildacdn.com/stor3335-3932-4662-b562-383262343337/0f073d5604c2f40fa8ed52941591151a.png" }],
       links: {
         telegram: "https://t.me/odnimslovom_naming",
         message: "",
@@ -1069,7 +1070,7 @@ window.SCHEDULE = {
       start: "16:00",
       end: "16:30",
       title: "Рынок найма: все ли поломалось и что с этим делать?",
-      speakers: [{ name: "Коля Муравьёв", org: "LB Agency" }],
+      speakers: [{ name: "Коля Муравьёв", org: "LB Agency", photo: "https://static.tildacdn.com/stor6136-6262-4131-a131-303432653634/75cf1d081dd261f8206f283ab6e0bbc2.png" }],
       links: {
         telegram: "https://t.me/copywritingMur",
         message: "https://t.me/elshun",
@@ -1084,7 +1085,7 @@ window.SCHEDULE = {
       start: "16:30",
       end: "17:00",
       title: "Промпт и его мальчик",
-      speakers: [{ name: "Соня Львова", org: "Билайн" }],
+      speakers: [{ name: "Соня Львова", org: "Билайн", photo: "https://static.tildacdn.com/stor3336-3664-4239-b537-616530646537/52020528.jpg" }],
       links: {
         telegram: "https://t.me/uxw_sobor",
         message: "https://t.me/seeuspacecowboy",
@@ -1099,7 +1100,7 @@ window.SCHEDULE = {
       start: "17:00",
       end: "17:30",
       title: "Тишейповость в мире текста",
-      speakers: [{ name: "Илья Поликарпов", org: "Дизайнер" }],
+      speakers: [{ name: "Илья Поликарпов", org: "Дизайнер", photo: "https://static.tildacdn.com/stor3833-3734-4832-b134-383134316630/ccd26bc6dd1dceb6dc6b5372a3cac5f1.png" }],
       links: {
         telegram: "https://t.me/proeditor_figma",
         message: "",
@@ -1114,7 +1115,7 @@ window.SCHEDULE = {
       start: "17:30",
       end: "18:00",
       title: "Если ИИ уже умеет писать, за что мы платим редактору?",
-      speakers: [{ name: "Полина Тодорова", org: "ВТБ" }],
+      speakers: [{ name: "Полина Тодорова", org: "ВТБ", photo: "https://static.tildacdn.com/stor6133-6266-4561-b231-616633313165/3d07447927077779f0bf8514305762f4.webp" }],
       links: {
         telegram: "",
         message: "",
@@ -1129,7 +1130,7 @@ window.SCHEDULE = {
       start: "18:00",
       end: "18:30",
       title: "Превращаем редполитику в граф знаний для AI-агента",
-      speakers: [{ name: "Лёша Фирсов", org: "ВТБ" }],
+      speakers: [{ name: "Лёша Фирсов", org: "ВТБ", photo: "https://static.tildacdn.com/stor3038-3938-4432-a539-373239323831/1ff42d0ebebf1dfbe4ba5de6c590985c.png" }],
       links: {
         telegram: "https://t.me/solomkr",
         message: "",
@@ -1144,7 +1145,7 @@ window.SCHEDULE = {
       start: "18:30",
       end: "19:00",
       title: "О чём я думаю, когда выхожу на смену в общепите",
-      speakers: [{ name: "Екатерина Ушакова", org: "Руководитель" }],
+      speakers: [{ name: "Екатерина Ушакова", org: "Руководитель", photo: "https://static.tildacdn.com/stor6639-3937-4763-b131-656361393766/270e59da7c0f310c90b2b8dce1eb617a.png" }],
       links: {
         telegram: "",
         message: "",
@@ -1161,7 +1162,7 @@ window.SCHEDULE = {
       kind: "panel",
       title: "Спор об идеальных процессах в редакциях",
       description: "Есть ли идеальный процесс работы редакции — или у каждой команды свой? Сравним подходы, поспорим о том, что действительно работает, и разберем реальные практики в компаниях. Приходите делиться своим опытом, задавать вопросы коллегам и забирать идеи в свои команды",
-      speakers: [{ name: "Даша Барыльникова", role: "модератор" }],
+      speakers: [{ name: "Даша Барыльникова", role: "модератор", photo: "https://static.tildacdn.com/stor3337-3262-4064-a265-376530396162/e1a84430fc7c113f4f4c358bc9ce0a3c.png" }],
       links: {
         telegram: "",
         message: "",
@@ -1177,7 +1178,7 @@ window.SCHEDULE = {
       start: "12:00",
       end: "12:30",
       title: "Сарафан.фм — как фрилансеру настроить своё радио так, чтобы его запоминали и рекомендовали",
-      speakers: [{ name: "Саша Коченко", org: "Дизайнер" }],
+      speakers: [{ name: "Саша Коченко", org: "Дизайнер", photo: "https://static.tildacdn.com/stor6263-3363-4535-a362-343638396436/f5b0b975cf17919d2e74f7d5bc47c985.jpg" }],
       links: {
         telegram: "https://t.me/chto_nadelala",
         message: "https://t.me/sashakchh",
@@ -1192,7 +1193,7 @@ window.SCHEDULE = {
       start: "12:30",
       end: "13:00",
       title: "Как превратить насмотренность в видение проекта и создавать решения, которые принимают с первого раза",
-      speakers: [{ name: "Анастасия Васильева", org: "ИДЕНТИКА" }],
+      speakers: [{ name: "Анастасия Васильева", org: "ИДЕНТИКА", photo: "https://static.tildacdn.com/stor6633-6233-4862-b466-636539663263/33b595de9bc0790f9588612a53bf0c6d.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1208,7 +1209,7 @@ window.SCHEDULE = {
       end: "14:00",
       title: "Любовь живёт три года? 11 способов не превратить любимую профессию в конвейер",
       description: "В докладе поделюсь 11 принципами, которые помогают мне спустя годы не превращаться в дизайн-конвейер: где искать новые точки роста, как сохранять любопытство и развивать насмотренность.",
-      speakers: [{ name: "София Бакланова", org: "Krona Studio&School" }],
+      speakers: [{ name: "София Бакланова", org: "Krona Studio&School", photo: "https://static.tildacdn.com/stor3163-6238-4436-a234-396464363564/d7d5b8ee30d354de18c3b64504d1ab2e.jpg" }],
       links: {
         telegram: "https://t.me/blondindesign",
         message: "",
@@ -1224,7 +1225,7 @@ window.SCHEDULE = {
       end: "15:00",
       title: "Фриланс без стресса",
       description: "Как все успеть и не выгореть на фрилансе, как считать деньги, планировать своё время и где найти баланс между личным и рабочим.",
-      speakers: [{ name: "Алина Масленникова", org: "Вольный дизайнер" }],
+      speakers: [{ name: "Алина Масленникова", org: "Вольный дизайнер", photo: "https://static.tildacdn.com/stor6631-3033-4336-b332-633431643863/d7207f279c9ea6ae27439ea2dc469e1b.jpg" }],
       links: {
         telegram: "https://t.me/zndsgnr",
         message: "https://t.me/maslennikova_alina",
@@ -1240,7 +1241,7 @@ window.SCHEDULE = {
       end: "16:00",
       title: "Как перестать делать руками то, что можно автоматизировать",
       description: "Лекция о том, как переложить монотонную работу на алгоритмы и создавать софт под свои процессы. Разберём практику: написание микро-скриптов и полноценных плагинов в Figma, пакетную обработку макетов в Photoshop, процедурный 3D в Blender, HTML-генераторы айдентики и веб-утилиты для Reels. Без заумного кода и с фокусом на дизайн.",
-      speakers: [{ name: "Кирилл Никонов", org: "SLOY" }],
+      speakers: [{ name: "Кирилл Никонов", org: "SLOY", photo: "https://static.tildacdn.com/stor3134-3338-4838-b063-316238656439/a7586f9c68ddec68a3a990589f9f60a8.webp" }],
       links: {
         telegram: "https://t.me/trafaret_for_design",
         message: "https://t.me/kinnightt",
@@ -1255,7 +1256,7 @@ window.SCHEDULE = {
       start: "16:00",
       end: "16:30",
       title: "Кладбище дизайн-концептов. 5 причин гибели ваших идей",
-      speakers: [{ name: "Катерина Белова", org: "Далее" }],
+      speakers: [{ name: "Катерина Белова", org: "Далее", photo: "https://static.tildacdn.com/stor3962-3936-4830-b039-623535303338/0bcba231509387d254984d1ef9b632b2.jpg" }],
       links: {
         telegram: "https://t.me/seemslikekate",
         message: "https://t.me/b_ktrn",
@@ -1270,7 +1271,7 @@ window.SCHEDULE = {
       start: "16:30",
       end: "17:00",
       title: "Стыдно, но оплачено: как пережить правки заказчика и не потерять ни деньги, ни нервы",
-      speakers: [{ name: "Виктория Хортер", org: "Специалист по презентациям" }],
+      speakers: [{ name: "Виктория Хортер", org: "Специалист по презентациям", photo: "https://static.tildacdn.com/stor6566-6362-4830-a665-386136663432/ba627eb91f53d42f7a57bb4f1b47ecb9.jpg" }],
       links: {
         telegram: "https://t.me/effectiveprez",
         message: "",
@@ -1286,7 +1287,7 @@ window.SCHEDULE = {
       end: "18:00",
       title: "Дизайн своего состояния",
       description: "Что делать, если наступает ступор. Вдохновение по расписанию: миф или реальность.",
-      speakers: [{ name: "Антон Шапоренко", org: "Креативный директор" }],
+      speakers: [{ name: "Антон Шапоренко", org: "Креативный директор", photo: "https://static.tildacdn.com/stor6364-6638-4164-a138-313438376166/92d088f82b1be33498ebc7d14f34e9ee.jpg" }],
       links: {
         telegram: "https://t.me/mindscale",
         message: "",
@@ -1301,7 +1302,7 @@ window.SCHEDULE = {
       start: "18:00",
       end: "18:30",
       title: "Как дизайнеру быть юридически грамотным?",
-      speakers: [{ name: "Валерия Пономарева", org: "Независимый бренд-дизайнер" }],
+      speakers: [{ name: "Валерия Пономарева", org: "Независимый бренд-дизайнер", photo: "https://static.tildacdn.com/stor3935-3433-4437-b065-666332323161/c8a61477c8b7b1cda702ab545dc9275e.jpg" }],
       links: {
         telegram: "https://t.me/valeriawcreaator",
         message: "https://t.me/valeriawcreator",
@@ -1317,8 +1318,8 @@ window.SCHEDULE = {
       end: "19:00",
       title: "Маленькая дизайн-студия между агентством, фрилансом и хаосом",
       speakers: [
-        { name: "Настя Страхова", org: "ЮНО" },
-        { name: "Настя Килундина", org: "ЮНО" },
+        { name: "Настя Страхова", org: "ЮНО", photo: "https://static.tildacdn.com/stor6639-3562-4133-a237-393065316563/16df0e66a4248b88931556a30627ee1d.jpg" },
+        { name: "Настя Килундина", org: "ЮНО", photo: "https://static.tildacdn.com/stor3238-6261-4633-a332-343832346637/7c8495e1ca258367107b44f1823480d8.jpg" },
       ],
       links: {
         telegram: "https://t.me/yunoagency",
@@ -1335,7 +1336,7 @@ window.SCHEDULE = {
       end: "20:00",
       title: "Создаём кейсы, которые забирают награды",
       description: "Разберём весь путь кейса: от выбора проекта и первых слайдов до наград, охватов и продвижения студии. На примере SLOY покажу, как мы подходим к упаковке проектов, работаем с дизайн-платформами и превращаем кейсы в один из главных инструментов PR.",
-      speakers: [{ name: "Руслан Гаджиев", org: "SLOY" }],
+      speakers: [{ name: "Руслан Гаджиев", org: "SLOY", photo: "https://static.tildacdn.com/stor3830-3137-4639-a134-633434663164/5bfd440763affdaa8585b1a31c36dfdd.png" }],
       links: {
         telegram: "https://t.me/oruslo",
         message: "https://t.me/gadrusl",
@@ -1368,7 +1369,7 @@ window.SCHEDULE = {
       start: "12:00",
       end: "13:00",
       title: "Контент-маркетинг сегодня: что случилось, что осталось и что делать: для себя, своих заказчиков и для души",
-      speakers: [{ name: "Максим Ильяхов", org: "Редактор, автор «Главреда»" }],
+      speakers: [{ name: "Максим Ильяхов", org: "Редактор, автор «Главреда»", photo: "https://static.tildacdn.com/stor6539-6536-4631-a162-393033623535/bcd14f9b28811132fb4c728fcc94da92.jpg" }],
       links: {
         telegram: "https://t.me/glvrdru",
         message: "",
@@ -1384,7 +1385,7 @@ window.SCHEDULE = {
       end: "14:00",
       title: "Пять слов о дизайне",
       description: "На лекции разведём пять слов по пяти вопросам к работе и покажем, как они связаны между собой. Потом превратим эти вопросы в порядок проектирования, в способ разбирать чужую работу и в диагностику макета, который «не сходится». Поговорим и о том, почему классической типографике хватало двух слов, а интерфейсу нужно пять. И о том, почему точные термины стали рабочим инструментом в разговоре с командой и с нейросетью.",
-      speakers: [{ name: "Сергей Гуров", org: "Творческий руководитель" }],
+      speakers: [{ name: "Сергей Гуров", org: "Творческий руководитель", photo: "https://static.tildacdn.com/stor3435-3162-4161-b537-343734356532/82520367.jpg" }],
       links: {
         telegram: "https://t.me/gurovplus",
         message: "",
@@ -1399,7 +1400,7 @@ window.SCHEDULE = {
       start: "14:00",
       end: "15:00",
       title: "Зовут нас Работяги. Как мы открыли студию в 2026 и почему сейчас лучшее время",
-      speakers: [{ name: "Антон Черногоров", org: "Студия «Работяги»" }],
+      speakers: [{ name: "Антон Черногоров", org: "Студия «Работяги»", photo: "https://static.tildacdn.com/stor6165-3265-4133-b433-386264353836/42004977.jpg" }],
       links: {
         telegram: "https://t.me/uirefs",
         message: "https://t.me/achernogorov",
@@ -1415,7 +1416,7 @@ window.SCHEDULE = {
       end: "16:00",
       title: "Эмержентность дизайна. Что остаётся дизайнеру, когда метод и машина сделали всё правильно",
       description: "Можно выучить инструменты, освоить методологии, собрать дизайн-систему и сделать всё по правилам — и получить решение, которое ничего не меняет. Почему? Где живёт качество: в компонентах, в методе или где‑то между? Чем оправдание решения отличается от его объяснения? Если нейросеть собирает по правилам лучше нас, что остаётся дизайнеру? Поговорим о частях и целом — и о том, зачем дизайнеру физика.",
-      speakers: [{ name: "Ян Зарецкий", org: "МТС" }],
+      speakers: [{ name: "Ян Зарецкий", org: "МТС", photo: "https://static.tildacdn.com/stor3234-6139-4861-b537-653335653433/3cd510f73482514ca616658398491cd2.jpg" }],
       links: {
         telegram: "https://t.me/munkdesign",
         message: "https://t.me/munkdsgn",
@@ -1431,7 +1432,7 @@ window.SCHEDULE = {
       end: "17:00",
       title: "Создаём новые миры в кино — и не только",
       description: "Разбираемся, как придумывать бренды и визуальный реквизит киновселенных.",
-      speakers: [{ name: "Егор Мызник", org: "Пленум" }],
+      speakers: [{ name: "Егор Мызник", org: "Пленум", photo: "https://static.tildacdn.com/stor6235-6264-4332-b866-376433666338/41988259.jpg" }],
       links: {
         telegram: "https://t.me/designtimeline",
         message: "https://t.me/vonshnauzer",
@@ -1446,7 +1447,7 @@ window.SCHEDULE = {
       start: "17:00",
       end: "18:00",
       title: "Мечтают ли альтушки об электросайтах? Или как становятся настоящими дизайнерами",
-      speakers: [{ name: "Влад Меркулов", org: "Beta Disrupt" }],
+      speakers: [{ name: "Влад Меркулов", org: "Beta Disrupt", photo: "https://static.tildacdn.com/stor3264-6533-4234-a130-306131333338/87357489.jpg" }],
       links: {
         telegram: "https://t.me/betamoscow",
         message: "",
@@ -1462,7 +1463,7 @@ window.SCHEDULE = {
       end: "19:00",
       title: "Управляемая генерация изображений и видео",
       description: "Поделимся опытом как создавать креативные пайплайны со встроенным бренд-контролем, автоматизировать рутину и оставлять ключевые решения за собой.",
-      speakers: [{ name: "Иван Сайгин", org: "CEO «Очень»" }],
+      speakers: [{ name: "Иван Сайгин", org: "CEO «Очень»", photo: "https://static.tildacdn.com/stor3263-3033-4363-b337-333131396539/8d0ee9618f3562628734b02ccb295582.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1478,7 +1479,7 @@ window.SCHEDULE = {
       end: "20:00",
       title: "Работа руками",
       description: "Карьерный рост в креативных индустриях часто понимают слишком буквально: сильный специалист со временем должен перейти от практики к управлению, медленно и верно забывая ту самую работу руками. И по большей части именно этому и будет посвящён рассказ. А ещё я расскажу про профессиональную и человеческую идентичность, рыбов‑клоунов, музей плохого искусства в Новосибирске, арку трёх очень важных художников, разницу между нефорами и нормисами и, конечно, жонглирование как самую буквальную иллюстрацию «работы руками».",
-      speakers: [{ name: "Владимир Лифанов", org: "Супрематика" }],
+      speakers: [{ name: "Владимир Лифанов", org: "Супрематика", photo: "https://static.tildacdn.com/stor6533-6238-4965-b534-366361393165/13384285.jpg" }],
       links: {
         telegram: "https://t.me/blackbeatlesinmyhead",
         message: "",
@@ -1495,7 +1496,7 @@ window.SCHEDULE = {
       end: "13:00",
       title: "Управление проектами или как говорить с менеджерами на одном языке",
       description: "Поговорим о том, как дизайнеру работать с менеджером и арт-директором, оценивать сроки, использовать трекеры и Kanban, задавать вопросы к брифу, показывать промежуточные решения, заранее замечать риски и правильно работать с обратной связью. На реальных рабочих ситуациях посмотрим, почему проблемы в проектах неизбежны и как выстроить процесс так, чтобы они не превращались в хаос и бесконечные переделки.",
-      speakers: [{ name: "Антон Панкратов", org: "HADAT" }],
+      speakers: [{ name: "Антон Панкратов", org: "HADAT", photo: "https://static.tildacdn.com/stor6563-3538-4733-b062-643263306637/351f83aa7197ea6d197b68cc690c25ed.jpg" }],
       links: {
         telegram: "https://t.me/pank_techer",
         message: "",
@@ -1510,7 +1511,7 @@ window.SCHEDULE = {
       start: "13:00",
       end: "13:30",
       title: "Дизайн на чужой кухне. Как создать интерфейс там, где его не ждут",
-      speakers: [{ name: "Мария Загорская", org: "ВТБ" }],
+      speakers: [{ name: "Мария Загорская", org: "ВТБ", photo: "https://static.tildacdn.com/stor3934-3735-4363-b634-366365633637/26b9d631754e48c1f18a96a2de66a8f1.jpg" }],
       links: {
         telegram: "https://t.me/mzagorskaya",
         message: "https://t.me/mmaria_zagorskaya",
@@ -1525,7 +1526,7 @@ window.SCHEDULE = {
       start: "13:30",
       end: "14:00",
       title: "Три командные креветки. Как выстроить работу команд на горящих проектах",
-      speakers: [{ name: "Аврора Пахомова", org: "Далее × Сбер" }],
+      speakers: [{ name: "Аврора Пахомова", org: "Далее × Сбер", photo: "https://static.tildacdn.com/stor3535-6532-4365-a337-376230303536/5471f3775b16ae4855f0c125de2ac220.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1541,7 +1542,7 @@ window.SCHEDULE = {
       end: "15:00",
       title: "2026 — Ренессанс дизайна",
       description: "В этом году компьютер стал по‑настоящему персональным. Виток развития технологий и инструментов создали среду подталкивавшую людей к творчеству. Дизайн стал таким же разнообразным как в эпоху «юного интернета», который любят вспоминать за разнообразие технологий и буйство визуальное. Мы на пороге ещё большего разнообразия. И хорошего дизайна",
-      speakers: [{ name: "Сергей Томилов", org: "Яндекс Музыка" }],
+      speakers: [{ name: "Сергей Томилов", org: "Яндекс Музыка", photo: "https://static.tildacdn.com/stor6632-6238-4563-b631-356536316333/69f9112489fe69e1017ede9c282ee6bb.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1557,7 +1558,7 @@ window.SCHEDULE = {
       end: "16:00",
       title: "Дизайнеры, пора взрослеть. Как сделать, чтобы к тебе прислушивались",
       description: "Лекция о том, как дизайнеру перестроить свое мышление, увидеть стратегический и тактический уровни управления и научиться находить правильные аргументы в защиту дизайн-решений.",
-      speakers: [{ name: "Андрей Богданов", org: "МТС Банк" }],
+      speakers: [{ name: "Андрей Богданов", org: "МТС Банк", photo: "https://static.tildacdn.com/stor3139-3939-4130-b866-333738396432/f74e4bf7516628221e7aa4a40d759908.jpg" }],
       links: {
         telegram: "https://t.me/na_produkte",
         message: "https://t.me/ay_bogdanov",
@@ -1572,7 +1573,7 @@ window.SCHEDULE = {
       start: "16:00",
       end: "16:30",
       title: "Перестаём сотрясать воздух словами про плохой CX, делать UX-исследования в стол, макеты — больше для портфолио",
-      speakers: [{ name: "Артём Могилин", org: "МТС Банк" }],
+      speakers: [{ name: "Артём Могилин", org: "МТС Банк", photo: "https://static.tildacdn.com/stor3962-3832-4363-b665-323734386638/e77371d09863ff0374b23b44f85cfc63.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1587,7 +1588,7 @@ window.SCHEDULE = {
       start: "16:30",
       end: "17:00",
       title: "То ли лид, то ли дизайнер, то ли видение. Биполярка в беспроцессных процессах",
-      speakers: [{ name: "Татьяна Скопич", org: "МТС" }],
+      speakers: [{ name: "Татьяна Скопич", org: "МТС", photo: "https://static.tildacdn.com/stor6364-6133-4238-b538-366438643461/389602f80bc5c36505ea53ec64ce5180.jpg" }],
       links: {
         telegram: "https://t.me/dadyanablog",
         message: "",
@@ -1603,7 +1604,7 @@ window.SCHEDULE = {
       end: "18:00",
       title: "Вертикальный рост дизайнера. Как построить дизайн-команду внутри компании с нуля или стать центром экспертизы, если ты один",
       description: "Опыт перехода компании от агентского подряда на in-house команду: как ломаются старые и строятся новые процессы, как работать с сопротивлением переменам, как строить взаимодействие внутри команды и с смежными отделами, какие боли и проблемы возникают на пути и как с ними справляться.",
-      speakers: [{ name: "Екатерина Мальцева", org: "ЛАДА Цифра" }],
+      speakers: [{ name: "Екатерина Мальцева", org: "ЛАДА Цифра", photo: "https://static.tildacdn.com/stor3938-3435-4062-b735-346131323064/35eaf39b651e8a3a275b80a007737803.png" }],
       links: {
         telegram: "",
         message: "",
@@ -1618,7 +1619,7 @@ window.SCHEDULE = {
       start: "18:00",
       end: "18:30",
       title: "Не макет, а продукт: зачем дизайнеру понимать разработку",
-      speakers: [{ name: "Елизавета Красавина", org: "Яндекс Еда" }],
+      speakers: [{ name: "Елизавета Красавина", org: "Яндекс Еда", photo: "https://static.tildacdn.com/stor6234-3738-4466-b664-616466636663/eb2b0f0bc6f547f2989766f787b674a5.jpg" }],
       links: {
         telegram: "",
         message: "https://t.me/e_krasavina",
@@ -1633,7 +1634,7 @@ window.SCHEDULE = {
       start: "18:30",
       end: "19:00",
       title: "Сбежавший арт-директор: что делать, когда старую систему уже не спасти, а на новую нет сил",
-      speakers: [{ name: "Полина Волкова", org: "Агентство N" }],
+      speakers: [{ name: "Полина Волкова", org: "Агентство N", photo: "https://static.tildacdn.com/stor3232-6561-4463-a636-343164666336/e1abc7192f0891f7706b9b12876f14af.jpg" }],
       links: {
         telegram: "https://t.me/must_show_this",
         message: "",
@@ -1649,7 +1650,7 @@ window.SCHEDULE = {
       end: "20:00",
       title: "Без вас ничего не развалится. Как построить базу знаний для дизайн-команды и перестать быть единственным, кто знает, что делать",
       description: "В докладе расскажу о методе «Живых регламентов» — разработке базы знаний на стыке ИТ-продукта и контент-маркетинга. Покажу, как собрать экспертизу, как её оформить и как привить сотрудникам привычку пользоваться базой знаний.",
-      speakers: [{ name: "Елизавета Смоленкова", org: "Опись" }],
+      speakers: [{ name: "Елизавета Смоленкова", org: "Опись", photo: "https://static.tildacdn.com/stor3362-3739-4634-b537-363737613536/6d306dc37b9097b60744efbcb85fa69b.png" }],
       links: {
         telegram: "https://t.me/callsmolenkova",
         message: "https://t.me/smolisenka",
@@ -1665,7 +1666,7 @@ window.SCHEDULE = {
       start: "12:00",
       end: "12:30",
       title: "То, что вы называете брендом, на самом деле торговая марка!",
-      speakers: [{ name: "Лена Дождикова", org: "Дождик Дизайн" }],
+      speakers: [{ name: "Лена Дождикова", org: "Дождик Дизайн", photo: "https://static.tildacdn.com/stor3931-3831-4632-a364-393030346538/c052afb833fab82018e2e8419045161e.jpg" }],
       links: {
         telegram: "https://t.me/dozdesign",
         message: "https://t.me/ElenaDozhdikova",
@@ -1680,7 +1681,7 @@ window.SCHEDULE = {
       start: "12:30",
       end: "13:00",
       title: "«Блошиный рынок или олимп дизайна?» Вся правда о конкурсе «Золотая Блоха» от первого лица",
-      speakers: [{ name: "Виктор Сумароков", org: "Организатор конкурса «Золотая Блоха»" }],
+      speakers: [{ name: "Виктор Сумароков", org: "Организатор конкурса «Золотая Блоха»", photo: "https://static.tildacdn.com/stor6534-3530-4262-a166-613530393536/ff985dfd14b106766e7113ee5373edea.png" }],
       links: {
         telegram: "",
         message: "",
@@ -1696,7 +1697,7 @@ window.SCHEDULE = {
       end: "14:00",
       title: "Сенсорный дефицит в диджитал-эпоху: возвращение тепла в дизайн упаковки",
       description: "Экраны победили? Но полка магазина снова апеллирует к физиологии. Нейроэстетика и тактильность для дизайнеров, которые хотят оставаться «материальными» в мире пикселей. Практические инструменты, помогающих дизайнеру, выросшему в Figma, использовать тактильность, как главный дифференциатор.",
-      speakers: [{ name: "Анна Ком", org: "WIZART Polygraphic" }],
+      speakers: [{ name: "Анна Ком", org: "WIZART Polygraphic", photo: "https://static.tildacdn.com/stor3435-6537-4531-b363-343265353536/3e3dcdc3b0c387a91f7dbb7b0750f38c.png" }],
       links: {
         telegram: "https://t.me/wizartpolygraphic",
         message: "",
@@ -1712,7 +1713,7 @@ window.SCHEDULE = {
       end: "15:00",
       title: "Текст — это изображение",
       description: "На лекции поговорим о том, как дизайнер работает с текстом не только как с языком, но и как с визуальным материалом. Разберём на наших кейсах, как типографика формирует первое впечатление, как форма букв влияет на смысл, почему композиция текста может работать как изображение и каким образом визуальная иерархия управляет нашим вниманием.",
-      speakers: [{ name: "Виктория Трубицина", org: "Dotorg" }],
+      speakers: [{ name: "Виктория Трубицина", org: "Dotorg", photo: "https://static.tildacdn.com/tild6166-3439-4861-b938-393264353666/Victoria_Trubitsina_.png" }],
       links: {
         telegram: "https://t.me/pickmecover",
         message: "",
@@ -1727,7 +1728,7 @@ window.SCHEDULE = {
       start: "15:00",
       end: "15:30",
       title: "Ошибки в коммуникационном дизайне в ходе прохождения проекта",
-      speakers: [{ name: "Иван Клейменичев", org: "Метафора брендинг" }],
+      speakers: [{ name: "Иван Клейменичев", org: "Метафора брендинг", photo: "https://static.tildacdn.com/stor3664-3930-4139-b031-323330646438/0bfe96a1a315e2ece4169b05fdcd52ab.png" }],
       links: {
         telegram: "",
         message: "",
@@ -1742,7 +1743,7 @@ window.SCHEDULE = {
       start: "15:30",
       end: "16:00",
       title: "Дизайн, блин!",
-      speakers: [{ name: "Александра Кашенцева", org: "Супрематика" }],
+      speakers: [{ name: "Александра Кашенцева", org: "Супрематика", photo: "https://static.tildacdn.com/stor3532-6163-4637-a166-396363353463/a55c2beb631fafa232ec6f8f5673ba4b.jpg" }],
       links: {
         telegram: "",
         message: "https://t.me/librokubikularist",
@@ -1758,7 +1759,7 @@ window.SCHEDULE = {
       end: "17:00",
       title: "Национальный дизайн. Как понять трушный дизайн страны в мире, где все культуры перемешались?",
       description: "Поговорим про то, что общего можно найти исследуя Стамбул, Токио, Париж и Петербург, раскроем тему глобальных визуальных языков, на практике посмотрим на дизайн-штуки со всего мира. Ну и самое главное — разберём как как люди в разных культурах привыкли доносить идеи, выражать протест, взаимодействовать с информацией и друг с другом",
-      speakers: [{ name: "Полина Егорова", org: "Дизайнер" }],
+      speakers: [{ name: "Полина Егорова", org: "Дизайнер", photo: "https://static.tildacdn.com/stor3230-3263-4235-b139-393364393563/88cc797742373ea1c711d7acb96c6b90.webp" }],
       links: {
         telegram: "https://t.me/polishkapindrik",
         message: "",
@@ -1775,9 +1776,9 @@ window.SCHEDULE = {
       title: "Ренессанс плакатов как массового жанра",
       description: "Спикеры поделятся опытом проектов, связанных с плакатной культурой",
       speakers: [
-        { name: "Михаил Ковалёв", org: "АСК Форвард" },
-        { name: "Никита Лукинский", org: "Унежить душу" },
-        { name: "Дмитрий Терехов", org: "Арт-директор" },
+        { name: "Михаил Ковалёв", org: "АСК Форвард", photo: "https://static.tildacdn.com/stor6238-3034-4763-a230-386465613738/1cbbe457c6c33246da090f8debab8624.jpg" },
+        { name: "Никита Лукинский", org: "Унежить душу", photo: "https://static.tildacdn.com/stor3630-6165-4461-b065-626364316266/14b0afc81d7b83d4a00474dc3e574a21.jpg" },
+        { name: "Дмитрий Терехов", org: "Арт-директор", photo: "https://static.tildacdn.com/stor3239-3765-4062-a633-323664306435/948aa6f9a4a848a2db53ee7a213446eb.jpg" },
       ],
       links: {
         telegram: "https://t.me/terevision",
@@ -1794,7 +1795,7 @@ window.SCHEDULE = {
       end: "19:00",
       title: "ЦА дореволюционного рекламщика",
       description: "Как только в России появилась массовая реклама — люди сразу же задумались, кому именно они продают свой товар. Рекламно-дизайнерская мысль XIX века шагнула на удивление далеко и на удивление близко к нам. Об этом и поговорим.",
-      speakers: [{ name: "Евгений Логинов", org: "Дизайнер-фрилансер" }],
+      speakers: [{ name: "Евгений Логинов", org: "Дизайнер-фрилансер", photo: "https://static.tildacdn.com/stor3263-3934-4731-b966-633736376662/7ba39a7e9ad98067a034fb3daa519e2e.jpg" }],
       links: {
         telegram: "https://t.me/zhenyaloginov_channel",
         message: "",
@@ -1810,7 +1811,7 @@ window.SCHEDULE = {
       end: "20:00",
       title: "Что украсть у искусства, кроме картинки",
       description: "Практический разговор о том, что дизайнеру брать из искусства. Как конструктивизм создаёт ощущение действия, романтизм — масштаба, сюрреализм сталкивает несовместимое, поп-арт превращает товар в символ, а минимализм — пустоту в ценность. Разберём, как переводить эти методы в современный дизайн",
-      speakers: [{ name: "Екатерина Бузенкова", org: "FRee Creative" }],
+      speakers: [{ name: "Екатерина Бузенкова", org: "FRee Creative", photo: "https://static.tildacdn.com/stor3963-6634-4934-a131-623332333932/5bbb785b3ce62c1f3503ec682ba29c75.jpg" }],
       links: {
         telegram: "https://t.me/snake_vision",
         message: "https://t.me/buzenkova",
@@ -1826,7 +1827,7 @@ window.SCHEDULE = {
       start: "12:00",
       end: "12:30",
       title: "Принципы театральной импровизации в дизайн-менеджменте",
-      speakers: [{ name: "Анна Маркова", org: "Vagabond agency" }],
+      speakers: [{ name: "Анна Маркова", org: "Vagabond agency", photo: "https://static.tildacdn.com/stor3563-3565-4363-b165-303464623063/ba4bd41d22cd6af648757668f5aff8af.jpg" }],
       links: {
         telegram: "https://t.me/bytsvetom",
         message: "",
@@ -1841,7 +1842,7 @@ window.SCHEDULE = {
       start: "12:30",
       end: "13:00",
       title: "Ценообразование на фрилансе: когда поднимать цены и на сколько",
-      speakers: [{ name: "Оксана Вартанова", org: "Дизайнер сайтов" }],
+      speakers: [{ name: "Оксана Вартанова", org: "Дизайнер сайтов", photo: "https://static.tildacdn.com/stor3735-3166-4234-a139-303830616331/a9f16e1ba5b43f6c3a003d0358f691a8.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1857,7 +1858,7 @@ window.SCHEDULE = {
       end: "14:00",
       title: "Скрытые слои. На чём стоит дизайн-агентство",
       description: "Расскажу про невидимые слои, на которых стоит работа. Виденье, партнертсво, стратегия, культура, финмодель, позиционирование. То, о чем мне рассказывают тем, кто начинает своё агентство.",
-      speakers: [{ name: "Евгений Опутин", org: "Vagabond" }],
+      speakers: [{ name: "Евгений Опутин", org: "Vagabond", photo: "https://static.tildacdn.com/stor3932-3833-4965-b035-396230623630/26050734.jpg" }],
       links: {
         telegram: "https://t.me/oputin_live",
         message: "",
@@ -1872,7 +1873,7 @@ window.SCHEDULE = {
       start: "14:00",
       end: "14:30",
       title: "Как заработать миллион на скриншотах",
-      speakers: [{ name: "Олег Бухтияр", org: "Screen Gallery" }],
+      speakers: [{ name: "Олег Бухтияр", org: "Screen Gallery", photo: "https://static.tildacdn.com/stor3965-3835-4133-b636-363230366661/eabc0a0a6c4b3ca00a7f485ee6777967.png" }],
       links: {
         telegram: "https://t.me/o_bukhtiyar",
         message: "https://t.me/uuhbuh",
@@ -1887,7 +1888,7 @@ window.SCHEDULE = {
       start: "14:30",
       end: "15:00",
       title: "Как спроектировать графический редактор, которым должен пользоваться другой дизайнер?",
-      speakers: [{ name: "Дмитрий Вороненко", org: "Владелец продукта" }],
+      speakers: [{ name: "Дмитрий Вороненко", org: "Владелец продукта", photo: "https://static.tildacdn.com/stor3038-3439-4430-b132-303930356634/10ea8e2deb568c243fb986a8fdcda7da.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1903,7 +1904,7 @@ window.SCHEDULE = {
       end: "16:00",
       title: "За пределами макета",
       description: "Проблема → люди → деньги → производство → результат. Поговорим о том, как изменился подход заказчика к агентству, а внутри агентства — к самой разработке.",
-      speakers: [{ name: "Марина Тихонова", org: "Руководитель проектов" }],
+      speakers: [{ name: "Марина Тихонова", org: "Руководитель проектов", photo: "https://static.tildacdn.com/stor3136-6262-4336-b433-626336343866/922298f4c100118ee0482b60133ebcde.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1919,7 +1920,7 @@ window.SCHEDULE = {
       end: "17:00",
       title: "Режиссура моггает промптинг",
       description: "Надеемся на себя, а на не промт. Заранее понять, что зритель должен считать и почувствовать. Приемы из кино: планы, ракурс, композиция, свет, ритм, монтаж Фабула и сюжет: Завязка, развитие, акценты и финальная точка Как препродакшен помогает сэкономить и сократить количество бессмысленных генераций Нейросети эффективнее работают не как один инструмент, а как производственный пайплайн Главная роль человека смещается от производства к постановке",
-      speakers: [{ name: "Денис Кунгуров", org: "Beta Disrupt" }],
+      speakers: [{ name: "Денис Кунгуров", org: "Beta Disrupt", photo: "https://static.tildacdn.com/stor3635-6438-4765-b036-353737346634/f402d50d6274d584fe956806fd201b2e.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -1934,7 +1935,7 @@ window.SCHEDULE = {
       start: "17:00",
       end: "17:30",
       title: "Согласовано! Как работать с клиентами, не теряя себя",
-      speakers: [{ name: "Пётр Губанов", org: "PostPost" }],
+      speakers: [{ name: "Пётр Губанов", org: "PostPost", photo: "https://static.tildacdn.com/stor3231-6261-4664-b864-643239656131/38518748.jpg" }],
       links: {
         telegram: "https://t.me/digitalpetya",
         message: "",
@@ -1949,7 +1950,7 @@ window.SCHEDULE = {
       start: "17:30",
       end: "18:00",
       title: "Ожидание и реальность: от авторской концепции до правок заказчика",
-      speakers: [{ name: "Рустам Усманов", org: "Дизайнер-художник" }],
+      speakers: [{ name: "Рустам Усманов", org: "Дизайнер-художник", photo: "https://static.tildacdn.com/stor6235-3135-4864-a432-333239346637/846c089b8fe6d75220f6d3ba1eee650f.webp" }],
       links: {
         telegram: "https://t.me/GORI_TVORI",
         message: "",
@@ -1965,7 +1966,7 @@ window.SCHEDULE = {
       end: "19:00",
       title: "7 грехов нейминга",
       description: "Разберёмся: что убивает нейминг, как не потерять своё имя в производственном аду, и на каждый грех — найдём добродетель.",
-      speakers: [{ name: "Богдан Астафуров", org: "Вольный неймер" }],
+      speakers: [{ name: "Богдан Астафуров", org: "Вольный неймер", photo: "https://static.tildacdn.com/stor3432-3535-4336-a632-383265666661/9659313b1e7e7c37abeb8742c049dccf.png" }],
       links: {
         telegram: "https://t.me/jobtobogdan",
         message: "https://t.me/bogdanastafurov",
@@ -1997,7 +1998,7 @@ window.SCHEDULE = {
       start: "12:00",
       end: "12:30",
       title: "Нейросети: адепты и скептики",
-      speakers: [{ name: "Макс Кукушкин", org: "ЦЕХ.ДИЗАЙН" }],
+      speakers: [{ name: "Макс Кукушкин", org: "ЦЕХ.ДИЗАЙН", photo: "https://static.tildacdn.com/stor6331-6635-4661-b865-653139363033/18092688.jpg" }],
       links: {
         telegram: "https://t.me/controlmax",
         message: "https://t.me/maxkukushkin",
@@ -2012,7 +2013,7 @@ window.SCHEDULE = {
       start: "12:30",
       end: "13:00",
       title: "ИИ-зируй это. Мы отдали рутину нейронке, а сами сидим такие красивые, креативим и смеёмся",
-      speakers: [{ name: "Кира Калимулина", org: "Яндекс Еда" }],
+      speakers: [{ name: "Кира Калимулина", org: "Яндекс Еда", photo: "https://static.tildacdn.com/stor6531-6135-4434-b632-346566653962/427ff57b77c08178db734f35c29fc7bb.png" }],
       links: {
         telegram: "https://t.me/ask_kira",
         message: "https://t.me/kira_kalimulina",
@@ -2027,7 +2028,7 @@ window.SCHEDULE = {
       start: "13:00",
       end: "13:30",
       title: "Личный видеопродакшен у тебя в ноутбуке",
-      speakers: [{ name: "Владимир Доронин", org: "VK" }],
+      speakers: [{ name: "Владимир Доронин", org: "VK", photo: "https://static.tildacdn.com/stor3362-3433-4161-b532-383033316161/12d81f77a8778c0eeaaacbcc5e54ef2e.jpg" }],
       links: {
         telegram: "https://t.me/shape_art",
         message: "https://t.me/vovador",
@@ -2042,7 +2043,7 @@ window.SCHEDULE = {
       start: "13:30",
       end: "14:00",
       title: "Как спортивный бренд обновил позиционирование в эпоху AI и внимания",
-      speakers: [{ name: "Роман Векторный", org: "Спортмастер" }],
+      speakers: [{ name: "Роман Векторный", org: "Спортмастер", photo: "https://static.tildacdn.com/stor3433-3436-4536-a636-376633643130/15dcd0ec247ca5f20950cf13fd72e97c.png" }],
       links: {
         telegram: "https://t.me/RomanVektorny",
         message: "",
@@ -2057,7 +2058,7 @@ window.SCHEDULE = {
       start: "14:00",
       end: "14:30",
       title: "ИИ-видео: как построить управляемый пайплайн от идеи до финального ролика",
-      speakers: [{ name: "Айдар Набиуллин", org: "Гастроном Медиа" }],
+      speakers: [{ name: "Айдар Набиуллин", org: "Гастроном Медиа", photo: "https://static.tildacdn.com/stor6561-6231-4132-b933-343737616336/ca53cbffd43b527aca21cf3d3cb7744c.jpg" }],
       links: {
         telegram: "https://t.me/naaydar",
         message: "https://t.me/naydar",
@@ -2072,7 +2073,7 @@ window.SCHEDULE = {
       start: "14:30",
       end: "15:00",
       title: "1 000 000 токенов тому вперёд",
-      speakers: [{ name: "Евгений Кузьмин", org: "UPROCK" }],
+      speakers: [{ name: "Евгений Кузьмин", org: "UPROCK", photo: "https://static.tildacdn.com/stor3363-3331-4063-a530-663639333534/8796612429c667532ada83418e3492ab.png" }],
       links: {
         telegram: "https://t.me/evgenyuprock",
         message: "",
@@ -2087,7 +2088,7 @@ window.SCHEDULE = {
       start: "15:00",
       end: "15:30",
       title: "Ограниченность выбора: как нейросети ограничивают творческий поиск",
-      speakers: [{ name: "Екатерина Шабина", org: "ЦЕХ" }],
+      speakers: [{ name: "Екатерина Шабина", org: "ЦЕХ", photo: "https://static.tildacdn.com/stor3663-3063-4661-b031-663034623535/2b15452bb56e7306b351ecb336b062d5.jpg" }],
       links: {
         telegram: "https://t.me/katrin_power",
         message: "https://t.me/katrinshha",
@@ -2102,7 +2103,7 @@ window.SCHEDULE = {
       start: "15:30",
       end: "16:00",
       title: "Спидран ИИ-бэклога: как быстро выбрать идеи, на которые стоит тратить время",
-      speakers: [{ name: "Полина Жарикова", org: "Альфа-Банк" }],
+      speakers: [{ name: "Полина Жарикова", org: "Альфа-Банк", photo: "https://static.tildacdn.com/stor6236-3632-4636-a564-653562373739/dceb028565eb1ea152372f281c46d017.jpg" }],
       links: {
         telegram: "https://t.me/polinapishet",
         message: "",
@@ -2117,7 +2118,7 @@ window.SCHEDULE = {
       start: "16:00",
       end: "16:30",
       title: "Ретрофутуризм. Скевоморфизм. Постмодернизм.",
-      speakers: [{ name: "Артём Локи", org: "Точка Отсчёта" }],
+      speakers: [{ name: "Артём Локи", org: "Точка Отсчёта", photo: "https://static.tildacdn.com/stor3136-6237-4064-a137-313336616234/d2dd62558d2f2d01a2390ce892a39a4f.png" }],
       links: {
         telegram: "https://t.me/tech_aesthetics",
         message: "https://t.me/lowkee",
@@ -2132,7 +2133,7 @@ window.SCHEDULE = {
       start: "16:30",
       end: "17:00",
       title: "От античности до AI graphic engineer",
-      speakers: [{ name: "Екатерина Панова", org: "Сбер" }],
+      speakers: [{ name: "Екатерина Панова", org: "Сбер", photo: "https://static.tildacdn.com/stor6663-3333-4133-b862-653833373031/c07d51052bba6a435ef96239f0669df1.png" }],
       links: {
         telegram: "https://t.me/chtob_chto",
         message: "",
@@ -2147,7 +2148,7 @@ window.SCHEDULE = {
       start: "17:00",
       end: "17:30",
       title: "Продукт создаёт не ИИ. Продукт создаёт человек",
-      speakers: [{ name: "Яна Титова", org: "Сбер" }],
+      speakers: [{ name: "Яна Титова", org: "Сбер", photo: "https://static.tildacdn.com/stor6161-3730-4138-b935-353161383234/f46c30a81e57293c153641a330e72d0b.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -2162,7 +2163,7 @@ window.SCHEDULE = {
       start: "17:30",
       end: "18:00",
       title: "Более быстрые лошади, автомобили без дорог, или как помочь ИИ, чтобы он помог нам",
-      speakers: [{ name: "Денис Золотарёв", org: "«Россия сегодня»" }],
+      speakers: [{ name: "Денис Золотарёв", org: "«Россия сегодня»", photo: "https://static.tildacdn.com/stor6266-6234-4865-a234-653662386131/b0cc7a565d021805b9fd6abc4d3c35c6.png" }],
       links: {
         telegram: "https://t.me/fortyD",
         message: "https://t.me/deniszolotarev",
@@ -2177,7 +2178,7 @@ window.SCHEDULE = {
       start: "18:00",
       end: "18:30",
       title: "ИИ-усталость и возвращение ценности ручного труда",
-      speakers: [{ name: "Игорь Фроловский", org: "AffArts" }],
+      speakers: [{ name: "Игорь Фроловский", org: "AffArts", photo: "https://static.tildacdn.com/stor3334-3734-4538-b164-373465363465/590c903db8997c2744b901ac1911c9ae.jpg" }],
       links: {
         telegram: "https://t.me/igor_affarts",
         message: "",
@@ -2194,11 +2195,11 @@ window.SCHEDULE = {
       kind: "panel",
       title: "Нейросети. Адепты и скептики",
       speakers: [
-        { name: "Роман Векторный", role: "участник" },
-        { name: "Кира Калимулина", role: "участник" },
-        { name: "Екатерина Панова", role: "участник" },
-        { name: "Евгений Кузьмин", role: "участник" },
-        { name: "Макс Кукушкин", role: "участник" },
+        { name: "Роман Векторный", role: "участник", photo: "https://static.tildacdn.com/stor3433-3436-4536-a636-376633643130/15dcd0ec247ca5f20950cf13fd72e97c.png" },
+        { name: "Кира Калимулина", role: "участник", photo: "https://static.tildacdn.com/stor6531-6135-4434-b632-346566653962/427ff57b77c08178db734f35c29fc7bb.png" },
+        { name: "Екатерина Панова", role: "участник", photo: "https://static.tildacdn.com/stor6663-3333-4133-b862-653833373031/c07d51052bba6a435ef96239f0669df1.png" },
+        { name: "Евгений Кузьмин", role: "участник", photo: "https://static.tildacdn.com/stor3363-3331-4063-a530-663639333534/8796612429c667532ada83418e3492ab.png" },
+        { name: "Макс Кукушкин", role: "участник", photo: "https://static.tildacdn.com/stor6331-6635-4661-b865-653139363033/18092688.jpg" },
       ],
       links: {
         telegram: "",
@@ -2216,7 +2217,7 @@ window.SCHEDULE = {
       end: "13:00",
       title: "Буквы не то, чем кажутся",
       description: "Лекция, которая помогает заглянуть внутрь шрифта и научиться видеть глубже, чем «есть засечки / нет засечек». Это рассказ о том, что влияет на дизайн шрифта, как устроены буквы, как искать внутреннее сходство и чем старинные шрифты отличаются от современных. Тут не будет простых практических советов (ладно, будут, но меньше, чем обычно), это скорее калибровка внутренней оптики и создание в голове системы, которая позволит посмотреть на шрифт другими глазами.",
-      speakers: [{ name: "Александра Королькова", org: "Paratype" }],
+      speakers: [{ name: "Александра Королькова", org: "Paratype", photo: "https://static.tildacdn.com/stor3935-3437-4663-a434-663431333362/ac3af32d86ad849202e7f2787b1c49e3.webp" }],
       links: {
         telegram: "https://t.me/paratype_fonts",
         message: "https://t.me/alexandra_korolkova",
@@ -2232,7 +2233,7 @@ window.SCHEDULE = {
       end: "14:00",
       title: "Как связаны каллиграфия, леттеринг и шрифт",
       description: "Поговорим о том, как связаны и чем отличаются три направления: каллиграфия, леттеринг и шрифт. Чем может помочь шрифтовому дизайнеру знание каллиграфии, а в чем может даже помешать, и может ли леттеринг быть промежуточным звеном.",
-      speakers: [{ name: "Тома Стрельцова", org: "Paratype" }],
+      speakers: [{ name: "Тома Стрельцова", org: "Paratype", photo: "https://static.tildacdn.com/stor6661-6664-4937-a333-393339613964/79986fcf11fe2fedabc8b7e442c1c056.jpg" }],
       links: {
         telegram: "https://t.me/loyssso",
         message: "https://t.me/ololoysa",
@@ -2248,7 +2249,7 @@ window.SCHEDULE = {
       end: "15:00",
       title: "Шрифтовое кунг-фу",
       description: "Шрифтовой дизайн для чайников. От эскиза до своей шрифтовой фабрики. Про буквы, лицензии, спесимены, шрифтовые конкурсы.",
-      speakers: [{ name: "Александр Капуста", org: "Paratype" }],
+      speakers: [{ name: "Александр Капуста", org: "Paratype", photo: "https://static.tildacdn.com/stor3762-3637-4935-b665-663566356461/ec829f2d906055f97f52bae4c5c48591.jpg" }],
       links: {
         telegram: "https://t.me/yourfontfetish",
         message: "https://t.me/odnogolosiy_perevod",
@@ -2264,7 +2265,7 @@ window.SCHEDULE = {
       end: "16:00",
       title: "Шрифт до AI и после",
       description: "Шрифт, кроме дизайна, ещё и инженерный продукт, с множеством стандартных и необычных особенностей, что делает его полезным инструментом в работе. Что может современный шрифт и при чём здесь AI,— об этом и поговорим на Шрифтовой секции в Туле.",
-      speakers: [{ name: "Геннадий Фридман", org: "Paratype" }],
+      speakers: [{ name: "Геннадий Фридман", org: "Paratype", photo: "https://static.tildacdn.com/stor6339-6534-4539-a237-633134316230/87985451.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -2281,8 +2282,8 @@ window.SCHEDULE = {
       title: "Кастомизация, разработка, тиражный, корпоративный… — ребята, вы не перемудрили?",
       description: "Задумали классный проект, осталось подобрать для него шрифт. Вокруг столько решений: купить лицензию на готовый шрифт; остановиться на модификации; заказать разработку шрифта с нуля, а может оставить бесплатный и не волноваться? Как выбрать подходящее и не ошибиться? Разберёмся в терминологии, поймём отличия в подходах, какие подводные камни и скрытые бриллианты содержатся в каждом!",
       speakers: [
-        { name: "Денис Васильев", org: "Paratype" },
-        { name: "Виталий Кузьмин", org: "Paratype" },
+        { name: "Денис Васильев", org: "Paratype", photo: "https://static.tildacdn.com/stor6431-3861-4366-a531-666161633037/b7e8a9a6776aa9e29f98b2ed643f7bab.jpg" },
+        { name: "Виталий Кузьмин", org: "Paratype", photo: "https://static.tildacdn.com/stor6464-3566-4863-b337-383463663937/e262da407680d7a76ab94efacde06865.jpg" },
       ],
       links: {
         telegram: "",
@@ -2299,7 +2300,7 @@ window.SCHEDULE = {
       end: "18:00",
       title: "Типографика. Традиции, тренды и нарушение правил как осознанное высказывание",
       description: "Базовые и продвинутые правила работы с типографикой, где найти и проверить себя. Или правил уже нет? Модная типографика, контекст шрифтовых решений в эпоху метамодерна, какие вопросы себе стоит задать при выборе шрифта.",
-      speakers: [{ name: "Мария Дружинина", org: "Руководитель направления «Коммуникационный дизайн»" }],
+      speakers: [{ name: "Мария Дружинина", org: "Руководитель направления «Коммуникационный дизайн»", photo: "https://static.tildacdn.com/stor3136-6537-4661-a666-353764656631/83b1c06953a54a8fedc42adc802279bf.jpg" }],
       links: {
         telegram: "https://t.me/druzhim_design",
         message: "https://t.me/maria_druzhininaa",
@@ -2315,7 +2316,7 @@ window.SCHEDULE = {
       end: "19:00",
       title: "Когда шрифта недостаточно: зачем дизайнеру леттеринг",
       description: "Не каждую надпись нужно рисовать руками: огромное количество дизайн-задач прекрасно решается готовыми шрифтами. Но бывают ситуации, когда типографики недостаточно и леттеринг становится частью идеи проекта. Поговорим о том, как дизайнеру распознать такие задачи и использовать леттеринг там, где он действительно добавляет ценность.",
-      speakers: [{ name: "Анна Суворова", org: "Леттерер, иллюстратор" }],
+      speakers: [{ name: "Анна Суворова", org: "Леттерер, иллюстратор", photo: "https://static.tildacdn.com/stor6139-3632-4131-b934-373465636537/069f1989cc2e24bffda4924ddea846a2.webp" }],
       links: {
         telegram: "https://t.me/suvorovaart",
         message: "https://t.me/suvorovaanna",
@@ -2333,8 +2334,8 @@ window.SCHEDULE = {
       title: "Капитальный теггинг",
       description: "Тома Стрельцова и Виталий Кузьмин будут в живом формате портить бумагу буквами, пытаясь сочетать римское капитальное письмо и грязный уличный стиль. Небольшой перформанс, на котором два автора будут писать буквы в разных техниках.",
       speakers: [
-        { name: "Виталий Кузьмин", org: "Paratype" },
-        { name: "Тома Стрельцова", org: "Paratype" },
+        { name: "Виталий Кузьмин", org: "Paratype", photo: "https://static.tildacdn.com/stor6464-3566-4863-b337-383463663937/e262da407680d7a76ab94efacde06865.jpg" },
+        { name: "Тома Стрельцова", org: "Paratype", photo: "https://static.tildacdn.com/stor6661-6664-4937-a333-393339613964/79986fcf11fe2fedabc8b7e442c1c056.jpg" },
       ],
       links: {
         telegram: "",
@@ -2352,7 +2353,7 @@ window.SCHEDULE = {
       end: "13:00",
       title: "Кнопку нарисовали. А дальше?",
       description: "Как ИИ помогает уточнять задачи и готовить продуктовые решения, а также встраивается в командные процессы — от черновика до проверки и согласования. Почему ускорение создания макета само по себе не ускоряет выпуск изменений и почему решения и ответственность остаются за людьми.",
-      speakers: [{ name: "Антон Холодников", org: "ПСБ" }],
+      speakers: [{ name: "Антон Холодников", org: "ПСБ", photo: "https://static.tildacdn.com/stor3335-3337-4339-a333-303035343366/a0137b1e8fb20313c00e9dc3bcf4c364.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -2367,7 +2368,7 @@ window.SCHEDULE = {
       start: "13:00",
       end: "13:30",
       title: "Между дизайном и релизом",
-      speakers: [{ name: "Юлия Никитанова", org: "Банк ВТБ" }],
+      speakers: [{ name: "Юлия Никитанова", org: "Банк ВТБ", photo: "https://static.tildacdn.com/stor3934-6663-4463-b365-313931633461/709d90cc5dbcbf70c145f8026dd133ad.jpg" }],
       links: {
         telegram: "https://t.me/Nikitanova_WIP",
         message: "https://t.me/Yuliya_Nikitanova",
@@ -2382,7 +2383,7 @@ window.SCHEDULE = {
       start: "13:30",
       end: "14:00",
       title: "Брендинг в корпорациях: как не сойти с ума",
-      speakers: [{ name: "Артемий Королько", org: "VK" }],
+      speakers: [{ name: "Артемий Королько", org: "VK", photo: "https://static.tildacdn.com/stor6561-3263-4165-b138-353764323437/dd9e35145f5be6afc888eb182f79aaf8.jpg" }],
       links: {
         telegram: "",
         message: "",
@@ -2399,8 +2400,8 @@ window.SCHEDULE = {
       title: "Корпоративный дизайн вне времени: взгляд с двух сторон. Как создавался HR-бренд для АО «Лада-Имидж»",
       description: "Как клиент и агентство становятся союзниками: чем отличаются их креативные процессы, как сохранить интерес к нефестивальному проекту и что делать, если в разгаре работы нужно заново договориться. В финале — разбор результата и того пути, который к нему привёл.",
       speakers: [
-        { name: "Артём Лукичёв", org: "CreativePeople" },
-        { name: "Екатерина Мальцева", org: "ЛАДА Цифра" },
+        { name: "Артём Лукичёв", org: "CreativePeople", photo: "https://static.tildacdn.com/stor3932-3861-4639-b163-633965636139/5a73ac10e64ec4d4670fabe1e9f0ba26.png" },
+        { name: "Екатерина Мальцева", org: "ЛАДА Цифра", photo: "https://static.tildacdn.com/stor3938-3435-4062-b735-346131323064/35eaf39b651e8a3a275b80a007737803.png" },
       ],
       links: {
         telegram: "https://t.me/designerkate",
@@ -2419,8 +2420,8 @@ window.SCHEDULE = {
       title: "Одна кнопка от идеи до реализации",
       description: "Путь от идеи к реализации сократился до одной кнопки — и это ставит вопрос: чего мы ждём, если сделать стало почти ничего не стоить? лавный ракурс — кризис идей: возможностей стало больше, но действие и вовлечённость не возникают автоматически. Это доклад для дизайнеров о личной вовлечённости, а не о том, как Сбер адаптируется к AI.",
       speakers: [
-        { name: "Митя Осадчук", org: "Сбер" },
-        { name: "Василий Гордеев", org: "Сбер / Поток" },
+        { name: "Митя Осадчук", org: "Сбер", photo: "https://static.tildacdn.com/stor3231-3165-4965-a331-373630656565/61453068.jpg" },
+        { name: "Василий Гордеев", org: "Сбер / Поток", photo: "https://static.tildacdn.com/stor6336-3936-4430-b231-633539313766/8acc3e80e1d29fd1c36417abcdda2b63.png" },
       ],
       links: {
         telegram: "https://t.me/nice2mitya_chuk",
@@ -2437,7 +2438,7 @@ window.SCHEDULE = {
       end: "17:00",
       title: "Когда все делают быстро, кто будет делать хорошо?",
       description: "Особенность дизайнера — это способность смотреть на мир внимательнее других. Видеть, как люди живут, как и из чего устроено пространство вокруг нас. Путь от идеи к результату сейчас становится короче и доступнее, это факт. Потому особенно ценным оказывается человек, который умеет отличить хорошее от плохого. Обсудим, что помогает дизайнеру делать хорошо, когда быстро уже делают все.",
-      speakers: [{ name: "Лев Брук", org: "СберБанк Онлайн" }],
+      speakers: [{ name: "Лев Брук", org: "СберБанк Онлайн", photo: "https://static.tildacdn.com/stor3836-6261-4839-b362-396437643239/897266b944391faa362e6fb0081271dd.png" }],
       links: {
         telegram: "",
         message: "http://t.me/levbruk",
@@ -2453,7 +2454,7 @@ window.SCHEDULE = {
       end: "18:00",
       title: "Дизайн-система и дизайн-лид в эпоху ИИ: три роли — пастух, пожарный и архитектор",
       description: "Роль дизайн-лида в управлении дизайном, рутину забирает ИИ, а количество продуктов растёт. О софт-скиллах, которые важнее фигмовских скиллов.",
-      speakers: [{ name: "Ярослав Приступа", org: "X5 Group" }],
+      speakers: [{ name: "Ярослав Приступа", org: "X5 Group", photo: "https://static.tildacdn.com/stor3862-3139-4964-b936-623739343131/1c4af24989d848b98fd7cb53a65e6f53.webp" }],
       links: {
         telegram: "https://t.me/yapristupa",
         message: "",
@@ -2469,7 +2470,7 @@ window.SCHEDULE = {
       end: "19:00",
       title: "1500 часов стресса. Через ответственность к макетам",
       description: "Про процессы, команду, психику и стрессоустойчивость на примере глобального ребрендинга WINLINE. Трудности в перестройках команд и то, как мы внутри построили общее знание. Как мы из поддержки клиента снова пришли к поддержке.",
-      speakers: [{ name: "Артём Лукичёв", org: "CreativePeople" }],
+      speakers: [{ name: "Артём Лукичёв", org: "CreativePeople", photo: "https://static.tildacdn.com/stor3932-3861-4639-b163-633965636139/5a73ac10e64ec4d4670fabe1e9f0ba26.png" }],
       links: {
         telegram: "",
         message: "",
@@ -2488,10 +2489,10 @@ window.SCHEDULE = {
       description: "Как ИИ, инструменты, команды, бизнес и культура меняют дизайн, кто задаёт направление и правила этой эволюции, как меняются авторство, критерии качества и ответственность.",
       speakers: [
         { name: "Сергей Прокофьев", role: "модератор" },
-        { name: "Ян Зарецкий", role: "участник" },
-        { name: "Артём Лукичёв", role: "участник" },
-        { name: "Ярослав Приступа", role: "участник" },
-        { name: "Василий Гордеев", role: "участник" },
+        { name: "Ян Зарецкий", role: "участник", photo: "https://static.tildacdn.com/stor3234-6139-4861-b537-653335653433/3cd510f73482514ca616658398491cd2.jpg" },
+        { name: "Артём Лукичёв", role: "участник", photo: "https://static.tildacdn.com/stor3932-3861-4639-b163-633965636139/5a73ac10e64ec4d4670fabe1e9f0ba26.png" },
+        { name: "Ярослав Приступа", role: "участник", photo: "https://static.tildacdn.com/stor3862-3139-4964-b936-623739343131/1c4af24989d848b98fd7cb53a65e6f53.webp" },
+        { name: "Василий Гордеев", role: "участник", photo: "https://static.tildacdn.com/stor6336-3936-4430-b231-633539313766/8acc3e80e1d29fd1c36417abcdda2b63.png" },
       ],
       links: {
         telegram: "https://t.me/double_prok",

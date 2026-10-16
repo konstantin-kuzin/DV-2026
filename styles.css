@@ -684,9 +684,27 @@ dialog::backdrop {
 
 .people li {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.people .portrait {
+  display: block;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  flex: none;
+  background: #eaeaea;
+  border-radius: 4px;
+}
+
+.people .who {
+  display: flex;
   flex-direction: column;
   gap: 1px;
-  }
+  min-width: 0;
+}
 
 .people strong { font-size: 24px; font-weight: 700; padding-bottom: 2px;}
 

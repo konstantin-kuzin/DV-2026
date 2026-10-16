@@ -678,20 +678,32 @@ function openEvent(id) {
   sheetPeople.replaceChildren(
     ...event.speakers.map((speaker) => {
       const item = document.createElement("li");
+      const photo = document.createElement(speaker.photo ? "img" : "span");
+      photo.className = "portrait";
+      if (speaker.photo) {
+        photo.src = speaker.photo;
+        photo.alt = "";
+      } else {
+        photo.setAttribute("aria-hidden", "true");
+      }
+      item.append(photo);
+      const who = document.createElement("div");
+      who.className = "who";
       const name = document.createElement("strong");
       name.textContent = speaker.name;
-      item.append(name);
+      who.append(name);
       if (speaker.role && speaker.role !== "участник") {
         const role = document.createElement("span");
         role.className = "role";
         role.textContent = speaker.role;
-        item.append(role);
+        who.append(role);
       }
       if (speaker.org) {
         const org = document.createElement("span");
         org.textContent = speaker.org;
-        item.append(org);
+        who.append(org);
       }
+      item.append(who);
       return item;
     }),
   );
