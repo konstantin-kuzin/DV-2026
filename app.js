@@ -49,6 +49,13 @@ const sheetBody = sheet.querySelector(".sheet-body");
 const sheetPrev = document.getElementById("sheet-prev");
 const sheetNext = document.getElementById("sheet-next");
 const sheetClose = document.getElementById("sheet-close");
+const carryBtn = document.getElementById("carry");
+const carryDialog = document.getElementById("carry-dialog");
+const carryQr = document.getElementById("carry-qr");
+const carryCopy = document.getElementById("carry-copy");
+const carryCopyStatus = document.getElementById("carry-copy-status");
+const carryClose = document.getElementById("carry-close");
+const importedStatus = document.getElementById("imported-status");
 
 const FIRST_HOUR = Math.floor(START_MIN / 60);
 const LAST_HOUR = Math.floor((END_MIN - 1) / 60);
@@ -80,6 +87,86 @@ const favorites = readIds(FAVORITES_KEY);
 const secondary = readIds(SECONDARY_KEY);
 for (const id of secondary) {
   if (favorites.has(id)) secondary.delete(id);
+}
+
+const PLAN_ID = /^[A-Za-z0-9-]+$/;
+
+function savedIds(set) {
+  return [...set].filter((id) => PLAN_ID.test(id) && byId.has(id)).sort();
+}
+
+function planValue() {
+  return `p:${savedIds(favorites).join(",")}|s:${savedIds(secondary).join(",")}`;
+}
+
+function planUrl() {
+  const url = new URL(location.href);
+  url.hash = "";
+  url.searchParams.set("plan", planValue());
+  return url.href;
+}
+
+function planList(part) {
+  if (part === "") return [];
+  const ids = part.split(",");
+  if (ids.some((id) => !PLAN_ID.test(id))) return null;
+  return ids.filter((id) => byId.has(id));
+}
+
+function parsePlan(raw) {
+  if (typeof raw !== "string") return null;
+  const match = /^p:([^|]*)\|s:([^|]*)$/.exec(raw);
+  if (!match) return null;
+  const primary = planList(match[1]);
+  const later = planList(match[2]);
+  if (!primary || !later) return null;
+  return { primary, secondary: later };
+}
+
+function applyPlan(raw) {
+  const parsed = parsePlan(raw);
+  if (!parsed) return false;
+  favorites.clear();
+  secondary.clear();
+  for (const id of parsed.primary) favorites.add(id);
+  for (const id of parsed.secondary) {
+    if (!favorites.has(id)) secondary.add(id);
+  }
+  writeFavorites();
+  return true;
+}
+
+function consumePlan() {
+  const url = new URL(location.href);
+  if (!url.searchParams.has("plan")) return false;
+  if (!applyPlan(url.searchParams.get("plan"))) return false;
+  url.searchParams.delete("plan");
+  history.replaceState(null, "", url.pathname + url.search + url.hash);
+  return true;
+}
+
+function drawPlanQr(url) {
+  try {
+    const qr = qrcode(0, "M");
+    qr.addData(url);
+    qr.make();
+    const cell = 4;
+    const margin = cell * 4;
+    const count = qr.getModuleCount();
+    const size = count * cell + margin * 2;
+    const context = carryQr.getContext("2d");
+    carryQr.width = size;
+    carryQr.height = size;
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, size, size);
+    context.save();
+    context.translate(margin, margin);
+    qr.renderTo2dContext(context, cell);
+    context.restore();
+    carryQr.hidden = false;
+  } catch {
+    carryQr.hidden = true;
+  }
 }
 
 const state = {
@@ -330,9 +417,9 @@ function syncFavoriteButton(id) {
   const primary = Boolean(id && favorites.has(id));
   const later = Boolean(id && secondary.has(id));
   sheetFavorite.setAttribute("aria-pressed", String(primary));
-  sheetFavoriteLabel.textContent = primary ? "Не Олния!" : "Олния!";
+  sheetFavoriteLabel.textContent = primary ? "Нет, не Олния (" : "Олния!";
   sheetSecondary.setAttribute("aria-pressed", String(later));
-  sheetSecondaryLabel.textContent = later ? "Не Ажно!" : "Ажно!";
+  sheetSecondaryLabel.textContent = later ? "Уже не Ажно!" : "Ажно!";
 }
 
 function updateSection() {
@@ -1134,13 +1221,14 @@ function markShareCopied() {
   }, 1600);
 }
 
-async function copyShareUrl(url) {
+async function writeClipboard(text) {
   try {
-    await navigator.clipboard.writeText(url);
+    await navigator.clipboard.writeText(text);
+    return true;
   } catch {
     try {
       const field = document.createElement("textarea");
-      field.value = url;
+      field.value = text;
       field.setAttribute("readonly", "");
       field.style.position = "fixed";
       field.style.left = "-9999px";
@@ -1148,12 +1236,15 @@ async function copyShareUrl(url) {
       field.select();
       const copied = document.execCommand("copy");
       field.remove();
-      if (!copied) return;
+      return copied;
     } catch {
-      return;
+      return false;
     }
   }
-  markShareCopied();
+}
+
+async function copyShareUrl(url) {
+  if (await writeClipboard(url)) markShareCopied();
 }
 
 async function shareOpenEvent() {
@@ -1183,15 +1274,60 @@ sheet.addEventListener("close", () => {
   if (location.hash) history.replaceState(null, "", location.pathname + location.search);
 });
 
+let carryCopyTimer = 0;
+
+function openCarry() {
+  drawPlanQr(planUrl());
+  carryCopy.textContent = "Скопировать ссылку";
+  carryCopyStatus.textContent = "";
+  window.clearTimeout(carryCopyTimer);
+  if (!carryDialog.open) carryDialog.showModal();
+}
+
+async function copyPlanLink() {
+  if (!(await writeClipboard(planUrl()))) return;
+  carryCopy.textContent = "Ссылка скопирована";
+  carryCopyStatus.textContent = "Ссылка скопирована";
+  window.clearTimeout(carryCopyTimer);
+  carryCopyTimer = window.setTimeout(() => {
+    carryCopy.textContent = "Скопировать ссылку";
+    carryCopyStatus.textContent = "";
+  }, 1600);
+}
+
+carryBtn.addEventListener("click", openCarry);
+carryClose.addEventListener("click", () => carryDialog.close());
+carryCopy.addEventListener("click", () => {
+  copyPlanLink();
+});
+carryDialog.addEventListener("click", (event) => {
+  if (event.target === carryDialog) carryDialog.close();
+});
+
 function start() {
+  const imported = consumePlan();
+
   const linked = linkedFromHash();
   if (days.some((day) => day.id === todayId())) state.day = todayId();
+  if (imported) {
+    state.path = true;
+    const hasSaved = (dayId) => events.some((event) => event.day === dayId && (favorites.has(event.id) || secondary.has(event.id)));
+    if (!hasSaved(state.day)) {
+      const savedDay = days.find((day) => hasSaved(day.id));
+      if (savedDay) state.day = savedDay.id;
+    }
+  }
   if (linked && linked.day === state.day) {
     state.hall = Math.max(0, halls.findIndex((hall) => hall.id === linked.hall));
   }
 
   renderChrome();
   renderBoard();
+
+  if (imported) {
+    importedStatus.hidden = false;
+    importedStatus.textContent = "Избранное с компьютера сохранено";
+  }
 
   if (linked) {
     requestAnimationFrame(() => {

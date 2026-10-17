@@ -19,6 +19,7 @@
           <p class="place">Тула · 9–10 октября 2026</p>
         </div>
         <div class="mast-tools">
+          
           <button type="button" class="mode" id="path" aria-pressed="false" aria-label="Путь">
             <svg viewBox="0 0 24 22" aria-hidden="true">
               <rect x="1.9" y="0.95" width="1.7" height="6.55" rx="0.85" fill="currentColor" />
@@ -38,12 +39,27 @@
               <path d="M12 8.25V12.1l2.6 1.7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
+          <button type="button" class="carry" id="carry" aria-label="На телефон">
+            <svg viewBox="0 0 554 554" aria-hidden="true">
+              <path fill="currentColor" fill-rule="evenodd" d="M65 35H229A30 30 0 0 1 259 65V229A30 30 0 0 1 229 259H65A30 30 0 0 1 35 229V65A30 30 0 0 1 65 35ZM69 69H225V225H69ZM325 35H489A30 30 0 0 1 519 65V229A30 30 0 0 1 489 259H325A30 30 0 0 1 295 229V65A30 30 0 0 1 325 35ZM329 69H485V225H329ZM65 295H229A30 30 0 0 1 259 325V489A30 30 0 0 1 229 519H65A30 30 0 0 1 35 489V325A30 30 0 0 1 65 295ZM69 329H225V485H69Z"/>
+              <rect x="104" y="104" width="86" height="86" rx="8" fill="currentColor"/>
+              <rect x="364" y="104" width="86" height="86" rx="8" fill="currentColor"/>
+              <rect x="104" y="364" width="86" height="86" rx="8" fill="currentColor"/>
+              <rect x="295" y="295" width="68" height="68" rx="6" fill="currentColor"/>
+              <rect x="468" y="295" width="51" height="51" rx="5" fill="currentColor"/>
+              <rect x="364" y="364" width="86" height="86" rx="8" fill="currentColor"/>
+              <rect x="295" y="468" width="51" height="51" rx="5" fill="currentColor"/>
+              <rect x="450" y="450" width="69" height="69" rx="6" fill="currentColor"/>
+            </svg>
+          </button>
           <div class="days" id="days" role="tablist" aria-label="День"></div>
         </div>
       </div>
       <div class="halls" id="halls" role="tablist" aria-label="Залы"></div>
       <p class="section" id="section"></p>
     </header>
+
+    <p class="carry-saved" id="imported-status" role="status" hidden></p>
 
     <div class="board" id="board" tabindex="0" aria-label="Расписание."></div>
 
@@ -95,25 +111,43 @@
             </button>
           </div>
           <div class="sheet-actions">
-            <button type="button" class="close" id="sheet-close">Закрыть</button>
             <button type="button" class="sheet-step" id="sheet-prev" aria-label="Предыдущее" disabled>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 18.5V7M7.5 11.5 12 7l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
+              </svg>Назад 
             </button>
             
-            <button type="button" class="sheet-step" id="sheet-next" aria-label="Следующее" disabled>
+            <button type="button" class="sheet-step" id="sheet-next" aria-label="Следующее" disabled>Вперёд 
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 5.5v11.5M7.5 12.5 12 17l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
+            <button type="button" class="close" id="sheet-close">В исходное положение</button>
           </div>
           <p class="share-status" id="sheet-share-status" role="status"></p>
         </div>
       </div>
     </dialog>
 
+    <dialog id="carry-dialog" aria-labelledby="carry-title">
+      <div class="sheet">
+        <div class="sheet-body">
+          <h2 id="carry-title">Телепорт в телефон</h2>
+          <p class="carry-note">Отсканируйте QR-код камерой телефона, чтобы перенести на него избранное с компьютера.<br/>Это не настоящая синхронизация, поэтому такую операцию придётся делать каждый раз при изменении списка на компьютере.</p>
+          <canvas class="carry-qr" id="carry-qr" role="img" aria-label="QR-код ссылки на избранное"></canvas>
+        </div>
+        <div class="sheet-dock">
+          <div class="sheet-actions">
+            <button type="button" class="close carry-copy" id="carry-copy">Скопировать ссылку</button>
+            <button type="button" class="close" id="carry-close">Закрыть</button>
+          </div>
+          <p class="share-status" id="carry-copy-status" role="status"></p>
+        </div>
+      </div>
+    </dialog>
+
     <script src="data.js"></script>
+    <script src="qr.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

@@ -119,6 +119,67 @@ button {
   outline-offset: 3px;
 }
 
+.carry {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: var(--ink);
+  background: #eaeaea;
+  cursor: pointer;
+}
+
+.carry svg {
+  width: 22px;
+  height: 22px;
+}
+
+.carry:active {
+  transform: scale(0.98);
+}
+
+.carry:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.carry-saved {
+  flex: none;
+  margin: 0;
+  padding: 10px 16px;
+  background: #fff3c4;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.carry-saved[hidden] {
+  display: none;
+}
+
+.carry-note {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.carry-qr {
+  display: block;
+  width: min(220px, 100%);
+  height: auto;
+  margin: 20px auto 4px;
+  image-rendering: pixelated;
+}
+
+.carry-qr[hidden] {
+  display: none;
+}
+
 .brand { display: flex; flex-direction: column; gap: 1px; flex: 1 0 auto; min-width: max-content; }
 
 .kicker {
@@ -1037,9 +1098,9 @@ dialog::backdrop {
 
 .sheet-step {
   flex: none;
-  width: 64px;
+  min-width: 80px;
   min-height: 48px;
-  padding: 0;
+  font-weight: 700;
   border: 1px solid var(--line);
   border-radius: 4px;
   background: #fff;
@@ -1048,6 +1109,7 @@ dialog::backdrop {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 0 10px;
 }
 
 .sheet-step:hover {
@@ -1089,6 +1151,16 @@ dialog::backdrop {
 
 .close:hover {
   border-color: var(--light);
+}
+
+.close.carry-copy {
+  background: var(--ink);
+  color: #f7f4ee;
+  border-color: var(--ink);
+}
+
+.close.carry-copy:hover {
+  border-color: var(--ink);
 }
 
 .share {
@@ -1146,7 +1218,8 @@ dialog::backdrop {
 }
 
 @media (max-width: 839px) {
-  #favorites { display: none; }
+  #favorites,
+  #carry { display: none; }
 
   .name-line {
     display: flex;
@@ -1227,6 +1300,7 @@ dialog::backdrop {
   #mode { display: none; }
   .path-list { padding: 16px 24px 32px; }
   .top  { padding-left: 24px; padding-right: 24px; }
+  .carry-saved { padding-left: 24px; padding-right: 24px; }
   h1 { font-size: 32px; }
   .title-full { display: inline; }
   .title-short { display: none; }
