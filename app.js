@@ -557,10 +557,10 @@ function renderPathBoard() {
     if (group.length) {
       group.forEach((event) => block.append(createCard(event, { showHall: true })));
     } else if (!busy) {
-      const free = document.createElement("p");
+      const free = document.createElement("span");
       free.className = "path-free";
       free.textContent = "Свободное время";
-      block.append(free);
+      label.append(free);
     }
 
     list.append(block);
@@ -1327,6 +1327,9 @@ function start() {
   if (imported) {
     importedStatus.hidden = false;
     importedStatus.textContent = "Избранное с компьютера сохранено";
+    window.setTimeout(() => {
+      importedStatus.hidden = true;
+    }, 5000);
   }
 
   if (linked) {
