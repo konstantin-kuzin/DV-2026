@@ -266,7 +266,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/braindesignbad",
         message: "https://t.me/alenochkamurmur",
-        presentation: "",
+        presentation: "https://t.me/braindesignbad/1114",
         video: "",
       },
     },
@@ -346,7 +346,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/arina_graph_public",
         message: "https://t.me/Arina_graph",
-        presentation: "",
+        presentation: "https://drive.google.com/drive/folders/1BbWsdDAvTgQnnF49vbmZmF-LaBgj3IRt",
         video: "",
       },
     },
@@ -1351,7 +1351,7 @@ window.SCHEDULE = {
         telegram: "https://t.me/valeriawcreaator",
         message: "https://t.me/valeriawcreator",
         presentation: "https://t.me/valeriawcreaator/422",
-        video: "",
+        video: "https://www.youtube.com/watch?v=qNf_r2_Aqzc",
       },
     },
     {
@@ -1689,7 +1689,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/must_show_this",
         message: "",
-        presentation: "",
+        presentation: "https://www.figma.com/proto/XjdrwayjFN8bXmdpkDKY7F/%D0%94-%D0%B2-%E2%80%94-%D0%92%D0%BE%D0%BB%D0%BA%D0%BE%D0%B2%D0%B0-%D0%9F%D0%BE%D0%BB%D0%B8%D0%BD%D0%B0-%E2%80%94-%D0%A2%D1%83%D0%BB%D0%B0-2026?page-id=0%3A1&node-id=1-2&scaling=scale-down-width&content-scaling=fixed&t=VJ3r8n5UhfN0YVlo-1",
         video: "",
       },
     },

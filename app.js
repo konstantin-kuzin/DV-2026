@@ -50,12 +50,10 @@ const sheetBody = sheet.querySelector(".sheet-body");
 const sheetPrev = document.getElementById("sheet-prev");
 const sheetNext = document.getElementById("sheet-next");
 const sheetClose = document.getElementById("sheet-close");
-const carryBtn = document.getElementById("carry");
-const carryDialog = document.getElementById("carry-dialog");
+const carryPanel = document.getElementById("carry-panel");
 const carryQr = document.getElementById("carry-qr");
 const carryCopy = document.getElementById("carry-copy");
 const carryCopyStatus = document.getElementById("carry-copy-status");
-const carryClose = document.getElementById("carry-close");
 const importedStatus = document.getElementById("imported-status");
 
 const FIRST_HOUR = Math.floor(START_MIN / 60);
@@ -410,7 +408,7 @@ function pinHall() {
 }
 
 function isCompact() {
-  return window.matchMedia("(max-width: 839px)").matches;
+  return window.matchMedia("(max-width: 799px)").matches;
 }
 
 function hoursWithEvents() {
@@ -539,14 +537,34 @@ function eventsForPath() {
     });
 }
 
+function placePath(node) {
+  if (isCompact()) {
+    carryPanel.hidden = true;
+    board.replaceChildren(node);
+  } else {
+    const stage = document.createElement("div");
+    stage.className = "path-stage";
+    const phone = document.createElement("div");
+    phone.className = "phone";
+    const scroll = document.createElement("div");
+    scroll.className = "phone-scroll";
+    scroll.append(node);
+    phone.append(scroll);
+    carryPanel.hidden = false;
+    stage.append(phone, carryPanel);
+    board.replaceChildren(stage);
+    drawPlanQr(planUrl());
+  }
+  board.scrollTo({ left: 0, top: 0 });
+}
+
 function renderPathBoard() {
   const items = eventsForPath();
   if (!items.length) {
     const empty = document.createElement("p");
     empty.className = "empty-favorites";
-    empty.textContent = "В избранном пока нет событий";
-    board.replaceChildren(empty);
-    board.scrollTo({ left: 0, top: 0 });
+    empty.textContent = "Gj странному стечению обстоятельств в избранном пока нет событий";
+    placePath(empty);
     return;
   }
   const byHour = new Map();
@@ -588,8 +606,7 @@ function renderPathBoard() {
 
     list.append(block);
   });
-  board.replaceChildren(list);
-  board.scrollTo({ left: 0, top: 0 });
+  placePath(list);
 }
 
 function renderBoard() {
@@ -893,7 +910,7 @@ function revealCard(id) {
     }
   }
 
-  const scroller = card.closest(".hall-events") || card.closest(".hour-list") || board;
+  const scroller = card.closest(".phone-scroll") || card.closest(".hall-events") || card.closest(".hour-list") || board;
   const top = Math.max(0, card.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - 12);
   if (scroller === board && !state.path && !state.byHour && !isCompact()) {
     const left = Math.max(0, hallIndexes().indexOf(state.hall) * columnWidth());
@@ -1051,6 +1068,7 @@ function toggleFavorite(id, level) {
   if (staysVisible && card) {
     card.classList.toggle("is-favorite", favorites.has(id));
     card.classList.toggle("is-secondary", secondary.has(id));
+    if (state.path && !isCompact()) drawPlanQr(planUrl());
   } else {
     renderChrome();
     renderBoard();
@@ -1248,7 +1266,7 @@ sheetNext.addEventListener("click", () => stepOpenEvent(1));
 
 const sheetShare = document.getElementById("sheet-share");
 const shareStatus = document.getElementById("sheet-share-status");
-const mobileLayout = window.matchMedia("(max-width: 839px)");
+const mobileLayout = window.matchMedia("(max-width: 799px)");
 let shareResetTimer = 0;
 
 function markShareCopied() {
@@ -1318,14 +1336,6 @@ sheet.addEventListener("close", () => {
 
 let carryCopyTimer = 0;
 
-function openCarry() {
-  drawPlanQr(planUrl());
-  carryCopy.textContent = "Скопировать ссылку";
-  carryCopyStatus.textContent = "";
-  window.clearTimeout(carryCopyTimer);
-  if (!carryDialog.open) carryDialog.showModal();
-}
-
 async function copyPlanLink() {
   if (!(await writeClipboard(planUrl()))) return;
   carryCopy.textContent = "Ссылка скопирована";
@@ -1337,13 +1347,8 @@ async function copyPlanLink() {
   }, 1600);
 }
 
-carryBtn.addEventListener("click", openCarry);
-carryClose.addEventListener("click", () => carryDialog.close());
 carryCopy.addEventListener("click", () => {
   copyPlanLink();
-});
-carryDialog.addEventListener("click", (event) => {
-  if (event.target === carryDialog) carryDialog.close();
 });
 
 function start() {
@@ -1395,7 +1400,10 @@ function start() {
 start();
 
 mobileLayout.addEventListener("change", () => {
-  if (state.path) return;
+  if (state.path) {
+    renderBoard();
+    return;
+  }
   scrollLock += 1;
   renderChrome();
   renderBoard();

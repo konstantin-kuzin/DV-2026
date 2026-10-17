@@ -13,7 +13,7 @@
   --halls: 7;
   --shadow: 0 1px 0 rgba(26, 25, 22, 0.04);
   color-scheme: light;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -120,34 +120,6 @@ button {
   outline-offset: 3px;
 }
 
-.carry {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 36px;
-  padding: 0;
-  border: 0;
-  border-radius: 4px;
-  color: var(--ink);
-  background: #eaeaea;
-  cursor: pointer;
-}
-
-.carry svg {
-  width: 22px;
-  height: 22px;
-}
-
-.carry:active {
-  transform: scale(0.98);
-}
-
-.carry:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 3px;
-}
-
 .carry-saved {
   flex: none;
   margin: 0;
@@ -162,6 +134,29 @@ button {
   display: none;
 }
 
+.carry-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 0 1 420px;
+  min-width: 240px;
+  max-width: 460px;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.carry-panel[hidden] {
+  display: none;
+}
+
+.carry-panel h2 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-weight: 720;
+}
+
 .carry-note {
   margin: 12px 0 0;
   color: var(--muted);
@@ -173,8 +168,16 @@ button {
   display: block;
   width: min(220px, 100%);
   height: auto;
-  margin: 20px auto 4px;
+  margin: 28px 0 0;
   image-rendering: pixelated;
+}
+
+.carry-panel .carry-copy {
+  flex: none;
+  align-self: flex-start;
+  margin-top: 28px;
+  min-width: 220px;
+  padding: 0 24px;
 }
 
 .carry-qr[hidden] {
@@ -329,13 +332,56 @@ body.is-hours .board {
 body.is-path .board {
   scroll-snap-type: none;
   scroll-padding-left: 0;
-  background: #eaeaea;
+}
+
+.phone {
+  position: relative;
+  container-type: size;
+}
+
+.phone-scroll {
+  position: absolute;
+  z-index: 1;
+  left: 5.72%;
+  top: 2.734%;
+  width: 88.36%;
+  height: 94.53%;
+  overflow: auto;
+  overscroll-behavior: none;
+  border-radius: 8.93% / 4.13%;
+  background: #fff;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.phone-scroll::-webkit-scrollbar { display: none; }
+
+.phone::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: url("phone.png") 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.phone .path-list {
+  width: 100%;
+  min-height: 100%;
+  padding-top: 3.6cqh;
+  padding-bottom: 2.2cqh;
+}
+
+.phone .empty-favorites {
+  min-height: 100%;
+  background: #fff;
+  padding-top: 8cqh;
 }
 
 .path-list {
   display: flex;
   flex-direction: column;
-  width: min(100%, 520px);
+  width: min(100%, 800px);
   background: #FFF;
 }
 
@@ -366,7 +412,7 @@ body.is-path .board {
   gap: 12px;
   margin: 0;
   padding: 10px 20px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0.02em;
@@ -378,7 +424,6 @@ body.is-path .board {
 .path-hour::after {
   content: "";
   flex: 1;
-  height: 1px;
 }
 
 .path-free {
@@ -1240,9 +1285,8 @@ dialog::backdrop {
   font-size: 15px;
 }
 
-@media (max-width: 839px) {
-  #favorites,
-  #carry { display: none; }
+@media (max-width: 799px) {
+  #favorites { display: none; }
 
   .name-line {
     display: flex;
@@ -1299,7 +1343,7 @@ dialog::backdrop {
   }
 }
 
-@media (min-width: 840px) {
+@media (min-width: 800px) {
   :root { --peek: 0px; --head: 52px; }
   .grid {
     width: max(100%, calc(var(--time) + var(--halls) * 200px));
@@ -1318,6 +1362,36 @@ dialog::backdrop {
   .hour-col.is-empty {
     width: max-content;
   }
+  body.is-path .board {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 16px 32px 20px;
+  }
+
+  .path-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(28px, 4vw, 72px);
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .phone {
+    flex: 0 1 auto;
+    min-width: 0;
+    min-height: 0;
+    height: min(860px, 100%);
+    width: auto;
+    max-width: calc(100% - 300px);
+    aspect-ratio: 507 / 1024;
+    filter: drop-shadow(0 22px 34px rgba(26, 25, 22, 0.2));
+  }
+
   .masthead { align-items: center; }
   .mast-tools { gap: 10px; }
   #mode { display: none; }
