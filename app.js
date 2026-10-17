@@ -141,16 +141,9 @@ function contactsForSpeaker(event, index) {
 }
 
 function appendContactIcons(who, contacts) {
+  if (!contacts.length) return;
   const row = document.createElement("div");
   row.className = "contacts";
-  if (!contacts.length) {
-    const empty = document.createElement("span");
-    empty.className = "contact-empty";
-    empty.setAttribute("aria-hidden", "true");
-    row.append(empty);
-    who.append(row);
-    return;
-  }
   for (const field of contacts) {
     const link = document.createElement("a");
     link.href = field.href;
@@ -236,6 +229,7 @@ function renderChrome() {
   favoritesBtn.setAttribute("aria-pressed", String(state.favoritesOnly));
   document.body.classList.toggle("is-hours", state.byHour && !state.path);
   document.body.classList.toggle("is-path", state.path);
+  document.body.classList.toggle("is-halls-compact", !state.byHour && !state.path && isCompact());
   document.body.classList.toggle("is-favorites-dim", state.favoritesOnly && !state.path);
 
   if (state.path) {
@@ -379,6 +373,7 @@ function createCard(event, { showHall, span }) {
   }
 
   const links = filledLinks(event);
+  const materials = links.filter((field) => !CONTACT_KEYS.has(field.key));
 
   event.speakers.forEach((speaker, index) => {
     const person = document.createElement("div");
@@ -386,10 +381,12 @@ function createCard(event, { showHall, span }) {
     const name = document.createElement("p");
     name.className = "name";
     name.textContent = speaker.name;
-    if (index === 0 && links.length) {
+    const contacts = contactsForSpeaker(event, index);
+    const inline = index === 0 ? contacts.concat(materials) : contacts;
+    if (inline.length) {
       const line = document.createElement("div");
       line.className = "name-line";
-      line.append(name, cardLinkIcons(links));
+      line.append(name, cardLinkIcons(inline));
       person.append(line);
     } else {
       person.append(name);
@@ -491,7 +488,52 @@ function renderBoard() {
   else renderHallBoard();
 }
 
+function renderCompactHallBoard() {
+  pinHall();
+  const dayEvents = eventsForDay();
+  const boardList = document.createElement("div");
+  boardList.className = "hall-board";
+
+  visibleHalls().forEach(({ hall, index }) => {
+    const items = dayEvents
+      .filter((event) => event.hall === hall.id)
+      .sort((a, b) => minutes(a.start) - minutes(b.start));
+
+    const column = document.createElement("section");
+    column.className = "hall-col";
+    const active = index === state.hall;
+    column.classList.toggle("is-active", active);
+    column.dataset.hall = String(index);
+    column.setAttribute("aria-hidden", String(!active));
+
+    const list = document.createElement("div");
+    list.className = "hall-events";
+    items.forEach((event) => list.append(createCard(event, { showHall: false })));
+    column.append(list);
+    boardList.append(column);
+  });
+
+  board.replaceChildren(boardList);
+  board.scrollTo({ left: 0, top: 0 });
+}
+
+function activateCompactHall(index) {
+  const columns = [...board.querySelectorAll(".hall-board .hall-col")];
+  if (!columns.length) return false;
+  columns.forEach((column) => {
+    const active = Number(column.dataset.hall) === index;
+    column.classList.toggle("is-active", active);
+    column.setAttribute("aria-hidden", String(!active));
+  });
+  return true;
+}
+
 function renderHallBoard() {
+  if (isCompact()) {
+    renderCompactHallBoard();
+    return;
+  }
+
   const shown = visibleHalls();
   const dayEvents = eventsForDay();
   const columnOf = new Map(shown.map((item, position) => [item.hall.id, position]));
@@ -672,6 +714,10 @@ function setHall(index, scroll) {
     const left = chip.offsetLeft - (hallsEl.clientWidth - chip.offsetWidth) / 2;
     hallsEl.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
   }
+  if (isCompact()) {
+    if (!activateCompactHall(next)) renderCompactHallBoard();
+    return;
+  }
   if (scroll) {
     board.scrollTo({ left: pool.indexOf(next) * columnWidth(), behavior: "smooth" });
   }
@@ -707,7 +753,7 @@ function openEvent(id) {
   const hall = hallById(event.hall);
   const day = days.find((item) => item.id === event.day);
   const section = sectionOf(hall, event.day);
-  sheetMeta.textContent = `${day.weekday}, ${day.date} · ${event.start}–${event.end} · ${hall.name} · ${section.title}`;
+  sheetMeta.textContent = `${day.weekday}, ${day.date} · ${event.start}–${event.end}\n${hall.name} · ${section.title}`;
   const kind = KINDS[event.kind];
   sheetKind.hidden = !kind;
   sheetKind.textContent = kind || "";
@@ -729,21 +775,24 @@ function openEvent(id) {
       item.append(photo);
       const who = document.createElement("div");
       who.className = "who";
+      const identity = document.createElement("div");
+      identity.className = "identity";
       const name = document.createElement("strong");
       name.textContent = speaker.name;
-      who.append(name);
+      identity.append(name);
       if (speaker.role && speaker.role !== "участник") {
         const role = document.createElement("span");
         role.className = "role";
         role.textContent = speaker.role;
-        who.append(role);
+        identity.append(role);
       }
       const post = speaker.position || speaker.org;
       if (post) {
         const org = document.createElement("span");
         org.textContent = post;
-        who.append(org);
+        identity.append(org);
       }
+      who.append(identity);
       appendContactIcons(who, contactsForSpeaker(event, index));
       item.append(who);
       if (index === event.speakers.length - 1) item.append(sheetTitle);
@@ -979,7 +1028,7 @@ board.addEventListener(
   () => {
     cancelAnimationFrame(scrollFrame);
     scrollFrame = requestAnimationFrame(() => {
-      if (scrollLock || state.path) return;
+      if (scrollLock || state.path || (isCompact() && !state.byHour)) return;
       if (state.byHour) {
         if (!hoursLayoutCurrent()) return;
         const hour = hourFromScroll();
@@ -1088,8 +1137,14 @@ function start() {
     requestAnimationFrame(() => {
       const card = board.querySelector(`[data-id="${linked.id}"]`);
       if (card) {
-        const top = Math.max(0, card.offsetTop - 12);
-        board.scrollTo(state.hall * columnWidth(), top);
+        const scroller = card.closest(".hall-events");
+        if (scroller) {
+          const top = card.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - 12;
+          scroller.scrollTo({ top: Math.max(0, top) });
+        } else {
+          const top = Math.max(0, card.offsetTop - 12);
+          board.scrollTo(state.hall * columnWidth(), top);
+        }
       }
       openEvent(linked.id);
     });
@@ -1099,13 +1154,15 @@ function start() {
 start();
 
 mobileLayout.addEventListener("change", () => {
-  if (state.path || !state.byHour) return;
+  if (state.path) return;
   scrollLock += 1;
   renderChrome();
   renderBoard();
   requestAnimationFrame(() => {
-    const column = board.querySelector(`.hour-col[data-hour="${state.hour}"]`);
-    if (column) board.scrollTo({ left: column.offsetLeft, top: 0, behavior: "auto" });
+    if (state.byHour) {
+      const column = board.querySelector(`.hour-col[data-hour="${state.hour}"]`);
+      if (column) board.scrollTo({ left: column.offsetLeft, top: 0, behavior: "auto" });
+    }
     requestAnimationFrame(() => {
       scrollLock -= 1;
     });

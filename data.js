@@ -10,7 +10,7 @@
 //   video: "https://…",
 // }
 // Несколько ссылок одного типа — с цифрой: message, message1, message2.
-// В шторке telegram и message без цифры у первого спикера, с 1 — у второго, с 2 — у третьего.
+// В шторке и на карточке telegram и message без цифры у первого спикера, с 1 — у второго, с 2 — у третьего.
 // Пустую строку интерфейс считает отсутствием ссылки.
 // description — аннотация доклада, показывается только в шторке.
 // photo — портрет спикера, ссылка с designweekend.ru/tula2026.
@@ -2577,6 +2577,7 @@ window.SCHEDULE = {
       ],
       links: {
         telegram: "https://t.me/double_prok",
+        telegram3: "https://t.me/yapristupa",
         message: "",
         presentation: "",
         video: "",

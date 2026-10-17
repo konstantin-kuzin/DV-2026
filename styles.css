@@ -382,6 +382,47 @@ body.is-path .board {
   scroll-snap-align: none;
 }
 
+.hall-board {
+  height: 100%;
+  min-height: 0;
+}
+
+.hall-col {
+  display: none;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.hall-col.is-active {
+  display: flex;
+}
+
+.hall-events {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.hall-events::-webkit-scrollbar { display: none; }
+
+.hall-events .card,
+.hall-events .card.is-favorite,
+.hall-events .card.is-secondary {
+  scroll-snap-align: none;
+}
+
+body.is-halls-compact .board {
+  overflow: hidden;
+  scroll-snap-type: none;
+  scroll-padding-left: 0;
+}
+
 .grid {
   position: relative;
   display: grid;
@@ -700,11 +741,25 @@ dialog::backdrop {
   right: 0;
   bottom: 0;
   max-height: min(86dvh, 760px);
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: #fff;
   border-radius: 8px 8px 0 0;
-  padding: 16px 20px calc(18px + env(safe-area-inset-bottom));
   box-shadow: 0 -12px 40px rgba(26, 25, 22, 0.16);
+}
+
+.sheet-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 20px 16px;
+}
+
+.sheet-dock {
+  flex: none;
+  padding: 8px 20px calc(16px + env(safe-area-inset-bottom));
+  background: #fff;
 }
 
 .grab {
@@ -715,10 +770,22 @@ dialog::backdrop {
   margin: 4px auto 14px;
 }
 
+.sheet-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .sheet-meta {
+  flex: 1 1 auto;
+  min-width: 0;
   margin: 0;
+  padding-top: 4px;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.35;
+  white-space: pre-wrap;
 }
 .sheet-title {
   margin: 16px 0 2px;
@@ -771,7 +838,7 @@ dialog::backdrop {
   display: grid;
   grid-template-columns: 140px minmax(0, 1fr);
   column-gap: 12px;
-  align-items: end;
+  align-items: start;
 }
 
 .people .sheet-title {
@@ -791,8 +858,22 @@ dialog::backdrop {
 .people .who {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 140px;
+  justify-content: space-between;
+}
+
+.people .who:not(:has(.contacts)) {
+  justify-content: center;
+}
+
+.people .identity {
+  display: flex;
+  flex-direction: column;
   gap: 1px;
   min-width: 0;
+  min-height: 90px;
+  justify-content: center;
 }
 
 .people strong { font-size: 24px; font-weight: 700; padding-bottom: 2px;}
@@ -807,7 +888,7 @@ dialog::backdrop {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-top: 16px;
+  padding-top: 8px;
 }
 
 .people .contacts a {
@@ -830,13 +911,6 @@ dialog::backdrop {
   width: auto;
   height: 22px;
   display: block;
-}
-
-.people .contact-empty {
-  width: 32px;
-  height: 32px;
-  flex: none;
-  border: none;
 }
 
 .materials { margin-top: 16px; }
@@ -893,7 +967,6 @@ dialog::backdrop {
 }
 
 .marks {
-  margin-top: 18px;
   display: flex;
   gap: 8px;
 }
@@ -966,13 +1039,13 @@ dialog::backdrop {
 
 .share {
   flex: none;
-  width: 48px;
-  min-height: 48px;
+  width: 36px;
+  min-height: 36px;
   padding: 0;
-  border: 0;
+  border: 1px solid var(--line);
   border-radius: 4px;
-  background: var(--ink);
-  color: #f7f4ee;
+  background: #fff;
+  color: var(--ink);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -980,8 +1053,8 @@ dialog::backdrop {
 }
 
 .share svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .share .icon-check { display: none; }
@@ -990,8 +1063,7 @@ dialog::backdrop {
 
 .share.is-copied .icon-check { display: block; }
 
-.close:focus-visible,
-.share:focus-visible {
+.close:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
@@ -1047,6 +1119,23 @@ dialog::backdrop {
   }
 
   .card:has(.name-line) > .card-links { display: none; }
+
+  #sheet {
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+
+  .sheet {
+    top: 0;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .sheet-body {
+    padding-top: calc(16px + env(safe-area-inset-top));
+  }
 
   .hour-col,
   .col-line,
