@@ -12,15 +12,15 @@ const KINDS = {
 const LINK_FIELDS = [
   { key: "telegram", label: "Телеграм-канал" },
   { key: "message", label: "Сообщение" },
-  { key: "presentation", label: "Презентация" },
   { key: "video", label: "Видео" },
+  { key: "presentation", label: "Презентация" },
 ];
 
 const LINK_ICONS = {
   telegram: `<svg viewBox="1.67 4.5 21.19 17.44" aria-hidden="true"><path fill="currentColor" d="M21.4 4.5 2.6 11.4c-1.2.5-1.2 1.1-.2 1.4l4.9 1.5 1.8 5.6c.2.6.1.9.8.9.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.6c.9.5 1.5.2 1.7-.8l3.2-14.7c.3-1.2-.5-1.8-1.4-1.4zM8.8 14.2l9.6-6c.4-.3.9-.1.5.2l-8.2 7.4-.3 3.3-1.6-4.9z"/></svg>`,
   message: `<svg viewBox="2 2 20 20" aria-hidden="true"><path fill="currentColor" d="M4 2C2.9 2 2 2.9 2 4v13l3-3h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4zM18 7v5c0 1.7-1.3 3-3 3H7v2c0 1.1.9 2 2 2h10l3 3V9c0-1.1-.9-2-2-2H18z"/></svg>`,
   presentation: `<svg viewBox="0 0 14 14" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M7 .125c-1.775 0-3.505.105-5.142.297A1.45 1.45 0 0 0 .595 1.596q-.065.351-.119.71a.49.49 0 0 0 .49.56h12.06a.49.49 0 0 0 .49-.56a23 23 0 0 0-.113-.692a1.46 1.46 0 0 0-1.278-1.19A45 45 0 0 0 7 .125M.266 4.585c.01-.264.23-.47.494-.47h12.48c.263 0 .482.205.493.469q.018.422.018.849c0 1.317-.143 2.584-.352 3.797a1.47 1.47 0 0 1-1.292 1.21a54 54 0 0 1-2.205.199l1.956 1.956a.75.75 0 1 1-1.06 1.06l-2.885-2.884l-.037-.04l-.125.002v2.392a.75.75 0 0 1-1.5 0v-2.394l-.122-.003l-.04.043l-2.885 2.884a.75.75 0 0 1-1.06-1.06l1.971-1.972a90 90 0 0 1-2.208-.193a1.47 1.47 0 0 1-1.312-1.2a21.5 21.5 0 0 1-.328-4.644" clip-rule="evenodd"/></svg>`,
-  video: `<svg viewBox="2.375 5.375 19.25 13.25" aria-hidden="true"><rect x="3.25" y="6.25" width="12.5" height="11.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.75"/><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" d="M15.75 10.25 20.75 8v8l-5-2.25z"/></svg>`,
+  video: `<svg viewBox="0 0 137 150" aria-hidden="true"><path fill="currentColor" d="M11 62L7 71L7 114L8 118L12 123L16 125L33 125L34 126L32 131L20 149L34 149L50 128L53 130L67 149L80 149L68 130L67 126L68 125L91 125L98 118L99 115L99 69L97 64L91 60L14 60ZM136 57L107 74L107 111L136 129ZM12 14L4 21L2 27L0 28L0 34L2 35L4 41L9 46L19 49L20 48L25 48L32 43L36 36L36 25L34 21L29 16L21 13ZM71 0L70 2L67 2L63 4L55 12L52 19L52 24L51 25L52 31L55 38L61 44L70 48L81 48L88 45L95 38L98 31L99 22L96 13L91 7L82 2L79 2L78 0Z"/></svg>`,
 };
 
 const { days, halls, events } = window.SCHEDULE;
@@ -44,6 +44,7 @@ const sheetTitle = document.getElementById("sheet-title");
 const sheetDesc = document.getElementById("sheet-desc");
 const sheetPeople = document.getElementById("sheet-people");
 const sheetMaterials = document.getElementById("sheet-materials");
+const sheetVideo = document.getElementById("sheet-video");
 const sheetLinks = document.getElementById("sheet-links");
 const sheetBody = sheet.querySelector(".sheet-body");
 const sheetPrev = document.getElementById("sheet-prev");
@@ -277,6 +278,27 @@ function cardLinkRow(links) {
   return row;
 }
 
+function youtubeId(url) {
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return "";
+  }
+  const host = parsed.hostname.replace(/^www\./, "");
+  let id = "";
+  if (host === "youtu.be") {
+    id = parsed.pathname.slice(1).split("/")[0];
+  } else if (host === "youtube.com" || host === "m.youtube.com" || host === "youtube-nocookie.com") {
+    if (parsed.pathname === "/watch") id = parsed.searchParams.get("v") || "";
+    else {
+      const [kind, value] = parsed.pathname.split("/").filter(Boolean);
+      if (value && ["embed", "shorts", "live", "v"].includes(kind)) id = value;
+    }
+  }
+  return /^[\w-]{11}$/.test(id) ? id : "";
+}
+
 function filledLinks(event) {
   const links = event.links || {};
   const entries = [];
@@ -492,7 +514,8 @@ function createCard(event, { showHall, span }) {
     button.append(person);
   });
 
-  const title = document.createElement("h3");
+  const title = document.createElement("div");
+  title.className = "description";
   title.textContent = event.title;
   button.append(title);
 
@@ -945,7 +968,26 @@ function openEvent(id) {
   if (!event.speakers.length) sheetDesc.before(sheetTitle);
 
   const links = filledLinks(event).filter((field) => field.key !== "telegram" && field.key !== "message");
-  sheetMaterials.hidden = links.length === 0;
+  const embeds = links.flatMap((field) => {
+    if (field.key !== "video") return [];
+    const id = youtubeId(field.href);
+    return id ? [id] : [];
+  });
+  sheetVideo.hidden = embeds.length === 0;
+  sheetVideo.replaceChildren(
+    ...embeds.map((id) => {
+      const frame = document.createElement("iframe");
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}`;
+      frame.title = `Видео: ${event.title}`;
+      frame.loading = "lazy";
+      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      frame.allowFullscreen = true;
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      return frame;
+    }),
+  );
+  sheetMaterials.hidden = links.length === 0 && embeds.length === 0;
+  sheetLinks.hidden = links.length === 0;
   sheetLinks.replaceChildren(
     ...links.map((field) => {
       const link = document.createElement("a");

@@ -1386,7 +1386,7 @@ window.SCHEDULE = {
         telegram: "https://t.me/oruslo",
         message: "https://t.me/gadrusl",
         presentation: "",
-        video: "",
+        video: "https://youtu.be/10B6KyYAFnM?si=Zitps-reZwqP_l1d",
       },
     },
 
@@ -1819,7 +1819,7 @@ window.SCHEDULE = {
         telegram: "https://t.me/polishkapindrik",
         message: "",
         presentation: "",
-        video: "",
+        video: "https://youtu.be/UQxZs-N8lfs",
       },
     },
     {
