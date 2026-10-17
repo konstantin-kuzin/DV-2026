@@ -96,6 +96,17 @@
           </div>
           <div class="sheet-actions">
             <button type="button" class="close" id="sheet-close">Закрыть</button>
+            <button type="button" class="sheet-step" id="sheet-prev" aria-label="Предыдущее" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 18.5V7M7.5 11.5 12 7l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            
+            <button type="button" class="sheet-step" id="sheet-next" aria-label="Следующее" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5.5v11.5M7.5 12.5 12 17l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
           </div>
           <p class="share-status" id="sheet-share-status" role="status"></p>
         </div>

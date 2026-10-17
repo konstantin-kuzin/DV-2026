@@ -1,7 +1,8 @@
 :root {
   --paper: #fff;
   --ink: #1a1916;
-  --muted: #6f6a62;
+  --muted: #706c66;
+  --light: #908e8b;
   --line: #dedede;
   --card: #fff;
   --time: 52px;
@@ -32,6 +33,11 @@ body {
 }
 
 button, a { font: inherit; color: inherit; }
+
+button {
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
 .top {
   flex: none;
@@ -526,7 +532,7 @@ body.is-halls-compact .board {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
   position: relative;
   z-index: 1;
@@ -544,16 +550,16 @@ body.is-halls-compact .board {
 }
 
 .card.is-favorite:hover {
-  background: rgb(252, 227, 227);
+  background: hsl(0, 100%, 98%);
   
 }
 
 .card.is-secondary {
-  border-left: 10px solid rgb(255, 204, 0);
+  border-left: 10px solid hsl(48, 100%, 50%);
 }
 
 .card.is-secondary:hover {
-  background: rgb(249, 239, 208);
+  background: hsl(45, 77%, 95%);
 }
 
 body.is-favorites-dim .card:not(.is-favorite):not(.is-secondary) > * {
@@ -571,7 +577,8 @@ body.is-favorites-dim .card:not(.is-favorite):not(.is-secondary) > * {
   margin: 0;
   font-size: 12px;
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
+  color: var(--light);
+  font-weight: 400;
 }
 
 .card-top {
@@ -605,32 +612,29 @@ body.is-favorites-dim .card:not(.is-favorite):not(.is-secondary) > * {
   font-weight: 680;
 }
 
-.person + .person { margin-top: 8px;}
+.person + .person { margin-top: 4px;}
 
 .name {
   margin: 0;
   font-size: 16px;
   line-height: 1.2;
   font-weight: 700;
-  letter-spacing: -0.02em;
   color: var(--ink);
 }
 
 .org {
-  margin: 1px 0 0;
+  margin: 2px 0;
   font-size: 13px;
-  line-height: 1.25;
-  color: var(--muted);
+  color: var(--light);
+  font-weight: 400;
 }
 
 .card h3 {
   margin: 0;
   font-size: 15px;
-  line-height: 1.3;
-  font-weight: 450;
-  font-style: italic;
-  letter-spacing: -0.01em;
-  min-height: 1.3em;
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--muted);
 }
 
 .card[data-span="1"]:has(.card-links) {
@@ -638,15 +642,10 @@ body.is-favorites-dim .card:not(.is-favorite):not(.is-secondary) > * {
   padding-bottom: 8px;
 }
 
-.card[data-span="1"]:has(.card-links) .card-links {
-  margin-top: 0;
-}
-
 .card-links {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  margin-top: 8px;
   align-items: center;
 }
 
@@ -659,7 +658,10 @@ body.is-favorites-dim .card:not(.is-favorite):not(.is-secondary) > * {
   color: var(--ink);
   text-decoration: none;
   margin: 4px;
+  opacity: 40%;
 }
+
+.card-link:hover {opacity:1}
 
 .card-link svg {
   width: auto;
@@ -782,7 +784,7 @@ dialog::backdrop {
   min-width: 0;
   margin: 0;
   padding-top: 4px;
-  color: var(--muted);
+  color: var(--light);
   font-size: 13px;
   line-height: 1.35;
   white-space: pre-wrap;
@@ -880,7 +882,7 @@ dialog::backdrop {
 
 .people span,
 .role {
-  color: var(--muted);
+  color: var(--light);
   font-size: 14px;
 }
 
@@ -976,7 +978,7 @@ dialog::backdrop {
   min-width: 0;
   min-height: 48px;
   padding: 8px 10px;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 4px;
   background: #ffd6e6;
   color: var(--ink);
@@ -997,12 +999,20 @@ dialog::backdrop {
   flex: none;
 }
 
+.favorite:hover {
+  border: 1px solid #ea5e91;;
+}
+
 .favorite[aria-pressed="true"] {
   background: #f08aaf;
 }
 
 .favorite.is-secondary {
   background: #fff3c4;
+}
+
+.favorite.is-secondary:hover {
+  border: 1px solid rgb(228, 159, 55);
 }
 
 .favorite.is-secondary[aria-pressed="true"] {
@@ -1019,22 +1029,66 @@ dialog::backdrop {
 }
 
 .sheet-actions {
-  margin-top: 8px;
+  margin-top: 16px;
   display: flex;
   align-items: stretch;
   gap: 8px;
+}
+
+.sheet-step {
+  flex: none;
+  width: 64px;
+  min-height: 48px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sheet-step:hover {
+  border-color: var(--light);
+}
+
+.sheet-step svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sheet-step:active:not(:disabled) {
+  background: #f2f2f2;
+}
+
+.sheet-step:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.sheet-step:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
 }
 
 .close {
   flex: 1 1 auto;
   min-width: 0;
   min-height: 48px;
+  padding: 0 12px;
   border: 0;
   border-radius: 4px;
-  background: var(--ink);
-  color: #f7f4ee;
-  font-weight: 650;
+  color: var(--ink);
+  background: #fff;
+  font-weight: 600;
+  border: 1px solid var(--line);
   cursor: pointer;
+}
+
+.close:hover {
+  border-color: var(--light);
 }
 
 .share {
@@ -1050,6 +1104,10 @@ dialog::backdrop {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.share:hover {
+  border-color: var(--light);
 }
 
 .share svg {
@@ -1103,7 +1161,6 @@ dialog::backdrop {
     flex: none;
     flex-wrap: nowrap;
     gap: 6px;
-    margin-top: 0;
     padding-left: 2px;
   }
 

@@ -45,6 +45,10 @@ const sheetDesc = document.getElementById("sheet-desc");
 const sheetPeople = document.getElementById("sheet-people");
 const sheetMaterials = document.getElementById("sheet-materials");
 const sheetLinks = document.getElementById("sheet-links");
+const sheetBody = sheet.querySelector(".sheet-body");
+const sheetPrev = document.getElementById("sheet-prev");
+const sheetNext = document.getElementById("sheet-next");
+const sheetClose = document.getElementById("sheet-close");
 
 const FIRST_HOUR = Math.floor(START_MIN / 60);
 const LAST_HOUR = Math.floor((END_MIN - 1) / 60);
@@ -480,12 +484,10 @@ function renderPathBoard() {
 
 function renderBoard() {
   hideLinkTip();
-  if (state.path) {
-    renderPathBoard();
-    return;
-  }
-  if (state.byHour) renderHourBoard();
+  if (state.path) renderPathBoard();
+  else if (state.byHour) renderHourBoard();
   else renderHallBoard();
+  syncSheetNav();
 }
 
 function renderCompactHallBoard() {
@@ -747,6 +749,60 @@ function setHour(hour, scroll) {
   }
 }
 
+function selectionIds() {
+  let root = null;
+  if (state.path) root = board.querySelector(".path-list");
+  else if (state.byHour) {
+    root = isCompact()
+      ? board.querySelector(`.hour-col[data-hour="${state.hour}"]`)
+      : board.querySelector(".hour-board");
+  } else if (isCompact()) root = board.querySelector(".hall-col.is-active");
+  else root = board.querySelector(".grid");
+  if (!root) return [];
+  return [...root.querySelectorAll(".card")].map((card) => card.dataset.id).filter((id) => byId.has(id));
+}
+
+function syncSheetNav() {
+  const ids = selectionIds();
+  const index = state.openId ? ids.indexOf(state.openId) : -1;
+  sheetPrev.disabled = index <= 0;
+  sheetNext.disabled = index < 0 || index >= ids.length - 1;
+}
+
+function revealCard(id) {
+  const card = board.querySelector(`[data-id="${id}"]`);
+  const event = byId.get(id);
+  if (!card || !event) return;
+
+  if (!state.path && !isCompact()) {
+    if (state.byHour) {
+      if (hourOf(event.start) !== state.hour) setHour(hourOf(event.start), true);
+    } else {
+      const hallIndex = halls.findIndex((hall) => hall.id === event.hall);
+      if (hallIndex !== -1 && hallIndex !== state.hall) setHall(hallIndex, false);
+    }
+  }
+
+  const scroller = card.closest(".hall-events") || card.closest(".hour-list") || board;
+  const top = Math.max(0, card.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - 12);
+  if (scroller === board && !state.path && !state.byHour && !isCompact()) {
+    const left = Math.max(0, hallIndexes().indexOf(state.hall) * columnWidth());
+    board.scrollTo({ left, top });
+    return;
+  }
+  scroller.scrollTo({ top });
+}
+
+function stepOpenEvent(direction) {
+  const ids = selectionIds();
+  const nextId = ids[ids.indexOf(state.openId) + direction];
+  if (!nextId) return;
+  openEvent(nextId);
+  revealCard(nextId);
+  const button = direction < 0 ? sheetPrev : sheetNext;
+  if (button.disabled) sheetClose.focus();
+}
+
 function openEvent(id) {
   const event = byId.get(id);
   if (!event) return;
@@ -822,6 +878,8 @@ function openEvent(id) {
 
   state.openId = event.id;
   syncFavoriteButton(event.id);
+  syncSheetNav();
+  sheetBody.scrollTop = 0;
   if (!sheet.open) sheet.showModal();
   history.replaceState(null, "", `#${event.id}`);
 }
@@ -1055,7 +1113,9 @@ board.addEventListener("keydown", (event) => {
   else setHall(state.hall + step, true);
 });
 
-document.getElementById("sheet-close").addEventListener("click", closeSheet);
+sheetClose.addEventListener("click", closeSheet);
+sheetPrev.addEventListener("click", () => stepOpenEvent(-1));
+sheetNext.addEventListener("click", () => stepOpenEvent(1));
 
 const sheetShare = document.getElementById("sheet-share");
 const shareStatus = document.getElementById("sheet-share-status");
