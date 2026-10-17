@@ -6,7 +6,10 @@
     <meta name="theme-color" content="#f3f0e8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Дизайн-выходные 2026. Тула</title>
-    <link rel="stylesheet" href="styles.css" />
+    <script>
+      window.__v = Date.now();
+      document.write('<link rel="stylesheet" href="styles.css?v=' + window.__v + '">');
+    </script>
   </head>
   <body>
     <header class="top">
@@ -147,8 +150,12 @@
       </div>
     </dialog>
 
-    <script src="data.js"></script>
-    <script src="qr.js"></script>
-    <script src="app.js"></script>
+    <script>
+      document.write(
+        '<script src="data.js?v=' + window.__v + '"><\/script>' +
+        '<script src="qr.js?v=' + window.__v + '"><\/script>' +
+        '<script src="app.js?v=' + window.__v + '"><\/script>'
+      );
+    </script>
   </body>
 </html>
