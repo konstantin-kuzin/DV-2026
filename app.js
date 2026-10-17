@@ -30,6 +30,7 @@ const daysEl = document.getElementById("days");
 const hallsEl = document.getElementById("halls");
 const modeBtn = document.getElementById("mode");
 const favoritesBtn = document.getElementById("favorites");
+const pathBtn = document.getElementById("path");
 const sheetFavorite = document.getElementById("sheet-favorite");
 const sheetFavoriteLabel = document.getElementById("sheet-favorite-label");
 const sheetSecondary = document.getElementById("sheet-secondary");
@@ -83,6 +84,7 @@ const state = {
   hour: HOURS[0],
   byHour: false,
   favoritesOnly: false,
+  path: false,
   openId: null,
 };
 
@@ -197,6 +199,22 @@ function renderChrome() {
     }),
   );
 
+  favoritesBtn.hidden = state.path;
+  modeBtn.hidden = state.path;
+  pathBtn.setAttribute("aria-pressed", String(state.path));
+  modeBtn.setAttribute("aria-pressed", String(state.byHour));
+  favoritesBtn.setAttribute("aria-pressed", String(state.favoritesOnly));
+  document.body.classList.toggle("is-hours", state.byHour && !state.path);
+  document.body.classList.toggle("is-path", state.path);
+
+  if (state.path) {
+    hallsEl.hidden = true;
+    hallsEl.replaceChildren();
+    updateSection();
+    return;
+  }
+
+  hallsEl.hidden = false;
   if (state.byHour) {
     pinHour();
     hallsEl.setAttribute("aria-label", "Время");
@@ -227,9 +245,6 @@ function renderChrome() {
     );
   }
 
-  modeBtn.setAttribute("aria-pressed", String(state.byHour));
-  favoritesBtn.setAttribute("aria-pressed", String(state.favoritesOnly));
-  document.body.classList.toggle("is-hours", state.byHour);
   updateSection();
 }
 
@@ -334,8 +349,8 @@ function syncFavoriteButton(id) {
 }
 
 function updateSection() {
-  sectionEl.hidden = state.byHour;
-  if (state.byHour) return;
+  sectionEl.hidden = state.byHour || state.path;
+  if (state.byHour || state.path) return;
   const hall = halls[state.hall];
   const section = sectionOf(hall, state.day);
   const curator = section.curator ? ` · ${section.curator}` : "";
@@ -421,8 +436,75 @@ function createCard(event, { showHall, span }) {
   return button;
 }
 
+function eventsForPath() {
+  return events
+    .filter((event) => event.day === state.day && isSaved(event.id))
+    .sort((a, b) => {
+      const byStart = minutes(a.start) - minutes(b.start);
+      if (byStart) return byStart;
+      return halls.findIndex((hall) => hall.id === a.hall) - halls.findIndex((hall) => hall.id === b.hall);
+    });
+}
+
+function renderPathBoard() {
+  const items = eventsForPath();
+  if (!items.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty-favorites";
+    empty.textContent = "В избранном пока нет событий";
+    board.replaceChildren(empty);
+    board.scrollTo({ left: 0, top: 0 });
+    return;
+  }
+  const byHour = new Map();
+  items.forEach((event) => {
+    const hour = hourOf(event.start);
+    const group = byHour.get(hour);
+    if (group) group.push(event);
+    else byHour.set(hour, [event]);
+  });
+
+  const hours = HOURS.slice();
+  byHour.forEach((_, hour) => {
+    if (!hours.includes(hour)) hours.push(hour);
+  });
+  hours.sort((a, b) => a - b);
+
+  const list = document.createElement("div");
+  list.className = "path-list";
+  hours.forEach((hour) => {
+    const block = document.createElement("section");
+    block.className = "path-block";
+
+    const label = document.createElement("h2");
+    label.className = "path-hour";
+    label.textContent = hourLabel(hour);
+    block.append(label);
+
+    const group = byHour.get(hour) || [];
+    const from = hour * 60;
+    const busy = items.some((event) => minutes(event.start) < from + 60 && minutes(event.end) > from);
+    if (group.length) {
+      group.forEach((event) => block.append(createCard(event, { showHall: true })));
+    } else if (!busy) {
+      const free = document.createElement("p");
+      free.className = "path-free";
+      free.textContent = "Свободное время";
+      block.append(free);
+    }
+
+    list.append(block);
+  });
+  board.replaceChildren(list);
+  board.scrollTo({ left: 0, top: 0 });
+}
+
 function renderBoard() {
   hideLinkTip();
+  if (state.path) {
+    renderPathBoard();
+    return;
+  }
   if (state.favoritesOnly && eventsForDay().length === 0) {
     const empty = document.createElement("p");
     empty.className = "empty-favorites";
@@ -804,7 +886,7 @@ function toggleFavorite(id, level) {
   }
   writeFavorites();
   syncFavoriteButton(state.openId);
-  const staysVisible = !state.favoritesOnly || isSaved(id);
+  const staysVisible = !(state.path || state.favoritesOnly) || isSaved(id);
   const card = board.querySelector(`[data-id="${id}"]`);
   if (staysVisible && card) {
     card.classList.toggle("is-favorite", favorites.has(id));
@@ -835,6 +917,12 @@ modeBtn.addEventListener("click", () => {
 
 favoritesBtn.addEventListener("click", () => {
   state.favoritesOnly = !state.favoritesOnly;
+  renderChrome();
+  renderBoard();
+});
+
+pathBtn.addEventListener("click", () => {
+  state.path = !state.path;
   renderChrome();
   renderBoard();
 });
@@ -967,7 +1055,7 @@ board.addEventListener(
   () => {
     cancelAnimationFrame(scrollFrame);
     scrollFrame = requestAnimationFrame(() => {
-      if (scrollLock) return;
+      if (scrollLock || state.path) return;
       if (state.byHour) {
         if (!hoursLayoutCurrent()) return;
         const hour = hourFromScroll();
@@ -986,6 +1074,7 @@ board.addEventListener(
 );
 
 board.addEventListener("keydown", (event) => {
+  if (state.path) return;
   if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
   event.preventDefault();
   const step = event.key === "ArrowRight" ? 1 : -1;
@@ -1086,7 +1175,7 @@ function start() {
 start();
 
 mobileLayout.addEventListener("change", () => {
-  if (!state.byHour) return;
+  if (state.path || !state.byHour) return;
   scrollLock += 1;
   renderChrome();
   renderBoard();
