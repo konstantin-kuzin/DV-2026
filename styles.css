@@ -8,7 +8,6 @@
   --peek: 0px;
   --col: max(200px, calc(100vw - var(--time) - var(--peek)));
   --slot: 128px;
-  --slot-line: 28px;
   --head: 0px;
   --halls: 7;
   --shadow: 0 1px 0 rgba(26, 25, 22, 0.04);
@@ -90,7 +89,7 @@ button, a { font: inherit; color: inherit; }
 }
 
 #favorites[aria-pressed="true"] {
-  background: #f08aaf;
+  background: #fc0;
   color: var(--ink);
 }
 
@@ -98,12 +97,9 @@ button, a { font: inherit; color: inherit; }
   fill: currentColor;
 }
 
-#path {
-  width: auto;
-  padding: 0 12px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+#path svg {
+  width: 24px;
+  height: 22px;
 }
 
 #favorites[hidden],
@@ -479,11 +475,6 @@ body.is-path .board {
   border-bottom: none;
 }
 
-.tick.is-line {
-  padding: 0 0 0 8px;
-  line-height: 27px;
-}
-
 .card {
   scroll-snap-align: start;
   margin: 0;
@@ -522,6 +513,10 @@ body.is-path .board {
 
 .card.is-secondary:hover {
   background: rgb(249, 239, 208);
+}
+
+body.is-favorites-dim .card:not(.is-favorite):not(.is-secondary) > * {
+  opacity: 0.3;
 }
 
 .card:active { transform: scale(0.985); }
@@ -1021,6 +1016,38 @@ dialog::backdrop {
 }
 
 @media (max-width: 839px) {
+  #favorites { display: none; }
+
+  .name-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .name-line .name { min-width: 0; }
+
+  .name-line .card-links {
+    flex: none;
+    flex-wrap: nowrap;
+    gap: 6px;
+    margin-top: 0;
+    padding-left: 2px;
+  }
+
+  .name-line .card-link {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+  }
+
+  .name-line .card-link svg {
+    height: 14px;
+    opacity: 30%;
+  }
+
+  .card:has(.name-line) > .card-links { display: none; }
+
   .hour-col,
   .col-line,
   .corner,
@@ -1051,6 +1078,7 @@ dialog::backdrop {
   }
   .masthead { align-items: center; }
   .mast-tools { gap: 10px; }
+  #mode { display: none; }
   .path-list { padding: 16px 24px 32px; }
   .top  { padding-left: 24px; padding-right: 24px; }
   h1 { font-size: 32px; }
@@ -1061,7 +1089,8 @@ dialog::backdrop {
   .hall-head { display: flex; }
   .halls,
   .section { display: none; }
-  .card-links { gap: 8px;}
+  .name-line .card-links { display: none; }
+  .card-links { gap: 8px; }
   .card-link {
     width: 24px;
     height: 24px;

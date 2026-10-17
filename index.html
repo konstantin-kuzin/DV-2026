@@ -19,6 +19,14 @@
           <p class="place">Тула · 9–10 октября 2026</p>
         </div>
         <div class="mast-tools">
+          <button type="button" class="mode" id="path" aria-pressed="false" aria-label="Путь">
+            <svg viewBox="0 0 24 22" aria-hidden="true">
+              <rect x="1.9" y="0.95" width="1.7" height="6.55" rx="0.85" fill="currentColor" />
+              <circle cx="2.75" cy="11" r="2.15" fill="currentColor" />
+              <rect x="1.9" y="14.5" width="1.7" height="6.55" rx="0.85" fill="currentColor" />
+              <path fill="currentColor" fill-rule="evenodd" d="M8.35 0.95H21.25A1.8 1.8 0 0 1 23.05 2.75V8A1.8 1.8 0 0 1 21.25 9.8H8.35A1.8 1.8 0 0 1 6.55 8V2.75A1.8 1.8 0 0 1 8.35.95ZM8.55 2.6A.35.35 0 0 0 8.2 2.95V7.8A.35.35 0 0 0 8.55 8.15H21.05A.35.35 0 0 0 21.4 7.8V2.95A.35.35 0 0 0 21.05 2.6ZM8.35 12.2H21.25A1.8 1.8 0 0 1 23.05 14V19.25A1.8 1.8 0 0 1 21.25 21.05H8.35A1.8 1.8 0 0 1 6.55 19.25V14A1.8 1.8 0 0 1 8.35 12.2ZM8.55 13.85A.35.35 0 0 0 8.2 14.2V19.05A.35.35 0 0 0 8.55 19.4H21.05A.35.35 0 0 0 21.4 19.05V14.2A.35.35 0 0 0 21.05 13.85Z" />
+            </svg>
+          </button>
           <button type="button" class="mode" id="favorites" aria-pressed="false" aria-label="Включение — Выключение избранного">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 3.2 14.6 8.6l5.9.7-4.4 4 1.2 5.8L12 16.3 6.7 19.1l1.2-5.8-4.4-4 5.9-.7Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round" />
@@ -30,7 +38,6 @@
               <path d="M12 8.25V12.1l2.6 1.7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </button>
-          <button type="button" class="mode" id="path" aria-pressed="false">Путь</button>
           <div class="days" id="days" role="tablist" aria-label="День"></div>
         </div>
       </div>

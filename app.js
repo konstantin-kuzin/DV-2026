@@ -163,6 +163,36 @@ function appendContactIcons(who, contacts) {
   who.append(row);
 }
 
+function cardLinkIcons(links) {
+  const row = document.createElement("div");
+  row.className = "card-links";
+  row.setAttribute("aria-hidden", "true");
+  links.forEach((field) => {
+    const icon = document.createElement("span");
+    icon.className = "card-link";
+    icon.innerHTML = LINK_ICONS[field.key];
+    row.append(icon);
+  });
+  return row;
+}
+
+function cardLinkRow(links) {
+  const row = document.createElement("div");
+  row.className = "card-links";
+  links.forEach((field) => {
+    const link = document.createElement("a");
+    link.className = "card-link";
+    link.href = field.href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", field.label);
+    link.innerHTML = LINK_ICONS[field.key];
+    link.addEventListener("click", (clickEvent) => clickEvent.stopPropagation());
+    row.append(link);
+  });
+  return row;
+}
+
 function filledLinks(event) {
   const links = event.links || {};
   const entries = [];
@@ -206,6 +236,7 @@ function renderChrome() {
   favoritesBtn.setAttribute("aria-pressed", String(state.favoritesOnly));
   document.body.classList.toggle("is-hours", state.byHour && !state.path);
   document.body.classList.toggle("is-path", state.path);
+  document.body.classList.toggle("is-favorites-dim", state.favoritesOnly && !state.path);
 
   if (state.path) {
     hallsEl.hidden = true;
@@ -253,14 +284,11 @@ function isSaved(id) {
 }
 
 function eventsForDay() {
-  return events.filter((event) => event.day === state.day && (!state.favoritesOnly || isSaved(event.id)));
+  return events.filter((event) => event.day === state.day);
 }
 
 function visibleHalls() {
-  const source = halls.map((hall, index) => ({ hall, index }));
-  if (!state.favoritesOnly) return source;
-  const ids = new Set(eventsForDay().map((event) => event.hall));
-  return source.filter((item) => ids.has(item.hall.id));
+  return halls.map((hall, index) => ({ hall, index }));
 }
 
 function hallIndexes() {
@@ -298,45 +326,6 @@ function hoursLayoutCurrent() {
   const rendered = [...board.querySelectorAll(".hour-col")].map((column) => Number(column.dataset.hour));
   const expected = visibleHours();
   return rendered.length === expected.length && rendered.every((hour, index) => hour === expected[index]);
-}
-
-function occupiedSlots(dayEvents) {
-  const occupied = new Set();
-  dayEvents.forEach((event) => {
-    const start = slotIndex(event.start);
-    const end = slotIndex(event.end);
-    for (let slot = start; slot < end; slot += 1) occupied.add(slot);
-  });
-  return occupied;
-}
-
-function slotClock(slot) {
-  const total = START_MIN + slot * SLOT_MIN;
-  return `${pad(Math.floor(total / 60))}:${pad(total % 60)}`;
-}
-
-function favoriteRows(dayEvents) {
-  const starts = new Set(dayEvents.map((event) => slotIndex(event.start)));
-  const occupied = occupiedSlots(dayEvents);
-  const rows = [];
-  let index = 0;
-  while (index < SLOT_COUNT) {
-    const hour = Math.floor((START_MIN + index * SLOT_MIN) / 60);
-    const slots = [];
-    while (index < SLOT_COUNT && Math.floor((START_MIN + index * SLOT_MIN) / 60) === hour) {
-      slots.push(index);
-      index += 1;
-    }
-    if (!slots.some((slot) => occupied.has(slot))) {
-      const start = START_MIN + slots[0] * SLOT_MIN;
-      rows.push({ line: true, label: start % 60 === 0 ? hourLabel(hour) : slotClock(slots[0]), slots });
-      continue;
-    }
-    slots
-      .filter((slot) => starts.has(slot))
-      .forEach((slot) => rows.push({ line: false, label: slotClock(slot), slot }));
-  }
-  return rows;
 }
 
 function syncFavoriteButton(id) {
@@ -389,13 +378,22 @@ function createCard(event, { showHall, span }) {
     button.append(kindLine);
   }
 
-  event.speakers.forEach((speaker) => {
+  const links = filledLinks(event);
+
+  event.speakers.forEach((speaker, index) => {
     const person = document.createElement("div");
     person.className = "person";
     const name = document.createElement("p");
     name.className = "name";
     name.textContent = speaker.name;
-    person.append(name);
+    if (index === 0 && links.length) {
+      const line = document.createElement("div");
+      line.className = "name-line";
+      line.append(name, cardLinkIcons(links));
+      person.append(line);
+    } else {
+      person.append(name);
+    }
     const meta = speaker.org || (speaker.role && speaker.role !== "участник" ? speaker.role : "");
     if (meta) {
       const org = document.createElement("p");
@@ -410,23 +408,7 @@ function createCard(event, { showHall, span }) {
   title.textContent = event.title;
   button.append(title);
 
-  const links = filledLinks(event);
-  if (links.length) {
-    const row = document.createElement("div");
-    row.className = "card-links";
-    links.forEach((field) => {
-      const link = document.createElement("a");
-      link.className = "card-link";
-      link.href = field.href;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.setAttribute("aria-label", field.label);
-      link.innerHTML = LINK_ICONS[field.key];
-      link.addEventListener("click", (clickEvent) => clickEvent.stopPropagation());
-      row.append(link);
-    });
-    button.append(row);
-  }
+  if (links.length) button.append(cardLinkRow(links));
 
   const who = peopleLine(event);
   button.setAttribute(
@@ -505,13 +487,6 @@ function renderBoard() {
     renderPathBoard();
     return;
   }
-  if (state.favoritesOnly && eventsForDay().length === 0) {
-    const empty = document.createElement("p");
-    empty.className = "empty-favorites";
-    empty.textContent = "В избранном пока нет событий";
-    board.replaceChildren(empty);
-    return;
-  }
   if (state.byHour) renderHourBoard();
   else renderHallBoard();
 }
@@ -522,26 +497,10 @@ function renderHallBoard() {
   const columnOf = new Map(shown.map((item, position) => [item.hall.id, position]));
   pinHall();
 
-  const timeRows = state.favoritesOnly ? favoriteRows(dayEvents) : null;
-  const slotRow = new Map();
-  if (timeRows) {
-    timeRows.forEach((row, index) => {
-      if (row.slot !== undefined) slotRow.set(row.slot, index);
-    });
-  }
-
   const grid = document.createElement("div");
-  grid.className = timeRows ? "grid is-favorites" : "grid";
+  grid.className = "grid";
   grid.style.setProperty("--halls", String(shown.length));
-  if (timeRows) {
-    const tracks = ["var(--head)"];
-    timeRows.forEach((row) => {
-      tracks.push(row.line ? "var(--slot-line)" : "auto");
-    });
-    grid.style.gridTemplateRows = tracks.join(" ");
-  } else {
-    grid.style.gridTemplateRows = `var(--head) repeat(${SLOT_COUNT}, minmax(var(--slot), auto))`;
-  }
+  grid.style.gridTemplateRows = `var(--head) repeat(${SLOT_COUNT}, minmax(var(--slot), auto))`;
 
   const corner = document.createElement("div");
   corner.className = "corner";
@@ -564,32 +523,17 @@ function renderHallBoard() {
     grid.append(head, line);
   });
 
-  if (timeRows) {
-    timeRows.forEach((row, index) => {
-      const tick = document.createElement("div");
-      tick.className = "tick";
-      if (row.label) tick.classList.add("hour");
-      if (row.line) tick.classList.add("is-line");
-      tick.style.gridRow = String(index + 2);
-      tick.textContent = row.label;
-      const rule = document.createElement("div");
-      rule.className = "rule";
-      rule.style.gridRow = String(index + 2);
-      grid.append(tick, rule);
-    });
-  } else {
-    for (let index = 0; index < SLOT_COUNT; index += 1) {
-      const total = START_MIN + index * SLOT_MIN;
-      const hour = total % 60 === 0;
-      const tick = document.createElement("div");
-      tick.className = hour ? "tick hour" : "tick";
-      tick.style.gridRow = String(index + 2);
-      if (hour) tick.textContent = `${pad(Math.floor(total / 60))}:00`;
-      const rule = document.createElement("div");
-      rule.className = "rule";
-      rule.style.gridRow = String(index + 2);
-      grid.append(tick, rule);
-    }
+  for (let index = 0; index < SLOT_COUNT; index += 1) {
+    const total = START_MIN + index * SLOT_MIN;
+    const hour = total % 60 === 0;
+    const tick = document.createElement("div");
+    tick.className = hour ? "tick hour" : "tick";
+    tick.style.gridRow = String(index + 2);
+    if (hour) tick.textContent = `${pad(Math.floor(total / 60))}:00`;
+    const rule = document.createElement("div");
+    rule.className = "rule";
+    rule.style.gridRow = String(index + 2);
+    grid.append(tick, rule);
   }
 
   dayEvents.forEach((event) => {
@@ -599,15 +543,11 @@ function renderHallBoard() {
     const span = slotIndex(event.end) - start;
     const card = createCard(event, { span });
     card.style.gridColumn = String(position + 2);
-    if (timeRows) {
-      card.style.gridRow = String(slotRow.get(start) + 2);
-    } else {
-      card.style.gridRow = `${start + 2} / span ${span}`;
-    }
+    card.style.gridRow = `${start + 2} / span ${span}`;
     grid.append(card);
   });
 
-  const now = nowMarker(timeRows);
+  const now = nowMarker();
   if (now) grid.append(now);
 
   board.replaceChildren(grid);
@@ -673,33 +613,17 @@ function scrollBoardTo(left, behavior) {
   });
 }
 
-function nowMarker(rows) {
+function nowMarker() {
   if (state.day !== todayId()) return null;
   const now = new Date();
   const current = now.getHours() * 60 + now.getMinutes();
   if (current < START_MIN || current > END_MIN) return null;
   const offset = (current - START_MIN) / SLOT_MIN;
   const slot = Math.floor(offset);
-  let gridIndex = slot;
-  let fraction = offset - slot;
-  if (rows) {
-    gridIndex = rows.findIndex((row) => row.slot === slot || row.slots?.includes(slot));
-    if (gridIndex < 0) {
-      for (let index = rows.length - 1; index >= 0; index -= 1) {
-        if (rows[index].slot !== undefined && rows[index].slot <= slot) {
-          gridIndex = index;
-          fraction = 1;
-          break;
-        }
-      }
-      if (gridIndex < 0) return null;
-    } else if (rows[gridIndex].slots) {
-      fraction = (rows[gridIndex].slots.indexOf(slot) + fraction) / rows[gridIndex].slots.length;
-    }
-  }
+  const fraction = offset - slot;
   const marker = document.createElement("div");
   marker.className = "now";
-  marker.style.gridRow = String(gridIndex + 2);
+  marker.style.gridRow = String(slot + 2);
   marker.style.setProperty("--fraction", String(fraction));
   return marker;
 }
@@ -886,7 +810,7 @@ function toggleFavorite(id, level) {
   }
   writeFavorites();
   syncFavoriteButton(state.openId);
-  const staysVisible = !(state.path || state.favoritesOnly) || isSaved(id);
+  const staysVisible = !state.path || isSaved(id);
   const card = board.querySelector(`[data-id="${id}"]`);
   if (staysVisible && card) {
     card.classList.toggle("is-favorite", favorites.has(id));
@@ -1018,7 +942,7 @@ function hideLinkTip() {
 }
 
 function cardLinkFrom(event) {
-  return event.target instanceof Element ? event.target.closest(".card-link") : null;
+  return event.target instanceof Element ? event.target.closest("a.card-link") : null;
 }
 
 board.addEventListener("pointerover", (event) => {
