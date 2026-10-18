@@ -297,6 +297,49 @@ function youtubeId(url) {
   return /^[\w-]{11}$/.test(id) ? id : "";
 }
 
+function vkVideoSrc(url) {
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return "";
+  }
+  const host = parsed.hostname.replace(/^(www|m)\./, "");
+  if (host !== "vkvideo.ru" && host !== "vk.com" && host !== "vk.ru") return "";
+
+  let oid = "";
+  let id = "";
+  if (parsed.pathname.endsWith("/video_ext.php")) {
+    oid = parsed.searchParams.get("oid") || "";
+    id = parsed.searchParams.get("id") || "";
+  } else {
+    const match = `${parsed.pathname}${parsed.search}${parsed.hash}`.match(/video(-?\d+)_(\d+)/);
+    if (match) {
+      oid = match[1];
+      id = match[2];
+    }
+  }
+  if (!/^-?\d+$/.test(oid) || !/^\d+$/.test(id)) return "";
+  return `https://vkvideo.ru/video_ext.php?oid=${oid}&id=${id}&hd=4`;
+}
+
+function videoEmbed(url) {
+  const youtube = youtubeId(url);
+  if (youtube) {
+    return {
+      src: `https://www.youtube-nocookie.com/embed/${youtube}`,
+      allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+      referrerPolicy: "strict-origin-when-cross-origin",
+    };
+  }
+  const vk = vkVideoSrc(url);
+  if (!vk) return null;
+  return {
+    src: vk,
+    allow: "autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock",
+  };
+}
+
 function filledLinks(event) {
   const links = event.links || {};
   const entries = [];
@@ -563,7 +606,7 @@ function renderPathBoard() {
   if (!items.length) {
     const empty = document.createElement("p");
     empty.className = "empty-favorites";
-    empty.textContent = "Gj странному стечению обстоятельств в избранном пока нет событий";
+    empty.textContent = "По странному стечению обстоятельств в избранном пока нет событий";
     placePath(empty);
     return;
   }
@@ -987,19 +1030,19 @@ function openEvent(id) {
   const links = filledLinks(event).filter((field) => field.key !== "telegram" && field.key !== "message");
   const embeds = links.flatMap((field) => {
     if (field.key !== "video") return [];
-    const id = youtubeId(field.href);
-    return id ? [id] : [];
+    const embed = videoEmbed(field.href);
+    return embed ? [embed] : [];
   });
   sheetVideo.hidden = embeds.length === 0;
   sheetVideo.replaceChildren(
-    ...embeds.map((id) => {
+    ...embeds.map((embed) => {
       const frame = document.createElement("iframe");
-      frame.src = `https://www.youtube-nocookie.com/embed/${id}`;
+      frame.src = embed.src;
       frame.title = `Видео: ${event.title}`;
       frame.loading = "lazy";
-      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      frame.allow = embed.allow;
       frame.allowFullscreen = true;
-      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      if (embed.referrerPolicy) frame.referrerPolicy = embed.referrerPolicy;
       return frame;
     }),
   );

@@ -7,7 +7,7 @@
 //   message: "https://t.me/username",
 //   message1: "https://t.me/another",
 //   presentation: "https://…",
-//   video: "https://…",
+//   video: "https://…" — страница YouTube или VK Video (vkvideo.ru, vk.com), в шторке встраивается плеер,
 // }
 // Несколько ссылок одного типа — с цифрой: message, message1, message2.
 // В шторке и на карточке telegram и message без цифры у первого спикера, с 1 — у второго, с 2 — у третьего.
@@ -1786,7 +1786,7 @@ window.SCHEDULE = {
       links: {
         telegram: "",
         message: "",
-        presentation: "",
+        presentation: "https://disk.yandex.ru/d/rnHgxFXokFO7Pg",
         video: "",
       },
     },
@@ -1836,12 +1836,12 @@ window.SCHEDULE = {
         { name: "Дмитрий Терехов", org: "Арт-директор", position: "Арт-директор городских и культурных проектов из Санкт-Петербурга", photo: "https://static.tildacdn.com/stor3239-3765-4062-a633-323664306435/948aa6f9a4a848a2db53ee7a213446eb.jpg" },
       ],
       links: {
-        telegram: "",
-        telegram1: "",
+        telegram: "https://t.me/zhurnalsudba",
+        telegram1: "https://t.me/neohota",
         telegram2: "https://t.me/terevision",
         message: "",
         presentation: "",
-        video: "",
+        video: "https://vkvideo.ru/video-224564497_456239034",
       },
     },
     {
@@ -1872,7 +1872,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/snake_vision",
         message: "https://t.me/buzenkova",
-        presentation: "https://t.me/c/2450084595/1146/1881",
+        presentation: "https://t.me/snake_vision/853",
         video: "",
       },
     },
@@ -2128,7 +2128,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/naaydar",
         message: "https://t.me/naydar",
-        presentation: "",
+        presentation: "https://t.me/naaydar/227",
         video: "",
       },
     },
