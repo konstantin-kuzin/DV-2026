@@ -314,7 +314,7 @@ window.SCHEDULE = {
       links: {
         telegram: "https://t.me/nikitatrunov",
         message: "",
-        presentation: "",
+        presentation: "https://t.me/c/1137075048/171477",
         video: "",
       },
     },
@@ -1625,7 +1625,7 @@ window.SCHEDULE = {
       links: {
         telegram: "",
         message: "",
-        presentation: "",
+        presentation: "https://t.me/c/1137075048/171477",
         video: "",
       },
     },
@@ -2256,7 +2256,7 @@ window.SCHEDULE = {
         telegram: "https://t.me/igor_affarts",
         message: "",
         presentation: "",
-        video: "",
+        video: "https://www.youtube.com/watch?v=_XZL0eQvJhk",
       },
     },
     {
